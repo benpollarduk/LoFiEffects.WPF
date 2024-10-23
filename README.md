@@ -19,14 +19,26 @@ A WPF control that displays content in reduced fidelity. Supports .Net 8.0.
 There aren't many options available for rendering WPF UIElements in artificially low resolution.
 LoFiPresenter provides a simple control that can display content at a reduced resolution and frame rate.
 
-## Use
+## Getting Started
+
+### Clone the repo/pull NuGet
+Clone the repo:
+```bash
+git clone https://github.com/benpollarduk/lofieffects.wpf.git
+```
+Or add the NuGet package:
+```bash
+dotnet add package LoFiEffects.WPF
+```
+
+### Use
 ```xml
 <LoFiPresenter Reduction="3" FramesPerSecond="20">
     <Label Content="This is an example label" FontSize="20"/>
 </LoFiPresenter>
 ```
 
-## Example
+### Example
 Reduction 1:
 
 ![image](https://github.com/benpollarduk/LoFiEffects.WPF/assets/129943363/cfb4cdf6-2657-4e38-aeff-04612c1cf7a8)
@@ -47,7 +59,7 @@ Reduction 5:
 
 ![image](https://github.com/benpollarduk/LoFiEffects.WPF/assets/129943363/0468753b-727b-4ea0-ab15-c044d6110ea2)
 
-## Hello World
+### Hello World
 For a Hello World example with a simple UI see [LoFiEffects.WPF.TestApp/MainWindow.xaml](https://github.com/benpollarduk/LoFiEffects.WPF/blob/main/LoFiEffects.WPF.TestApp/MainWindow.xaml)
 
 ![lofi-example](https://github.com/benpollarduk/LoFiEffects.WPF/assets/129943363/d209cf53-4607-4735-b2c8-f19ed36b4fce)
