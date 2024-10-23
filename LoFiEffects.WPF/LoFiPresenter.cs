@@ -1,7 +1,7 @@
 ﻿using System.Windows;
 using System.Windows.Controls;
 
-namespace BP.LoFiControl
+namespace LoFiEffects.WPF
 {
     /// <summary>
     /// Provides a control for presenting content at a reduced fidelity.
