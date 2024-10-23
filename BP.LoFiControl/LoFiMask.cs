@@ -12,11 +12,13 @@ namespace BP.LoFiControl
     {
         #region Fields
 
-        private Timer? timer;
         private FrameworkElement? source;
         private double reduction = 2;
         private uint framesPerSecond = 30;
         private bool isRendering;
+        private RenderTargetBitmap? bitmap;
+        private long lastRenderTime;
+        private int frequency;
 
         #endregion
 
@@ -75,7 +77,7 @@ namespace BP.LoFiControl
             RenderOptions.SetBitmapScalingMode(this, BitmapScalingMode.NearestNeighbor);
 
             // render whenever the size changes
-            SizeChanged += (_, _) => Render();
+            SizeChanged += (_, _) => RequestRender();
         }
 
         #endregion
@@ -83,56 +85,46 @@ namespace BP.LoFiControl
         #region Methods
 
         /// <summary>
-        /// Render the mask.
+        /// Request a render operation of the mask.
         /// </summary>
-        private void Render()
+        private void RequestRender()
         {
             try
             {
-                Dispatcher.Invoke(() =>
-                {
-                    if (isRendering)
-                        return;
+                isRendering = true;
+                lastRenderTime = Environment.TickCount;
 
-                    try
-                    {
-                        isRendering = true;
+                if (Source == null || Reduction <= 1.0)
+                    return;
 
-                        if (Source == null || Reduction <= 1.0)
-                            return;
+                // calculate the reduced size
+                var reductionSize = new Size(Source.ActualWidth / Reduction, Source.ActualHeight / Reduction);
 
-                        // calculate the reduced size
-                        var reductionSize = new Size(Source.ActualWidth / Reduction, Source.ActualHeight / Reduction);
+                // ensure that rendering is possible with the current sizes
+                if (double.IsNaN(ActualWidth) ||
+                    double.IsNaN(ActualHeight) ||
+                    double.IsNaN(reductionSize.Width) ||
+                    double.IsNaN(reductionSize.Height) ||
+                    reductionSize.Width < 1 ||
+                    reductionSize.Height < 1)
+                    return;
 
-                        // ensure that rendering is possible with the current sizes
-                        if (double.IsNaN(ActualWidth) ||
-                            double.IsNaN(ActualHeight) ||
-                            double.IsNaN(reductionSize.Width) ||
-                            double.IsNaN(reductionSize.Height) ||
-                            reductionSize.Width == 0 ||
-                            reductionSize.Height == 0)
-                            return;
+                // check if the bitmap can be reused, if not create it
+                if (bitmap == null || bitmap.PixelWidth != (int)reductionSize.Width || bitmap.PixelHeight != (int)reductionSize.Height)
+                    bitmap = new RenderTargetBitmap((int)reductionSize.Width, (int)reductionSize.Height, 96, 96, PixelFormats.Pbgra32);
 
-                        // create a visual to host the lo-fi visual
-                        var drawingVisual = new DrawingVisual();
+                // create a visual to host the lo-fi visual
+                var drawingVisual = new DrawingVisual();
 
-                        // render the source at the reduced size
-                        using (var context = drawingVisual.RenderOpen())
-                            context.DrawRectangle(new VisualBrush(Source), null, new Rect(new Point(), reductionSize));
+                // render the source at the reduced size
+                using (var context = drawingVisual.RenderOpen())
+                    context.DrawRectangle(new VisualBrush(Source), null, new Rect(new Point(), reductionSize));
 
-                        // TODO: resolve - this is extremely inefficient and memory intensive
-                        // render the lo-fi visual into a bitmap
-                        var bitmap = new RenderTargetBitmap((int)reductionSize.Width, (int)reductionSize.Height, 96, 96, PixelFormats.Pbgra32);
-                        bitmap.Render(drawingVisual);
+                // render the visual in the bitmap
+                bitmap.Render(drawingVisual);
 
-                        // render the lo-fi bitmap as the background of the mask
-                        Background = new ImageBrush(bitmap);
-                    }
-                    finally
-                    {
-                        isRendering = false;
-                    }
-                });
+                // render the lo-fi bitmap as the background of the mask
+                Background = new ImageBrush(bitmap);
             }
             catch (TaskCanceledException)
             {
@@ -141,6 +133,10 @@ namespace BP.LoFiControl
             catch (ObjectDisposedException)
             {
                 // these can occur if the timer is disposed during a render
+            }
+            finally
+            {
+                isRendering = false;
             }
         }
 
@@ -154,8 +150,9 @@ namespace BP.LoFiControl
             if (Reduction <= 1.0)
                 return;
 
-            var frequency = 1000 / FramesPerSecond;
-            timer = new Timer(_ => Render(), null, 0, frequency);
+            frequency = (int)(1000 / FramesPerSecond);
+
+            CompositionTarget.Rendering += CompositionTarget_Rendering;
         }
 
         /// <summary>
@@ -163,9 +160,22 @@ namespace BP.LoFiControl
         /// </summary>
         private void Stop()
         {
-            timer?.Change(Timeout.Infinite, Timeout.Infinite);
-            timer?.Dispose();
-            timer = null;
+            CompositionTarget.Rendering -= CompositionTarget_Rendering;
+        }
+
+        #endregion
+
+        #region EventHandlers
+
+        private void CompositionTarget_Rendering(object? sender, EventArgs e)
+        {
+            if (isRendering)
+                return;
+
+            if (Environment.TickCount - lastRenderTime < frequency)
+                return;
+            
+            RequestRender();
         }
 
         #endregion
