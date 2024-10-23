@@ -66,8 +66,8 @@ For a Hello World example with a simple UI see [LoFiEffects.WPF.TestApp/MainWind
 ![lofi-example](https://github.com/benpollarduk/LoFiEffects.WPF/assets/129943363/d209cf53-4607-4735-b2c8-f19ed36b4fce)
 
 ## How it works
-LoFiControl is a simple codebase with 2 main classes, LoFiPresenter and LoFiMask.
-* LoFiPresenter hosts WPF content and a LoFiMask.
-* LoFiMask creates a bitmap at a lower resolution from the hosted content.
-* LoFiMask then renders this bitmap as its background at the same size as the hostesd content using BitmapScalingMode.NearestNeighbor to get the pixelated effect.
-* The LoFiMask isn't visible to hit testing so allows the UI beneath it to function as usual.
+**LoFiControl** is a simple codebase with 2 main classes, **LoFiPresenter** and **LoFiMask**.
+* **LoFiPresenter** hosts WPF content and a **LoFiMask**.
+* **LoFiMask** creates a bitmap at a lower resolution from the hosted content.
+* **LoFiMask** then renders this bitmap as its background at the same size as the hostesd content using *BitmapScalingMode.NearestNeighbor* to get the pixelated effect.
+* **LoFiMask** isn't visible to hit testing so allows the UI beneath it to function as usual.
