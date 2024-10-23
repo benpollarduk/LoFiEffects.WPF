@@ -12,7 +12,7 @@
     <PackageLicenseFile>LICENSE</PackageLicenseFile>
     <RepositoryUrl>https://github.com/benpollarduk/Lofieffects.wpf</RepositoryUrl>
     <PackageProjectUrl>https://github.com/benpollarduk/Lofieffects.wpf</PackageProjectUrl>
-    <Description>A library of WPF controls that present content in reduced fidelity.</Description>
+    <Description>An open source library for providing WPF controls that present content in reduced fidelity.</Description>
   </PropertyGroup>
 
   <ItemGroup>
