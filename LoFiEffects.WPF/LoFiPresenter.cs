@@ -1,12 +1,13 @@
 ﻿using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Media;
 
 namespace LoFiEffects.WPF
 {
     /// <summary>
     /// Provides a control for presenting content at a reduced fidelity.
     /// </summary>
-    public class LoFiPresenter : ContentControl
+    public class LoFiPresenter : ContentControl, IDisposable
     {
         #region Fields
 
@@ -42,6 +43,15 @@ namespace LoFiEffects.WPF
             set { SetValue(FramesPerSecondProperty, value); }
         }
 
+        /// <summary>
+        /// Get or set the mask background color. This is a dependency property.
+        /// </summary>
+        public Color? MaskBackgroundColor
+        {
+            get { return (Color?)GetValue(MaskBackgroundColorProperty); }
+            set { SetValue(MaskBackgroundColorProperty, value); }
+        }
+
         #endregion
 
         #region DependencyProperties
@@ -56,6 +66,11 @@ namespace LoFiEffects.WPF
         /// </summary>
         public static readonly DependencyProperty FramesPerSecondProperty = DependencyProperty.Register(nameof(FramesPerSecond), typeof(uint), typeof(LoFiPresenter), new PropertyMetadata((uint)30, OnFramesPerSecondPropertyChanged));
 
+        /// <summary>
+        /// Identifies the LoFiPresenter.MaskBackgroundColor property.
+        /// </summary>
+        public static readonly DependencyProperty MaskBackgroundColorProperty = DependencyProperty.Register(nameof(MaskBackgroundColor), typeof(Color?), typeof(LoFiPresenter), new PropertyMetadata(OnMaskBackgroundColorPropertyChanged));
+
         #endregion
 
         #region Constructors
@@ -69,18 +84,22 @@ namespace LoFiEffects.WPF
             
             Loaded += (_, _) =>
             {
-                if (Mask != null)
+                var mask = Mask;
+
+                if (mask != null)
                 {
-                    Mask.Source = Content as FrameworkElement;
-                    Mask.Reduction = Reduction;
-                    Mask.FramesPerSecond = FramesPerSecond;
+                    mask.Source = Content as FrameworkElement;
+                    mask.Reduction = Reduction;
+                    mask.FramesPerSecond = FramesPerSecond;
                 }
             };
             
             Unloaded += (_, _) =>
             {
-                if (Mask != null)
-                    Mask.Source = null;
+                var mask = Mask;
+
+                if (mask != null)
+                    mask.Source = null;
             };
         }
 
@@ -152,6 +171,29 @@ namespace LoFiEffects.WPF
                 return;
 
             mask.FramesPerSecond = (uint)args.NewValue;
+        }
+
+        private static void OnMaskBackgroundColorPropertyChanged(DependencyObject obj, DependencyPropertyChangedEventArgs args)
+        {
+            var control = obj as LoFiPresenter;
+            var mask = control?.Mask;
+
+            if (mask == null)
+                return;
+
+            mask.BackgroundColor = (Color?)args.NewValue;
+        }
+
+        #endregion
+
+        #region IDisposable
+
+        /// <summary>
+        /// Performs application-defined tasks associated with freeing, releasing, or resetting unmanaged resources.
+        /// </summary>
+        public void Dispose()
+        {
+            Mask?.Dispose();
         }
 
         #endregion
