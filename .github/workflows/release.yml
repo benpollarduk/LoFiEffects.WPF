@@ -80,11 +80,11 @@ jobs:
 
     - name: Push NuGet package (GitHub)
       run: |
-        dotnet nuget push ./NetAF/bin/Release/*.nupkg --api-key ${{ secrets.PAT }} --source https://nuget.pkg.github.com/benpollarduk/index.json
+        dotnet nuget push ./LoFiEffects.WPF/bin/Release/*.nupkg --api-key ${{ secrets.PAT }} --source https://nuget.pkg.github.com/benpollarduk/index.json
     
     - name: Push NuGet package (NuGet.org)
       run: |
-        dotnet nuget push ./NetAF/bin/Release/*.nupkg --api-key ${{ secrets.NUGET_TOKEN }} --source https://api.nuget.org/v3/index.json
+        dotnet nuget push ./LoFiEffects.WPF/bin/Release/*.nupkg --api-key ${{ secrets.NUGET_TOKEN }} --source https://api.nuget.org/v3/index.json
 
     - name: Create GitHub release
       uses: actions/create-release@v1
