@@ -3,7 +3,7 @@ using System.Windows.Controls;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 
-namespace BP.LoFiControl
+namespace LoFiEffects.WPF
 {
     /// <summary>
     /// Provides a Control that acts a mask to provide a lo-fi effect.
@@ -19,6 +19,7 @@ namespace BP.LoFiControl
         private RenderTargetBitmap? bitmap;
         private long lastRenderTime;
         private int frequency;
+        private Color? backgroundColor;
 
         #endregion
 
@@ -59,6 +60,19 @@ namespace BP.LoFiControl
             set
             {
                 framesPerSecond = value;
+                Start();
+            }
+        }
+
+        /// <summary>
+        /// Get or set the background color. This is a dependency property.
+        /// </summary>
+        public Color? BackgroundColor
+        {
+            get { return backgroundColor; }
+            set
+            {
+                backgroundColor = value;
                 Start();
             }
         }
@@ -118,7 +132,14 @@ namespace BP.LoFiControl
 
                 // render the source at the reduced size
                 using (var context = drawingVisual.RenderOpen())
+                {
+                    // if a background color has been specified draw it
+                    if (BackgroundColor is Color color)
+                        context.DrawRectangle(new SolidColorBrush(color), null, new Rect(new Point(), reductionSize));
+
+                    // draw the source content on top of the background
                     context.DrawRectangle(new VisualBrush(Source), null, new Rect(new Point(), reductionSize));
+                }
 
                 // render the visual in the bitmap
                 bitmap.Render(drawingVisual);

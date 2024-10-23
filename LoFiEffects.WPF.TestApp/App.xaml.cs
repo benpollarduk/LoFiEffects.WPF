@@ -1,6 +1,6 @@
 ﻿using System.Windows;
 
-namespace BP.LoFiControl.TestApp
+namespace LoFiEffects.WPF.TestApp
 {
     /// <summary>
     /// Interaction logic for App.xaml

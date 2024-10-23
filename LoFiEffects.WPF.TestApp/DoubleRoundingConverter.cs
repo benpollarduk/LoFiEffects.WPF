@@ -1,7 +1,7 @@
 ﻿using System.Globalization;
 using System.Windows.Data;
 
-namespace BP.LoFiControl.TestApp
+namespace LoFiEffects.WPF.TestApp
 {
     internal class DoubleRoundingConverter : IValueConverter
     {

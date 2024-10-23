@@ -13,7 +13,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\BP.LoFiControl\BP.LoFiControl.csproj" />
+    <ProjectReference Include="..\LoFiEffects.WPF\LoFiEffects.WPF.csproj" />
   </ItemGroup>
 
   <ItemGroup>
