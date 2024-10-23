@@ -18,7 +18,7 @@ env:
 
 jobs:
   build:
-    runs-on: ubuntu-latest
+    runs-on: windows-latest
 
     steps:
     - name: Checkout repository
@@ -39,17 +39,26 @@ jobs:
       run: dotnet tool update -g docfx
 
     - name: Update version and release notes in csproj file
+      shell: pwsh  # Use PowerShell for the step
       run: |
         echo "Version: ${{ inputs.ver }}"
         echo "Release notes: ${{ inputs.release-notes }}"
-        
-        # update the .csproj file with the input version
-        sed -i "s/<Version>.*<\/Version>/<Version>${{ inputs.ver }}<\/Version>/" LoFiEffects.WPF/LoFiEffects.WPF.csproj
-        sed -i "s/<AssemblyVersion>.*<\/AssemblyVersion>/<AssemblyVersion>${{ inputs.ver }}.0<\/AssemblyVersion>/" LoFiEffects.WPF/LoFiEffects.WPF.csproj
-        sed -i "s/<FileVersion>.*<\/FileVersion>/<FileVersion>${{ inputs.ver }}<\/FileVersion>/" LoFiEffects.WPF/LoFiEffects.WPF.csproj
 
-        # update the .csproj file with the release notes
-        sed -i "s/<PackageReleaseNotes>.*<\/PackageReleaseNotes>/<PackageReleaseNotes>${{ inputs.release-notes }}<\/PackageReleaseNotes>/" LoFiEffects.WPF/LoFiEffects.WPF.csproj
+        # Update the .csproj file with the input version
+        $csprojPath = "LoFiEffects.WPF/LoFiEffects.WPF.csproj"
+        
+        (Get-Content $csprojPath) -replace '<Version>.*</Version>', "<Version>${{ inputs.ver }}</Version>" |
+            Set-Content $csprojPath
+            
+        (Get-Content $csprojPath) -replace '<AssemblyVersion>.*</AssemblyVersion>', "<AssemblyVersion>${{ inputs.ver }}.0</AssemblyVersion>" |
+            Set-Content $csprojPath
+            
+        (Get-Content $csprojPath) -replace '<FileVersion>.*</FileVersion>', "<FileVersion>${{ inputs.ver }}</FileVersion>" |
+            Set-Content $csprojPath
+            
+        # Update the .csproj file with the release notes
+        (Get-Content $csprojPath) -replace '<PackageReleaseNotes>.*</PackageReleaseNotes>', "<PackageReleaseNotes>${{ inputs.release-notes }}</PackageReleaseNotes>" |
+            Set-Content $csprojPath
 
     - name: Build
       run: dotnet build -c Release
