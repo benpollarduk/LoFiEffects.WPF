@@ -35,9 +35,6 @@ jobs:
     - name: Install dependencies
       run: dotnet restore
 
-    - name: Update docfx
-      run: dotnet tool update -g docfx
-
     - name: Update version and release notes in csproj file
       shell: pwsh  # Use PowerShell for the step
       run: |
