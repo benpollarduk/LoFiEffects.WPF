@@ -7,7 +7,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LoFiEffects.WPF", "LoFiEffe
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LoFiEffects.WPF.TestApp", "LoFiEffects.WPF.TestApp\LoFiEffects.WPF.TestApp.csproj", "{E5D2CA03-9F17-4735-B0BB-FB3A719E828F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LoFiEffects.WPF.Tests", "LoFiEffects.WPF.Tests\LoFiEffects.WPF.Tests.csproj", "{D4BDA322-05DD-4576-A6B5-73D75E4B423C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LoFiEffects.WPF.Tests", "LoFiEffects.WPF.Tests\LoFiEffects.WPF.Tests.csproj", "{D4BDA322-05DD-4576-A6B5-73D75E4B423C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

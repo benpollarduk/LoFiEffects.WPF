@@ -2,17 +2,25 @@
 
   <PropertyGroup>
     <TargetFramework>net8.0-windows</TargetFramework>
+    <AssemblyName>LoFiEffects.WPF</AssemblyName>
     <Nullable>enable</Nullable>
     <UseWPF>true</UseWPF>
     <ImplicitUsings>enable</ImplicitUsings>
     <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
-    <Title>LoFiEffects.WPF</Title>
+    <Version>0.0.0</Version>
+    <AssemblyVersion>0.0.0.0</AssemblyVersion>
+    <FileVersion>0.0.0.0</FileVersion>
+    <GenerateDocumentationFile>True</GenerateDocumentationFile>
+    <Title>$(AssemblyName)</Title>
     <Authors>BenPollard</Authors>
+    <Copyright />
     <PackageReadmeFile>README.md</PackageReadmeFile>
     <PackageLicenseFile>LICENSE</PackageLicenseFile>
-    <RepositoryUrl>https://github.com/benpollarduk/Lofieffects.wpf</RepositoryUrl>
-    <PackageProjectUrl>https://github.com/benpollarduk/Lofieffects.wpf</PackageProjectUrl>
+    <PackageReleaseNotes></PackageReleaseNotes>
+    <RepositoryUrl>https://github.com/benpollarduk/lofieffects.wpf</RepositoryUrl>
+    <PackageProjectUrl>https://github.com/benpollarduk/lofieffects.wpf</PackageProjectUrl>
     <Description>An open source library for providing WPF controls that present content in reduced fidelity.</Description>
+    <GenerateDocumentationFile>True</GenerateDocumentationFile>
   </PropertyGroup>
 
   <ItemGroup>
