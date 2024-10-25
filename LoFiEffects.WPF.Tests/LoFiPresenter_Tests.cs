@@ -59,7 +59,7 @@ namespace LoFiEffects.WPF.Tests
         }
 
         [STATestMethod]
-        public void GivenPresenterContainingButton_WhenSettingMaskBackgroundColorToBlack_ThenNoExceptionThrown()
+        public void GivenPresenterContainingButton_WhenSettingMaskColorToBlack_ThenNoExceptionThrown()
         {
             var presenter = new LoFiPresenter();
             var button = new Button();
@@ -67,7 +67,7 @@ namespace LoFiEffects.WPF.Tests
             try
             {
                 presenter.Content = button;
-                presenter.MaskBackgroundColor = Colors.Black;
+                presenter.MaskColor = Colors.Black;
             }
             catch (Exception ex)
             {
