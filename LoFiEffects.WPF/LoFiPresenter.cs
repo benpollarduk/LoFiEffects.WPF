@@ -44,12 +44,12 @@ namespace LoFiEffects.WPF
         }
 
         /// <summary>
-        /// Get or set the mask background color. This is a dependency property.
+        /// Get or set the mask color. This is a dependency property.
         /// </summary>
-        public Color? MaskBackgroundColor
+        public Color? MaskColor
         {
-            get { return (Color?)GetValue(MaskBackgroundColorProperty); }
-            set { SetValue(MaskBackgroundColorProperty, value); }
+            get { return (Color?)GetValue(MaskColorProperty); }
+            set { SetValue(MaskColorProperty, value); }
         }
 
         #endregion
@@ -67,9 +67,9 @@ namespace LoFiEffects.WPF
         public static readonly DependencyProperty FramesPerSecondProperty = DependencyProperty.Register(nameof(FramesPerSecond), typeof(uint), typeof(LoFiPresenter), new PropertyMetadata((uint)30, OnFramesPerSecondPropertyChanged));
 
         /// <summary>
-        /// Identifies the LoFiPresenter.MaskBackgroundColor property.
+        /// Identifies the LoFiPresenter.MaskColor property.
         /// </summary>
-        public static readonly DependencyProperty MaskBackgroundColorProperty = DependencyProperty.Register(nameof(MaskBackgroundColor), typeof(Color?), typeof(LoFiPresenter), new PropertyMetadata(OnMaskBackgroundColorPropertyChanged));
+        public static readonly DependencyProperty MaskColorProperty = DependencyProperty.Register(nameof(MaskColor), typeof(Color?), typeof(LoFiPresenter), new PropertyMetadata(OnMaskColorPropertyChanged));
 
         #endregion
 
@@ -91,6 +91,7 @@ namespace LoFiEffects.WPF
                     mask.Source = Content as FrameworkElement;
                     mask.Reduction = Reduction;
                     mask.FramesPerSecond = FramesPerSecond;
+                    mask.MaskColor = MaskColor;
                 }
             };
             
@@ -159,7 +160,6 @@ namespace LoFiEffects.WPF
                 return;
 
             mask.Reduction = (double)args.NewValue;
-            mask.Visibility = mask.Reduction > 1.0 ? Visibility.Visible : Visibility.Hidden;
         }
 
         private static void OnFramesPerSecondPropertyChanged(DependencyObject obj, DependencyPropertyChangedEventArgs args)
@@ -173,7 +173,7 @@ namespace LoFiEffects.WPF
             mask.FramesPerSecond = (uint)args.NewValue;
         }
 
-        private static void OnMaskBackgroundColorPropertyChanged(DependencyObject obj, DependencyPropertyChangedEventArgs args)
+        private static void OnMaskColorPropertyChanged(DependencyObject obj, DependencyPropertyChangedEventArgs args)
         {
             var control = obj as LoFiPresenter;
             var mask = control?.Mask;
@@ -181,7 +181,7 @@ namespace LoFiEffects.WPF
             if (mask == null)
                 return;
 
-            mask.BackgroundColor = (Color?)args.NewValue;
+            mask.MaskColor = (Color?)args.NewValue;
         }
 
         #endregion

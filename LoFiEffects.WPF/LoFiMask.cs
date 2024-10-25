@@ -14,12 +14,12 @@ namespace LoFiEffects.WPF
 
         private FrameworkElement? source;
         private double reduction = 2;
-        private uint framesPerSecond = 30;
+        private uint framesPerSecond = 60;
         private bool isRendering;
         private RenderTargetBitmap? bitmap;
         private long lastRenderTime;
-        private int frequency;
-        private Color? backgroundColor;
+        private int delayBetweenFrames;
+        private Color? maskColor;
 
         #endregion
 
@@ -47,6 +47,7 @@ namespace LoFiEffects.WPF
             set
             {
                 reduction = value;
+                AdjustScalingMode();
                 Start();
             }
         }
@@ -65,14 +66,14 @@ namespace LoFiEffects.WPF
         }
 
         /// <summary>
-        /// Get or set the background color. This is a dependency property.
+        /// Get or set the mask color. This is a dependency property.
         /// </summary>
-        public Color? BackgroundColor
+        public Color? MaskColor
         {
-            get { return backgroundColor; }
+            get { return maskColor; }
             set
             {
-                backgroundColor = value;
+                maskColor = value;
                 Start();
             }
         }
@@ -88,7 +89,7 @@ namespace LoFiEffects.WPF
         {
             IsHitTestVisible = false;
 
-            RenderOptions.SetBitmapScalingMode(this, BitmapScalingMode.NearestNeighbor);
+            AdjustScalingMode();
 
             // render whenever the size changes
             SizeChanged += (_, _) => RequestRender();
@@ -97,6 +98,15 @@ namespace LoFiEffects.WPF
         #endregion
 
         #region Methods
+
+        /// <summary>
+        /// Adjust the scaling mode for this control based on the reduction value. Values > 1 will use BitmapScalingMode.NearestNeighbor for a pixelated effect,
+        /// values <= 1 will use BitmapScalingMode.HighQuality for a smooth effect.
+        /// </summary>
+        private void AdjustScalingMode()
+        {
+            RenderOptions.SetBitmapScalingMode(this, Reduction > 1 ? BitmapScalingMode.NearestNeighbor : BitmapScalingMode.HighQuality);
+        }
 
         /// <summary>
         /// Request a render operation of the mask.
@@ -108,7 +118,7 @@ namespace LoFiEffects.WPF
                 isRendering = true;
                 lastRenderTime = Environment.TickCount;
 
-                if (Source == null || Reduction <= 1.0)
+                if (Source == null)
                     return;
 
                 // calculate the reduced size
@@ -118,9 +128,7 @@ namespace LoFiEffects.WPF
                 if (double.IsNaN(ActualWidth) ||
                     double.IsNaN(ActualHeight) ||
                     double.IsNaN(reductionSize.Width) ||
-                    double.IsNaN(reductionSize.Height) ||
-                    reductionSize.Width < 1 ||
-                    reductionSize.Height < 1)
+                    double.IsNaN(reductionSize.Height))
                     return;
 
                 // check if the bitmap can be reused, if not create it
@@ -134,8 +142,8 @@ namespace LoFiEffects.WPF
                 using (var context = drawingVisual.RenderOpen())
                 {
                     // if a background color has been specified draw it
-                    if (BackgroundColor is Color color)
-                        context.DrawRectangle(new SolidColorBrush(color), null, new Rect(new Point(), reductionSize));
+                    if (MaskColor.HasValue)
+                        context.DrawRectangle(new SolidColorBrush(MaskColor.Value), null, new Rect(new Point(), reductionSize));
 
                     // draw the source content on top of the background
                     context.DrawRectangle(new VisualBrush(Source), null, new Rect(new Point(), reductionSize));
@@ -167,12 +175,7 @@ namespace LoFiEffects.WPF
         private void Start()
         {
             Stop();
-
-            if (Reduction <= 1.0)
-                return;
-
-            frequency = (int)(1000 / FramesPerSecond);
-
+            delayBetweenFrames = (int)(1000 / FramesPerSecond);
             CompositionTarget.Rendering += CompositionTarget_Rendering;
         }
 
@@ -193,7 +196,7 @@ namespace LoFiEffects.WPF
             if (isRendering)
                 return;
 
-            if (Environment.TickCount - lastRenderTime < frequency)
+            if (Environment.TickCount - lastRenderTime < delayBetweenFrames)
                 return;
             
             RequestRender();
