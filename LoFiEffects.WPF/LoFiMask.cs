@@ -100,8 +100,8 @@ namespace LoFiEffects.WPF
         #region Methods
 
         /// <summary>
-        /// Adjust the scaling mode for this control based on the reduction value. Values > 1 will use BitmapScalingMode.NearestNeighbor for a pixelated effect,
-        /// values <= 1 will use BitmapScalingMode.HighQuality for a smooth effect.
+        /// Adjust the scaling mode for this control based on the reduction value. Values greater than 1.0 will use BitmapScalingMode.NearestNeighbor for a pixelated effect,
+        /// values less than or equal to 1.0 will use BitmapScalingMode.HighQuality for a smooth effect.
         /// </summary>
         private void AdjustScalingMode()
         {
