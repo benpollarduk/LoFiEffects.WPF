@@ -68,7 +68,7 @@
                     </Button>
                 </Grid>
             </loFiControl:LoFiPresenter>
-        </Border>
+        </Border >
         <GroupBox Header="LoFiPresenter Controls"
                   Margin="10"
                   Grid.Row="1">

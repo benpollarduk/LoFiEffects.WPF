@@ -11,7 +11,7 @@ namespace LoFiEffects.WPF.Effects
 {
     public class PosterizeEffect : ShaderEffect
     {
-        private static PixelShader _pixelShader = new PixelShader() { UriSource = new Uri(@"pack://application:,,,/LoFiEffects.Wpf;component/Resources/Posterize.ps") };
+        private static PixelShader _pixelShader = new PixelShader() { UriSource = new Uri(@"pack://application:,,,/LoFiEffects.Wpf;component/Effects/Shaders/Posterize.ps") };
 
         public PosterizeEffect()
         {

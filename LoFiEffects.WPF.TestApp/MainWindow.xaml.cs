@@ -13,7 +13,7 @@ namespace LoFiEffects.WPF.TestApp
         {
             InitializeComponent();
 
-            Effect = new PosterizeEffect();
+            Effect = new GrayscaleEffect();
         }
     }
 }
