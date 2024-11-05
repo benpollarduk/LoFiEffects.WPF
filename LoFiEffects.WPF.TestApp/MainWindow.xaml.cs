@@ -1,4 +1,6 @@
-﻿using System.Windows;
+﻿using LoFiEffects.WPF.Effects;
+using System.Windows;
+using System.Windows.Media.Effects;
 
 namespace LoFiEffects.WPF.TestApp
 {
@@ -10,6 +12,8 @@ namespace LoFiEffects.WPF.TestApp
         public MainWindow()
         {
             InitializeComponent();
+
+            Effect = new PosterizeEffect();
         }
     }
 }
