@@ -15,7 +15,7 @@
         public static Uri FromResource(string resourceName)
         {
             var pack = @"pack://application:,,,/LoFiEffects.WPF;component/";
-            return new Uri(pack + resourceName);
+            return new Uri($"{pack}{resourceName}", UriKind.RelativeOrAbsolute);
         }
 
         #endregion

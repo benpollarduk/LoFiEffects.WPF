@@ -7,9 +7,10 @@
         xmlns:testApp="clr-namespace:LoFiEffects.WPF.TestApp"
         xmlns:effects="clr-namespace:LoFiEffects.WPF.Effects;assembly=LoFiEffects.WPF"
         mc:Ignorable="d"
-        Title="LoFiPresenter Example" Height="600" Width="800">
+        Title="LoFiPresenter Example" Height="700" Width="800">
     <Window.Resources>
         <testApp:DoubleRoundingConverter x:Key="DoubleRoundingConverter"/>
+        <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter"/>
         <effects:GrayscaleEffect x:Key="GrayscaleEffect"/>
         <effects:NegativeEffect x:Key="NegativeEffect"/>
         <effects:PosterizeEffect x:Key="PosterizeEffect"/>
@@ -28,16 +29,22 @@
         <Style TargetType="Slider">
             <Setter Property="Margin" Value="2"/>
         </Style>
+        <Style TargetType="RadioButton">
+            <Setter Property="Margin" Value="2"/>
+        </Style>
+        <Style TargetType="TabControl">
+            <Setter Property="Margin" Value="2"/>
+        </Style>
     </Window.Resources>
     <Window.CommandBindings>
         <CommandBinding x:Name="ApplyCommand" Command="{StaticResource ApplyCommand}" Executed="ApplyCommand_Executed"/>
     </Window.CommandBindings>
     <Grid>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="400"/>
-            <ColumnDefinition Width="*"/>
-        </Grid.ColumnDefinitions>
-        <Border Grid.Column="0">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto" MinHeight="250"/>
+        </Grid.RowDefinitions>
+        <Border Grid.Row="0">
             <loFiControl:LoFiPresenter Name="LoFiPresenter" Reduction="{Binding ElementName=ReductionSlider, Path=Value, Mode=OneWay}" FramesPerSecond="{Binding ElementName=FPSSlider, Path=Value, Mode=OneWay}">
                 <Grid Background="Gray">
                     <Grid.Resources>
@@ -75,7 +82,7 @@
                 </Grid>
             </loFiControl:LoFiPresenter>
         </Border >
-        <GroupBox Header="Controls" Margin="10" Grid.Column="1">
+        <GroupBox Header="Controls" Margin="10" Grid.Row="1">
             <TabControl HorizontalAlignment="Stretch">
                 <TabItem Header="LoFi Presenter">
                     <Grid>
@@ -97,28 +104,27 @@
                     </Grid>
                 </TabItem>
                 <TabItem Header="Effects">
-                    <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Hidden">
-                        <Grid>
-                            <Grid.RowDefinitions>
-                                <RowDefinition Height="Auto"/>
-                                <RowDefinition Height="Auto"/>
-                                <RowDefinition Height="Auto"/>
-                                <RowDefinition Height="Auto"/>
-                                <RowDefinition Height="Auto"/>
-                                <RowDefinition Height="Auto"/>
-                            </Grid.RowDefinitions>
-                            <GroupBox Header="Grayscale" Grid.Row="0">
-                                <Button Content="Apply" Command="{StaticResource ApplyCommand}" CommandParameter="{StaticResource GrayscaleEffect}"/>
-                            </GroupBox>
-                            <GroupBox Header="Negative" Grid.Row="1">
-                                <Button Content="Apply" Command="{StaticResource ApplyCommand}" CommandParameter="{StaticResource NegativeEffect}"/>
-                            </GroupBox>
-                            <GroupBox Header="Posterize" Grid.Row="2">
-                                <Grid>
-                                    <Grid.RowDefinitions>
-                                        <RowDefinition Height="Auto"/>
-                                        <RowDefinition Height="Auto"/>
-                                    </Grid.RowDefinitions>
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                        </Grid.RowDefinitions>
+                        <GroupBox Header="Effect" Grid.Row="0">
+                            <WrapPanel Orientation="Horizontal">
+                                <RadioButton Name="NoneRadioButton" Content="None" IsChecked="True" Command="{StaticResource ApplyCommand}"/>
+                                <RadioButton Name="GrayscaleRadioButton" Content="Grayscale" Command="{StaticResource ApplyCommand}" CommandParameter="{StaticResource GrayscaleEffect}"/>
+                                <RadioButton Name="NegativeRadioButton" Content="Negative" Command="{StaticResource ApplyCommand}" CommandParameter="{StaticResource NegativeEffect}"/>
+                                <RadioButton Name="PosterizeRadioButton" Content="Posterize" Command="{StaticResource ApplyCommand}" CommandParameter="{StaticResource PosterizeEffect}"/>
+                                <RadioButton Name="PosterizeMultiChannelRadioButton" Content="Posterize Multi Channel" Command="{StaticResource ApplyCommand}" CommandParameter="{StaticResource PosterizeMultiChannelEffect}"/>
+                                <RadioButton Name="NoiseRadiuButton" Content="Noise" Command="{StaticResource ApplyCommand}" CommandParameter="{StaticResource NoiseEffect}"/>
+                            </WrapPanel>
+                        </GroupBox>
+                        <GroupBox Header="Settings" Grid.Row="1">
+                            <StackPanel Orientation="Vertical" HorizontalAlignment="Stretch">
+                                <Label Content="No settings." Visibility="{Binding ElementName=NoneRadioButton, Path=IsChecked, Converter={StaticResource BooleanToVisibilityConverter}}"/>
+                                <Label Content="No settings." Visibility="{Binding ElementName=GrayscaleRadioButton, Path=IsChecked, Converter={StaticResource BooleanToVisibilityConverter}}"/>
+                                <Label Content="No settings." Visibility="{Binding ElementName=NegativeRadioButton, Path=IsChecked, Converter={StaticResource BooleanToVisibilityConverter}}"/>
+                                <Grid Visibility="{Binding ElementName=PosterizeRadioButton, Path=IsChecked, Converter={StaticResource BooleanToVisibilityConverter}}">
                                     <Grid.ColumnDefinitions>
                                         <ColumnDefinition Width="80"/>
                                         <ColumnDefinition Width="*"/>
@@ -127,13 +133,9 @@
                                     <Label Content="Steps:" Grid.Row="0" Grid.Column="0"/>
                                     <Slider Value="{Binding Source={StaticResource PosterizeEffect}, Path=Steps, Mode=TwoWay}" IsSnapToTickEnabled="True" TickFrequency="1" Minimum="2" Maximum="255" Grid.Row="0" Grid.Column="1"/>
                                     <Label Content="{Binding Source={StaticResource PosterizeEffect}, Path=Steps, Mode=OneWay, Converter={StaticResource DoubleRoundingConverter}}" Grid.Row="0" Grid.Column="2"/>
-                                    <Button Content="Apply" Command="{StaticResource ApplyCommand}" CommandParameter="{StaticResource PosterizeEffect}" Grid.Row="1" Grid.ColumnSpan="3"/>
                                 </Grid>
-                            </GroupBox>
-                            <GroupBox Header="Posterize Multi Channel" Grid.Row="3">
-                                <Grid>
+                                <Grid Visibility="{Binding ElementName=PosterizeMultiChannelRadioButton, Path=IsChecked, Converter={StaticResource BooleanToVisibilityConverter}}">
                                     <Grid.RowDefinitions>
-                                        <RowDefinition Height="Auto"/>
                                         <RowDefinition Height="Auto"/>
                                         <RowDefinition Height="Auto"/>
                                         <RowDefinition Height="Auto"/>
@@ -152,13 +154,9 @@
                                     <Label Content="Steps B:" Grid.Row="2" Grid.Column="0"/>
                                     <Slider Value="{Binding Source={StaticResource PosterizeMultiChannelEffect}, Path=StepsB, Mode=TwoWay}" IsSnapToTickEnabled="True" TickFrequency="2" Minimum="1" Maximum="255" Grid.Row="2" Grid.Column="1"/>
                                     <Label Content="{Binding Source={StaticResource PosterizeMultiChannelEffect}, Path=StepsB, Mode=OneWay, Converter={StaticResource DoubleRoundingConverter}}" Grid.Row="2" Grid.Column="2"/>
-                                    <Button Content="Apply" Command="{StaticResource ApplyCommand}" CommandParameter="{StaticResource PosterizeMultiChannelEffect}" Grid.Row="3" Grid.ColumnSpan="3"/>
                                 </Grid>
-                            </GroupBox>
-                            <GroupBox Header="Noise" Grid.Row="4">
-                                <Grid>
+                                <Grid Visibility="{Binding ElementName=NoiseRadiuButton, Path=IsChecked, Converter={StaticResource BooleanToVisibilityConverter}}">
                                     <Grid.RowDefinitions>
-                                        <RowDefinition Height="Auto"/>
                                         <RowDefinition Height="Auto"/>
                                         <RowDefinition Height="Auto"/>
                                         <RowDefinition Height="Auto"/>
@@ -178,14 +176,10 @@
                                     <Label Content="Offset:" Grid.Row="2" Grid.Column="0"/>
                                     <Slider Value="{Binding Source={StaticResource NoiseEffect}, Path=Offset, Mode=TwoWay}" IsSnapToTickEnabled="True" TickFrequency="0.01" Minimum="0" Maximum="1" Grid.Row="2" Grid.Column="1"/>
                                     <Label Content="{Binding Source={StaticResource NoiseEffect}, Path=Offset, Mode=OneWay, Converter={StaticResource DoubleRoundingConverter}}" Grid.Row="2" Grid.Column="2"/>
-                                    <Button Content="Apply" Command="{StaticResource ApplyCommand}" CommandParameter="{StaticResource NoiseEffect}" Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="3"/>
                                 </Grid>
-                            </GroupBox>
-                            <GroupBox Header="None" Grid.Row="5">
-                                <Button Content="Apply" Command="{StaticResource ApplyCommand}"/>
-                            </GroupBox>
-                        </Grid>
-                    </ScrollViewer>
+                            </StackPanel>
+                        </GroupBox>
+                    </Grid>
                 </TabItem>
             </TabControl>
         </GroupBox>

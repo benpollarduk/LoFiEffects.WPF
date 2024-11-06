@@ -11,7 +11,7 @@ namespace LoFiEffects.WPF.Effects
     {
         #region StaticFields
 
-        private static readonly PixelShader pixelShader = new() { UriSource = UriHelper.FromResource("Effects/Shaders/Negative.ps") };
+        private static readonly PixelShader pixelShader = new() { UriSource = UriHelper.FromResource(@"Effects/Shaders/Negative.ps") };
 
         #endregion
 
@@ -31,7 +31,7 @@ namespace LoFiEffects.WPF.Effects
         #region DependencyProperties
 
         /// <summary>
-        /// Identifies the GrayscaleEffect.Input property.
+        /// Identifies the NegativeEffect.Input property.
         /// </summary>
         public static readonly DependencyProperty InputProperty = RegisterPixelShaderSamplerProperty("Input", typeof(NegativeEffect), 0);
 
@@ -40,7 +40,7 @@ namespace LoFiEffects.WPF.Effects
         #region Constructors
 
         /// <summary>
-        /// Initializes a new instance of the GrayscaleEffect class.
+        /// Initializes a new instance of the NegativeEffect class.
         /// </summary>
         public NegativeEffect()
         {

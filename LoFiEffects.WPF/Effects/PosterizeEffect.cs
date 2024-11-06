@@ -11,7 +11,7 @@ namespace LoFiEffects.WPF.Effects
     {
         #region StaticFields
 
-        private static readonly PixelShader pixelShader = new() { UriSource = UriHelper.FromResource("Effects/Shaders/Posterize.ps") };
+        private static readonly PixelShader pixelShader = new() { UriSource = UriHelper.FromResource(@"Effects/Shaders/Posterize.ps") };
 
         #endregion
 
