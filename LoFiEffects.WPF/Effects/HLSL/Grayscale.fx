@@ -1,5 +1,4 @@
 sampler2D implicitInput : register(s0);
-float factor : register(c0);
 
 float4 main(float2 uv : TEXCOORD) : COLOR
 {
