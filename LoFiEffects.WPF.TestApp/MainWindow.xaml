@@ -15,6 +15,18 @@
         <effects:PosterizeEffect x:Key="PosterizeEffect"/>
         <effects:PosterizeMultiChannelEffect x:Key="PosterizeMultiChannelEffect"/>
         <RoutedCommand x:Key="ApplyCommand" />
+        <Style TargetType="Label">
+            <Setter Property="Margin" Value="2"/>
+        </Style>
+        <Style TargetType="Button">
+            <Setter Property="Margin" Value="2"/>
+        </Style>
+        <Style TargetType="GroupBox">
+            <Setter Property="Margin" Value="2"/>
+        </Style>
+        <Style TargetType="Slider">
+            <Setter Property="Margin" Value="2"/>
+        </Style>
     </Window.Resources>
     <Window.CommandBindings>
         <CommandBinding x:Name="ApplyCommand" Command="{StaticResource ApplyCommand}" Executed="ApplyCommand_Executed"/>
@@ -73,7 +85,7 @@
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="80"/>
                             <ColumnDefinition Width="*"/>
-                            <ColumnDefinition Width="30"/>
+                            <ColumnDefinition Width="40"/>
                         </Grid.ColumnDefinitions>
                         <Label Content="Reduction:" Grid.Column="0" Grid.Row="0"/>
                         <Slider Name="ReductionSlider" Value="1" Minimum="1" Maximum="10" SmallChange="0.01" LargeChange="0.01" TickFrequency="0.01" IsSnapToTickEnabled="True" TickPlacement="BottomRight" Grid.Column="1" Grid.Row="0"/>
@@ -107,7 +119,7 @@
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="80"/>
                                     <ColumnDefinition Width="*"/>
-                                    <ColumnDefinition Width="30"/>
+                                    <ColumnDefinition Width="40"/>
                                 </Grid.ColumnDefinitions>
                                 <Label Content="Steps:" Grid.Row="0" Grid.Column="0"/>
                                 <Slider Value="{Binding Source={StaticResource PosterizeEffect}, Path=Steps, Mode=TwoWay}" IsSnapToTickEnabled="True" TickFrequency="1" Minimum="2" Maximum="255" Grid.Row="0" Grid.Column="1"/>
@@ -126,7 +138,7 @@
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="80"/>
                                     <ColumnDefinition Width="*"/>
-                                    <ColumnDefinition Width="30"/>
+                                    <ColumnDefinition Width="40"/>
                                 </Grid.ColumnDefinitions>
                                 <Label Content="Steps R:" Grid.Row="0" Grid.Column="0"/>
                                 <Slider Value="{Binding Source={StaticResource PosterizeMultiChannelEffect}, Path=StepsR, Mode=TwoWay}" IsSnapToTickEnabled="True" TickFrequency="2" Minimum="1" Maximum="255" Grid.Row="0" Grid.Column="1"/>

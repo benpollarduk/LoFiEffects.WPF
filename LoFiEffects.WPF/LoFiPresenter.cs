@@ -7,7 +7,7 @@ namespace LoFiEffects.WPF
     /// <summary>
     /// Provides a control for presenting content at a reduced fidelity.
     /// </summary>
-    public class LoFiPresenter : ContentControl, IDisposable
+    public class LoFiPresenter : ContentControl
     {
         #region Fields
 
@@ -182,18 +182,6 @@ namespace LoFiEffects.WPF
                 return;
 
             mask.MaskColor = (Color?)args.NewValue;
-        }
-
-        #endregion
-
-        #region IDisposable
-
-        /// <summary>
-        /// Performs application-defined tasks associated with freeing, releasing, or resetting unmanaged resources.
-        /// </summary>
-        public void Dispose()
-        {
-            Mask?.Dispose();
         }
 
         #endregion

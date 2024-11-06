@@ -20,6 +20,10 @@ namespace LoFiEffects.WPF
         private long lastRenderTime;
         private int delayBetweenFrames;
         private Color? maskColor;
+        private SolidColorBrush? maskBrush;
+        private readonly VisualBrush visualBrush = new();
+        private readonly DrawingVisual drawingVisual = new();
+        private readonly Point topLeft = new(0, 0);
 
         #endregion
 
@@ -74,13 +78,19 @@ namespace LoFiEffects.WPF
             set
             {
                 maskColor = value;
+
+                if (value.HasValue)
+                    maskBrush = new SolidColorBrush(value.Value);
+                else
+                    maskBrush = null;
+
                 Start();
             }
         }
 
         #endregion
 
-        #region Constructors
+        #region ConstructionDestruction
 
         /// <summary>
         /// Initializes a new instance of the LoFiMask class.
@@ -91,8 +101,12 @@ namespace LoFiEffects.WPF
 
             AdjustScalingMode();
 
-            // render whenever the size changes
-            SizeChanged += (_, _) => RequestRender();
+            SizeChanged += LofiMask_SizeChanged;
+        }
+
+        ~LoFiMask()
+        {
+            Dispose();
         }
 
         #endregion
@@ -135,18 +149,21 @@ namespace LoFiEffects.WPF
                 if (bitmap == null || bitmap.PixelWidth != (int)reductionSize.Width || bitmap.PixelHeight != (int)reductionSize.Height)
                     bitmap = new RenderTargetBitmap((int)reductionSize.Width, (int)reductionSize.Height, 96, 96, PixelFormats.Pbgra32);
 
-                // create a visual to host the lo-fi visual
-                var drawingVisual = new DrawingVisual();
+                // clear visual
+                drawingVisual.Children.Clear();
 
                 // render the source at the reduced size
                 using (var context = drawingVisual.RenderOpen())
                 {
                     // if a background color has been specified draw it
                     if (MaskColor.HasValue)
-                        context.DrawRectangle(new SolidColorBrush(MaskColor.Value), null, new Rect(new Point(), reductionSize));
+                        context.DrawRectangle(maskBrush, null, new Rect(topLeft, reductionSize));
+
+                    // set visual
+                    visualBrush.Visual = Source;
 
                     // draw the source content on top of the background
-                    context.DrawRectangle(new VisualBrush(Source), null, new Rect(new Point(), reductionSize));
+                    context.DrawRectangle(visualBrush, null, new Rect(topLeft, reductionSize));
                 }
 
                 // render the visual in the bitmap
@@ -202,6 +219,11 @@ namespace LoFiEffects.WPF
             RequestRender();
         }
 
+        private void LofiMask_SizeChanged(object ? sender, EventArgs e)
+        {
+            RequestRender();
+        }
+
         #endregion
 
         #region IDisposable
@@ -212,6 +234,15 @@ namespace LoFiEffects.WPF
         public void Dispose()
         {
             Stop();
+
+            SizeChanged -= LofiMask_SizeChanged;
+
+            if (bitmap != null)
+                bitmap = null;
+
+            Background = null;
+
+            GC.SuppressFinalize(this);
         }
 
         #endregion
