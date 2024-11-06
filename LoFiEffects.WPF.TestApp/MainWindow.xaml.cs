@@ -1,6 +1,5 @@
 ﻿using LoFiEffects.WPF.Effects;
 using System.Windows;
-using System.Windows.Media.Effects;
 
 namespace LoFiEffects.WPF.TestApp
 {
@@ -13,7 +12,7 @@ namespace LoFiEffects.WPF.TestApp
         {
             InitializeComponent();
 
-            Effect = new GrayscaleEffect();
+            Effect = new PosterizeEffect();
         }
     }
 }

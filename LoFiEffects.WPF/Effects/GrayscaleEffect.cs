@@ -1,49 +1,64 @@
 ﻿using System;
-using System.Windows.Media.Effects;
 using System.Windows;
 using System.Windows.Media;
+using System.Windows.Media.Effects;
 
 namespace LoFiEffects.WPF.Effects
 {
+    /// <summary>
+    /// Represents a grayscale shader effect.
+    /// </summary>
     public class GrayscaleEffect : ShaderEffect
     {
-        //https://bursjootech.blogspot.com/2008/06/grayscale-effect-pixel-shader-effect-in.html
+        #region Notes
 
-        private static PixelShader _pixelShader = new PixelShader() { UriSource = new Uri(@"pack://application:,,,/LoFiEffects.Wpf;component/Effects/Shaders/Grayscale.ps") };
+        /* 
+            Based on:
+            http://bursjootech.blogspot.co.uk/2008/06/grayscale-effect-pixel-shader-effect-in.html
+        */
 
-        public GrayscaleEffect()
-        {
-            PixelShader = _pixelShader;
+        #endregion
 
-            UpdateShaderValue(InputProperty);
-            UpdateShaderValue(DesaturationFactorProperty);
-        }
+        #region StaticFields
 
-        public static readonly DependencyProperty InputProperty = ShaderEffect.RegisterPixelShaderSamplerProperty("Input", typeof(GrayscaleEffect), 0);
+        private static readonly PixelShader pixelShader = new() { UriSource = new Uri(@"pack://application:,,,/LoFiEffects.WPF;component/Effects/Shaders/Grayscale.ps") };
+
+        #endregion
+
+        #region Properties
+
+        /// <summary>
+        /// Get or set the input. This is a dependency property.
+        /// </summary>
         public Brush Input
         {
             get { return (Brush)GetValue(InputProperty); }
             set { SetValue(InputProperty, value); }
         }
 
-        public static readonly DependencyProperty DesaturationFactorProperty = DependencyProperty.Register("DesaturationFactor", typeof(double), typeof(GrayscaleEffect), new UIPropertyMetadata(1.0, PixelShaderConstantCallback(0), CoerceDesaturationFactor));
-        public double DesaturationFactor
+        #endregion
+
+        #region DependencyProperties
+
+        /// <summary>
+        /// Identifies the GrayscaleEffect.Input property.
+        /// </summary>
+        public static readonly DependencyProperty InputProperty = RegisterPixelShaderSamplerProperty("Input", typeof(GrayscaleEffect), 0);
+        
+        #endregion
+
+        #region Constructors
+
+        /// <summary>
+        /// Initializes a new instance of the GrayscaleEffect class.
+        /// </summary>
+        public GrayscaleEffect()
         {
-            get { return (double)GetValue(DesaturationFactorProperty); }
-            set { SetValue(DesaturationFactorProperty, value); }
+            PixelShader = pixelShader;
+
+            UpdateShaderValue(InputProperty);
         }
 
-        private static object CoerceDesaturationFactor(DependencyObject d, object value)
-        {
-            GrayscaleEffect effect = (GrayscaleEffect)d;
-            double newFactor = (double)value;
-
-            if (newFactor < 0.0 || newFactor > 1.0)
-            {
-                return effect.DesaturationFactor;
-            }
-
-            return newFactor;
-        }
+        #endregion
     }
 }
