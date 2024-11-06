@@ -14,6 +14,7 @@
         <effects:NegativeEffect x:Key="NegativeEffect"/>
         <effects:PosterizeEffect x:Key="PosterizeEffect"/>
         <effects:PosterizeMultiChannelEffect x:Key="PosterizeMultiChannelEffect"/>
+        <effects:NoiseEffect x:Key="NoiseEffect"/>
         <RoutedCommand x:Key="ApplyCommand" />
         <Style TargetType="Label">
             <Setter Property="Margin" Value="2"/>
@@ -103,6 +104,7 @@
                             <RowDefinition Height="Auto"/>
                             <RowDefinition Height="Auto"/>
                             <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
                         </Grid.RowDefinitions>
                         <GroupBox Header="Grayscale" Grid.Row="0">
                             <Button Content="Apply" Command="{StaticResource ApplyCommand}" CommandParameter="{StaticResource GrayscaleEffect}"/>
@@ -152,7 +154,33 @@
                                 <Button Content="Apply" Command="{StaticResource ApplyCommand}" CommandParameter="{StaticResource PosterizeMultiChannelEffect}" Grid.Row="3" Grid.ColumnSpan="3"/>
                             </Grid>
                         </GroupBox>
-                        <GroupBox Header="None" Grid.Row="4">
+                        <GroupBox Header="Noise" Grid.Row="4">
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto"/>
+                                    <RowDefinition Height="Auto"/>
+                                    <RowDefinition Height="Auto"/>
+                                    <RowDefinition Height="Auto"/>
+                                    <RowDefinition Height="Auto"/>
+                                </Grid.RowDefinitions>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="80"/>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="40"/>
+                                </Grid.ColumnDefinitions>
+                                <Label Content="Density:" Grid.Row="0" Grid.Column="0"/>
+                                <Slider Value="{Binding Source={StaticResource NoiseEffect}, Path=Density, Mode=TwoWay}" IsSnapToTickEnabled="True" TickFrequency="0.01" Minimum="0" Maximum="1" Grid.Row="0" Grid.Column="1"/>
+                                <Label Content="{Binding Source={StaticResource NoiseEffect}, Path=Density, Mode=OneWay, Converter={StaticResource DoubleRoundingConverter}}" Grid.Row="0" Grid.Column="2"/>
+                                <Label Content="Intensity:" Grid.Row="1" Grid.Column="0"/>
+                                <Slider Value="{Binding Source={StaticResource NoiseEffect}, Path=Intensity, Mode=TwoWay}" IsSnapToTickEnabled="True" TickFrequency="0.01" Minimum="0" Maximum="1" Grid.Row="1" Grid.Column="1"/>
+                                <Label Content="{Binding Source={StaticResource NoiseEffect}, Path=Intensity, Mode=OneWay, Converter={StaticResource DoubleRoundingConverter}}" Grid.Row="1" Grid.Column="2"/>
+                                <Label Content="Offset:" Grid.Row="2" Grid.Column="0"/>
+                                <Slider Value="{Binding Source={StaticResource NoiseEffect}, Path=Offset, Mode=TwoWay}" IsSnapToTickEnabled="True" TickFrequency="0.01" Minimum="0" Maximum="1" Grid.Row="2" Grid.Column="1"/>
+                                <Label Content="{Binding Source={StaticResource NoiseEffect}, Path=Offset, Mode=OneWay, Converter={StaticResource DoubleRoundingConverter}}" Grid.Row="2" Grid.Column="2"/>
+                                <Button Content="Apply" Command="{StaticResource ApplyCommand}" CommandParameter="{StaticResource NoiseEffect}" Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="3"/>
+                            </Grid>
+                        </GroupBox>
+                        <GroupBox Header="None" Grid.Row="5">
                             <Button Content="Apply" Command="{StaticResource ApplyCommand}"/>
                         </GroupBox>
                     </Grid>

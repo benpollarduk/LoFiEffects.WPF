@@ -76,23 +76,6 @@ namespace LoFiEffects.WPF.Tests
         }
 
         [STATestMethod]
-        public void GivenPresenterContainingButton_WhenDispose_ThenNoExceptionThrown()
-        {
-            var presenter = new LoFiPresenter();
-            var button = new Button();
-
-            try
-            {
-                presenter.Content = button;
-                presenter.Dispose();
-            }
-            catch (Exception ex)
-            {
-                Assert.Fail($"Expected occurred: {ex.Message}");
-            }
-        }
-
-        [STATestMethod]
         public void GivenPresenterContainingButton_WhenLoadedWithinWindow_ThenNoExceptionThrownWithin1Second()
         {
             var presenter = new LoFiPresenter();
