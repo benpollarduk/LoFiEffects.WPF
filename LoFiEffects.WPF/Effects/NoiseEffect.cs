@@ -27,7 +27,7 @@ namespace LoFiEffects.WPF.Effects
         }
 
         /// <summary>
-        /// Get or set the density. This is a dependency property.
+        /// Get or set the density. Higher values will produce more speckling. This is a dependency property.
         /// </summary>
         public double Density
         {
@@ -36,7 +36,7 @@ namespace LoFiEffects.WPF.Effects
         }
 
         /// <summary>
-        /// Get or set the intensity. This is a dependency property.
+        /// Get or set the intensity. Higher values will produce more intense speckling. This is a dependency property.
         /// </summary>
         public double Intensity
         {
@@ -45,7 +45,7 @@ namespace LoFiEffects.WPF.Effects
         }
 
         /// <summary>
-        /// Get or set the offset. This is a dependency property.
+        /// Get or set the offset. This value can modified to produce different speckling patterns. This is a dependency property.
         /// </summary>
         public double Offset
         {

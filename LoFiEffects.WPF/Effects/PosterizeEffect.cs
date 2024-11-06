@@ -27,7 +27,7 @@ namespace LoFiEffects.WPF.Effects
         }
 
         /// <summary>
-        /// Get or set the steps. This is a dependency property.
+        /// Get or set the number of steps to use for the posterization. Higher values will have a less dramatic effect. This is a dependency property.
         /// </summary>
         public double Steps
         {

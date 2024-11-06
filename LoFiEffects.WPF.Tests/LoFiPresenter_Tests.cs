@@ -20,7 +20,7 @@ namespace LoFiEffects.WPF.Tests
             }
             catch (Exception ex)
             {
-                Assert.Fail($"Expected occurred: {ex.Message}");
+                Assert.Fail($"Exception occurred: {ex.Message}");
             }
         }
 
@@ -37,7 +37,7 @@ namespace LoFiEffects.WPF.Tests
             }
             catch (Exception ex)
             {
-                Assert.Fail($"Expected occurred: {ex.Message}");
+                Assert.Fail($"Exception occurred: {ex.Message}");
             }
         }
 
@@ -54,7 +54,7 @@ namespace LoFiEffects.WPF.Tests
             }
             catch (Exception ex)
             {
-                Assert.Fail($"Expected occurred: {ex.Message}");
+                Assert.Fail($"Exception occurred: {ex.Message}");
             }
         }
 
@@ -71,7 +71,7 @@ namespace LoFiEffects.WPF.Tests
             }
             catch (Exception ex)
             {
-                Assert.Fail($"Expected occurred: {ex.Message}");
+                Assert.Fail($"Exception occurred: {ex.Message}");
             }
         }
 
@@ -114,7 +114,7 @@ namespace LoFiEffects.WPF.Tests
             }
             catch (Exception ex)
             {
-                Assert.Fail($"Expected occurred: {ex.Message}");
+                Assert.Fail($"Exception occurred: {ex.Message}");
             }
         }
     }

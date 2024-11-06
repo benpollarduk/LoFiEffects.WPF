@@ -27,7 +27,7 @@ namespace LoFiEffects.WPF.Effects
         }
 
         /// <summary>
-        /// Get or set the steps for the red channel. This is a dependency property.
+        /// Get or set the number of steps to use for the posterization on the red channel. Higher values will have a less dramatic effect. This is a dependency property.
         /// </summary>
         public double StepsR
         {
@@ -36,7 +36,7 @@ namespace LoFiEffects.WPF.Effects
         }
 
         /// <summary>
-        /// Get or set the steps for the green channel. This is a dependency property.
+        /// Get or set the steps to use for the posterization on the green channel. Higher values will have a less dramatic effect. This is a dependency property.
         /// </summary>
         public double StepsG
         {
@@ -45,7 +45,7 @@ namespace LoFiEffects.WPF.Effects
         }
 
         /// <summary>
-        /// Get or set the steps for the blue channel. This is a dependency property.
+        /// Get or set the steps to use for the posterization on the blue channel. Higher values will have a less dramatic effect. This is a dependency property.
         /// </summary>
         public double StepsB
         {

@@ -97,93 +97,95 @@
                     </Grid>
                 </TabItem>
                 <TabItem Header="Effects">
-                    <Grid>
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="Auto"/>
-                            <RowDefinition Height="Auto"/>
-                            <RowDefinition Height="Auto"/>
-                            <RowDefinition Height="Auto"/>
-                            <RowDefinition Height="Auto"/>
-                            <RowDefinition Height="Auto"/>
-                        </Grid.RowDefinitions>
-                        <GroupBox Header="Grayscale" Grid.Row="0">
-                            <Button Content="Apply" Command="{StaticResource ApplyCommand}" CommandParameter="{StaticResource GrayscaleEffect}"/>
-                        </GroupBox>
-                        <GroupBox Header="Negative" Grid.Row="1">
-                            <Button Content="Apply" Command="{StaticResource ApplyCommand}" CommandParameter="{StaticResource NegativeEffect}"/>
-                        </GroupBox>
-                        <GroupBox Header="Posterize" Grid.Row="2">
-                            <Grid>
-                                <Grid.RowDefinitions>
-                                    <RowDefinition Height="Auto"/>
-                                    <RowDefinition Height="Auto"/>
-                                </Grid.RowDefinitions>
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="80"/>
-                                    <ColumnDefinition Width="*"/>
-                                    <ColumnDefinition Width="40"/>
-                                </Grid.ColumnDefinitions>
-                                <Label Content="Steps:" Grid.Row="0" Grid.Column="0"/>
-                                <Slider Value="{Binding Source={StaticResource PosterizeEffect}, Path=Steps, Mode=TwoWay}" IsSnapToTickEnabled="True" TickFrequency="1" Minimum="2" Maximum="255" Grid.Row="0" Grid.Column="1"/>
-                                <Label Content="{Binding Source={StaticResource PosterizeEffect}, Path=Steps, Mode=OneWay, Converter={StaticResource DoubleRoundingConverter}}" Grid.Row="0" Grid.Column="2"/>
-                                <Button Content="Apply" Command="{StaticResource ApplyCommand}" CommandParameter="{StaticResource PosterizeEffect}" Grid.Row="1" Grid.ColumnSpan="3"/>
-                            </Grid>
-                        </GroupBox>
-                        <GroupBox Header="Posterize Multi Channel" Grid.Row="3">
-                            <Grid>
-                                <Grid.RowDefinitions>
-                                    <RowDefinition Height="Auto"/>
-                                    <RowDefinition Height="Auto"/>
-                                    <RowDefinition Height="Auto"/>
-                                    <RowDefinition Height="Auto"/>
-                                </Grid.RowDefinitions>
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="80"/>
-                                    <ColumnDefinition Width="*"/>
-                                    <ColumnDefinition Width="40"/>
-                                </Grid.ColumnDefinitions>
-                                <Label Content="Steps R:" Grid.Row="0" Grid.Column="0"/>
-                                <Slider Value="{Binding Source={StaticResource PosterizeMultiChannelEffect}, Path=StepsR, Mode=TwoWay}" IsSnapToTickEnabled="True" TickFrequency="2" Minimum="1" Maximum="255" Grid.Row="0" Grid.Column="1"/>
-                                <Label Content="{Binding Source={StaticResource PosterizeMultiChannelEffect}, Path=StepsR, Mode=OneWay, Converter={StaticResource DoubleRoundingConverter}}" Grid.Row="0" Grid.Column="2"/>
-                                <Label Content="Steps G:" Grid.Row="1" Grid.Column="0"/>
-                                <Slider Value="{Binding Source={StaticResource PosterizeMultiChannelEffect}, Path=StepsG, Mode=TwoWay}" IsSnapToTickEnabled="True" TickFrequency="2" Minimum="1" Maximum="255" Grid.Row="1" Grid.Column="1"/>
-                                <Label Content="{Binding Source={StaticResource PosterizeMultiChannelEffect}, Path=StepsG, Mode=OneWay, Converter={StaticResource DoubleRoundingConverter}}" Grid.Row="1" Grid.Column="2"/>
-                                <Label Content="Steps B:" Grid.Row="2" Grid.Column="0"/>
-                                <Slider Value="{Binding Source={StaticResource PosterizeMultiChannelEffect}, Path=StepsB, Mode=TwoWay}" IsSnapToTickEnabled="True" TickFrequency="2" Minimum="1" Maximum="255" Grid.Row="2" Grid.Column="1"/>
-                                <Label Content="{Binding Source={StaticResource PosterizeMultiChannelEffect}, Path=StepsB, Mode=OneWay, Converter={StaticResource DoubleRoundingConverter}}" Grid.Row="2" Grid.Column="2"/>
-                                <Button Content="Apply" Command="{StaticResource ApplyCommand}" CommandParameter="{StaticResource PosterizeMultiChannelEffect}" Grid.Row="3" Grid.ColumnSpan="3"/>
-                            </Grid>
-                        </GroupBox>
-                        <GroupBox Header="Noise" Grid.Row="4">
-                            <Grid>
-                                <Grid.RowDefinitions>
-                                    <RowDefinition Height="Auto"/>
-                                    <RowDefinition Height="Auto"/>
-                                    <RowDefinition Height="Auto"/>
-                                    <RowDefinition Height="Auto"/>
-                                    <RowDefinition Height="Auto"/>
-                                </Grid.RowDefinitions>
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="80"/>
-                                    <ColumnDefinition Width="*"/>
-                                    <ColumnDefinition Width="40"/>
-                                </Grid.ColumnDefinitions>
-                                <Label Content="Density:" Grid.Row="0" Grid.Column="0"/>
-                                <Slider Value="{Binding Source={StaticResource NoiseEffect}, Path=Density, Mode=TwoWay}" IsSnapToTickEnabled="True" TickFrequency="0.01" Minimum="0" Maximum="1" Grid.Row="0" Grid.Column="1"/>
-                                <Label Content="{Binding Source={StaticResource NoiseEffect}, Path=Density, Mode=OneWay, Converter={StaticResource DoubleRoundingConverter}}" Grid.Row="0" Grid.Column="2"/>
-                                <Label Content="Intensity:" Grid.Row="1" Grid.Column="0"/>
-                                <Slider Value="{Binding Source={StaticResource NoiseEffect}, Path=Intensity, Mode=TwoWay}" IsSnapToTickEnabled="True" TickFrequency="0.01" Minimum="0" Maximum="1" Grid.Row="1" Grid.Column="1"/>
-                                <Label Content="{Binding Source={StaticResource NoiseEffect}, Path=Intensity, Mode=OneWay, Converter={StaticResource DoubleRoundingConverter}}" Grid.Row="1" Grid.Column="2"/>
-                                <Label Content="Offset:" Grid.Row="2" Grid.Column="0"/>
-                                <Slider Value="{Binding Source={StaticResource NoiseEffect}, Path=Offset, Mode=TwoWay}" IsSnapToTickEnabled="True" TickFrequency="0.01" Minimum="0" Maximum="1" Grid.Row="2" Grid.Column="1"/>
-                                <Label Content="{Binding Source={StaticResource NoiseEffect}, Path=Offset, Mode=OneWay, Converter={StaticResource DoubleRoundingConverter}}" Grid.Row="2" Grid.Column="2"/>
-                                <Button Content="Apply" Command="{StaticResource ApplyCommand}" CommandParameter="{StaticResource NoiseEffect}" Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="3"/>
-                            </Grid>
-                        </GroupBox>
-                        <GroupBox Header="None" Grid.Row="5">
-                            <Button Content="Apply" Command="{StaticResource ApplyCommand}"/>
-                        </GroupBox>
-                    </Grid>
+                    <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Hidden">
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                            </Grid.RowDefinitions>
+                            <GroupBox Header="Grayscale" Grid.Row="0">
+                                <Button Content="Apply" Command="{StaticResource ApplyCommand}" CommandParameter="{StaticResource GrayscaleEffect}"/>
+                            </GroupBox>
+                            <GroupBox Header="Negative" Grid.Row="1">
+                                <Button Content="Apply" Command="{StaticResource ApplyCommand}" CommandParameter="{StaticResource NegativeEffect}"/>
+                            </GroupBox>
+                            <GroupBox Header="Posterize" Grid.Row="2">
+                                <Grid>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="Auto"/>
+                                        <RowDefinition Height="Auto"/>
+                                    </Grid.RowDefinitions>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="80"/>
+                                        <ColumnDefinition Width="*"/>
+                                        <ColumnDefinition Width="40"/>
+                                    </Grid.ColumnDefinitions>
+                                    <Label Content="Steps:" Grid.Row="0" Grid.Column="0"/>
+                                    <Slider Value="{Binding Source={StaticResource PosterizeEffect}, Path=Steps, Mode=TwoWay}" IsSnapToTickEnabled="True" TickFrequency="1" Minimum="2" Maximum="255" Grid.Row="0" Grid.Column="1"/>
+                                    <Label Content="{Binding Source={StaticResource PosterizeEffect}, Path=Steps, Mode=OneWay, Converter={StaticResource DoubleRoundingConverter}}" Grid.Row="0" Grid.Column="2"/>
+                                    <Button Content="Apply" Command="{StaticResource ApplyCommand}" CommandParameter="{StaticResource PosterizeEffect}" Grid.Row="1" Grid.ColumnSpan="3"/>
+                                </Grid>
+                            </GroupBox>
+                            <GroupBox Header="Posterize Multi Channel" Grid.Row="3">
+                                <Grid>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="Auto"/>
+                                        <RowDefinition Height="Auto"/>
+                                        <RowDefinition Height="Auto"/>
+                                        <RowDefinition Height="Auto"/>
+                                    </Grid.RowDefinitions>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="80"/>
+                                        <ColumnDefinition Width="*"/>
+                                        <ColumnDefinition Width="40"/>
+                                    </Grid.ColumnDefinitions>
+                                    <Label Content="Steps R:" Grid.Row="0" Grid.Column="0"/>
+                                    <Slider Value="{Binding Source={StaticResource PosterizeMultiChannelEffect}, Path=StepsR, Mode=TwoWay}" IsSnapToTickEnabled="True" TickFrequency="2" Minimum="1" Maximum="255" Grid.Row="0" Grid.Column="1"/>
+                                    <Label Content="{Binding Source={StaticResource PosterizeMultiChannelEffect}, Path=StepsR, Mode=OneWay, Converter={StaticResource DoubleRoundingConverter}}" Grid.Row="0" Grid.Column="2"/>
+                                    <Label Content="Steps G:" Grid.Row="1" Grid.Column="0"/>
+                                    <Slider Value="{Binding Source={StaticResource PosterizeMultiChannelEffect}, Path=StepsG, Mode=TwoWay}" IsSnapToTickEnabled="True" TickFrequency="2" Minimum="1" Maximum="255" Grid.Row="1" Grid.Column="1"/>
+                                    <Label Content="{Binding Source={StaticResource PosterizeMultiChannelEffect}, Path=StepsG, Mode=OneWay, Converter={StaticResource DoubleRoundingConverter}}" Grid.Row="1" Grid.Column="2"/>
+                                    <Label Content="Steps B:" Grid.Row="2" Grid.Column="0"/>
+                                    <Slider Value="{Binding Source={StaticResource PosterizeMultiChannelEffect}, Path=StepsB, Mode=TwoWay}" IsSnapToTickEnabled="True" TickFrequency="2" Minimum="1" Maximum="255" Grid.Row="2" Grid.Column="1"/>
+                                    <Label Content="{Binding Source={StaticResource PosterizeMultiChannelEffect}, Path=StepsB, Mode=OneWay, Converter={StaticResource DoubleRoundingConverter}}" Grid.Row="2" Grid.Column="2"/>
+                                    <Button Content="Apply" Command="{StaticResource ApplyCommand}" CommandParameter="{StaticResource PosterizeMultiChannelEffect}" Grid.Row="3" Grid.ColumnSpan="3"/>
+                                </Grid>
+                            </GroupBox>
+                            <GroupBox Header="Noise" Grid.Row="4">
+                                <Grid>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="Auto"/>
+                                        <RowDefinition Height="Auto"/>
+                                        <RowDefinition Height="Auto"/>
+                                        <RowDefinition Height="Auto"/>
+                                        <RowDefinition Height="Auto"/>
+                                    </Grid.RowDefinitions>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="80"/>
+                                        <ColumnDefinition Width="*"/>
+                                        <ColumnDefinition Width="40"/>
+                                    </Grid.ColumnDefinitions>
+                                    <Label Content="Density:" Grid.Row="0" Grid.Column="0"/>
+                                    <Slider Value="{Binding Source={StaticResource NoiseEffect}, Path=Density, Mode=TwoWay}" IsSnapToTickEnabled="True" TickFrequency="0.01" Minimum="0" Maximum="1" Grid.Row="0" Grid.Column="1"/>
+                                    <Label Content="{Binding Source={StaticResource NoiseEffect}, Path=Density, Mode=OneWay, Converter={StaticResource DoubleRoundingConverter}}" Grid.Row="0" Grid.Column="2"/>
+                                    <Label Content="Intensity:" Grid.Row="1" Grid.Column="0"/>
+                                    <Slider Value="{Binding Source={StaticResource NoiseEffect}, Path=Intensity, Mode=TwoWay}" IsSnapToTickEnabled="True" TickFrequency="0.01" Minimum="0" Maximum="1" Grid.Row="1" Grid.Column="1"/>
+                                    <Label Content="{Binding Source={StaticResource NoiseEffect}, Path=Intensity, Mode=OneWay, Converter={StaticResource DoubleRoundingConverter}}" Grid.Row="1" Grid.Column="2"/>
+                                    <Label Content="Offset:" Grid.Row="2" Grid.Column="0"/>
+                                    <Slider Value="{Binding Source={StaticResource NoiseEffect}, Path=Offset, Mode=TwoWay}" IsSnapToTickEnabled="True" TickFrequency="0.01" Minimum="0" Maximum="1" Grid.Row="2" Grid.Column="1"/>
+                                    <Label Content="{Binding Source={StaticResource NoiseEffect}, Path=Offset, Mode=OneWay, Converter={StaticResource DoubleRoundingConverter}}" Grid.Row="2" Grid.Column="2"/>
+                                    <Button Content="Apply" Command="{StaticResource ApplyCommand}" CommandParameter="{StaticResource NoiseEffect}" Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="3"/>
+                                </Grid>
+                            </GroupBox>
+                            <GroupBox Header="None" Grid.Row="5">
+                                <Button Content="Apply" Command="{StaticResource ApplyCommand}"/>
+                            </GroupBox>
+                        </Grid>
+                    </ScrollViewer>
                 </TabItem>
             </TabControl>
         </GroupBox>
