@@ -1,5 +1,5 @@
-﻿using LoFiEffects.WPF.Effects;
-using System.Windows;
+﻿using System.Windows;
+using System.Windows.Media.Effects;
 
 namespace LoFiEffects.WPF.TestApp
 {
@@ -10,9 +10,12 @@ namespace LoFiEffects.WPF.TestApp
     {
         public MainWindow()
         {
-            InitializeComponent();
+            InitializeComponent();     
+        }
 
-            Effect = new PosterizeEffect();
+        private void ApplyCommand_Executed(object sender, System.Windows.Input.ExecutedRoutedEventArgs e)
+        {
+            LoFiPresenter.Effect = e.Parameter as ShaderEffect;
         }
     }
 }

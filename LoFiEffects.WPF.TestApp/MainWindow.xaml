@@ -5,20 +5,27 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:loFiControl="clr-namespace:LoFiEffects.WPF;assembly=LoFiEffects.WPF"
         xmlns:testApp="clr-namespace:LoFiEffects.WPF.TestApp"
+        xmlns:effects="clr-namespace:LoFiEffects.WPF.Effects;assembly=LoFiEffects.WPF"
         mc:Ignorable="d"
         Title="LoFiPresenter Example" Height="600" Width="800">
     <Window.Resources>
         <testApp:DoubleRoundingConverter x:Key="DoubleRoundingConverter"/>
+        <effects:GrayscaleEffect x:Key="GrayscaleEffect"/>
+        <effects:NegativeEffect x:Key="NegativeEffect"/>
+        <effects:PosterizeEffect x:Key="PosterizeEffect"/>
+        <effects:PosterizeMultiChannelEffect x:Key="PosterizeMultiChannelEffect"/>
+        <RoutedCommand x:Key="ApplyCommand" />
     </Window.Resources>
+    <Window.CommandBindings>
+        <CommandBinding x:Name="ApplyCommand" Command="{StaticResource ApplyCommand}" Executed="ApplyCommand_Executed"/>
+    </Window.CommandBindings>
     <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="*"/>
-            <RowDefinition Height="Auto"/>
-        </Grid.RowDefinitions>
-        <Border Grid.Row="0">
-            <loFiControl:LoFiPresenter Name="LoFiPresenter"
-                                       Reduction="{Binding ElementName=ReductionSlider, Path=Value, Mode=OneWay}"
-                                       FramesPerSecond="{Binding ElementName=FPSSlider, Path=Value, Mode=OneWay}">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="400"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        <Border Grid.Column="0">
+            <loFiControl:LoFiPresenter Name="LoFiPresenter" Reduction="{Binding ElementName=ReductionSlider, Path=Value, Mode=OneWay}" FramesPerSecond="{Binding ElementName=FPSSlider, Path=Value, Mode=OneWay}">
                 <Grid Background="Gray">
                     <Grid.Resources>
                         <Style TargetType="{x:Type Label}">
@@ -34,33 +41,19 @@
                         <ColumnDefinition Width="400"/>
                         <ColumnDefinition Width="*"/>
                     </Grid.ColumnDefinitions>
-                    <Image Source="Mugshot.jpg" 
-                           Margin="10" 
-                           Grid.Row="0" 
-                           Grid.Column="0"/>
-                    <StackPanel Margin="10" 
-                                Grid.Row="0" 
-                                Grid.Column="1">
+                    <Image Source="Mugshot.jpg" Margin="10" Grid.Row="0" Grid.Column="0"/>
+                    <StackPanel Margin="10" Grid.Row="0" Grid.Column="1">
                         <Label Content="Name: Santa"/>
                         <Label Content="Age: Unknown"/>
                         <Label Content="Diet: Mince Pies and Sherry"/>
                         <Label Content="Charged With: DUI"/>
                     </StackPanel>
-                    <Button Content="Make bad Santa lofi!" 
-                            Margin="10" 
-                            FontSize="24" 
-                            Grid.Row="1" 
-                            Grid.Column="0" 
-                            Grid.ColumnSpan="2">
+                    <Button Content="Make bad Santa lofi!" Margin="10" FontSize="24" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2">
                         <Button.Triggers>
                             <EventTrigger RoutedEvent="Button.Click">
                                 <BeginStoryboard>
                                     <Storyboard>
-                                        <DoubleAnimation Storyboard.TargetName="ReductionSlider" 
-                                                         Storyboard.TargetProperty="Value"
-                                                         From="1" 
-                                                         To="10"
-                                                         Duration="0:0:5"/>
+                                        <DoubleAnimation Storyboard.TargetName="ReductionSlider" Storyboard.TargetProperty="Value" From="1" To="10" Duration="0:0:5"/>
                                     </Storyboard>
                                 </BeginStoryboard>
                             </EventTrigger>
@@ -69,54 +62,90 @@
                 </Grid>
             </loFiControl:LoFiPresenter>
         </Border >
-        <GroupBox Header="LoFiPresenter Controls"
-                  Margin="10"
-                  Grid.Row="1">
-            <Grid>
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="Auto"/>
-                </Grid.RowDefinitions>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="100"/>
-                    <ColumnDefinition Width="*"/>
-                    <ColumnDefinition Width="100"/>
-                </Grid.ColumnDefinitions>
-                <Label Content="Reduction:" 
-                       Grid.Column="0"
-                       Grid.Row="0"/>
-                <Slider Name="ReductionSlider"
-                        Value="1"
-                        Minimum="1"
-                        Maximum="10"
-                        SmallChange="0.01"
-                        LargeChange="0.01"
-                        TickFrequency="0.01"
-                        IsSnapToTickEnabled="True"
-                        TickPlacement="BottomRight"
-                        Grid.Column="1"
-                        Grid.Row="0"/>
-                <Label Content="{Binding ElementName=LoFiPresenter, Path=Reduction, Mode=TwoWay, Converter={StaticResource DoubleRoundingConverter}}" 
-                       Grid.Column="2"
-                       Grid.Row="0"/>
-                <Label Content="FPS:" 
-                       Grid.Column="0"
-                       Grid.Row="1"/>
-                <Slider Name="FPSSlider"
-                        Value="30" 
-                        Minimum="1"
-                        Maximum="60"
-                        SmallChange="1"
-                        LargeChange="1"
-                        TickFrequency="1"
-                        IsSnapToTickEnabled="True"
-                        TickPlacement="BottomRight"
-                        Grid.Column="1"
-                        Grid.Row="1"/>
-                <Label Content="{Binding ElementName=LoFiPresenter, Path=FramesPerSecond, Mode=TwoWay, Converter={StaticResource DoubleRoundingConverter}}" 
-                       Grid.Column="2"
-                       Grid.Row="1"/>
-            </Grid>
+        <GroupBox Header="Controls" Margin="10" Grid.Column="1">
+            <TabControl HorizontalAlignment="Stretch">
+                <TabItem Header="LoFi Presenter">
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="80"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="30"/>
+                        </Grid.ColumnDefinitions>
+                        <Label Content="Reduction:" Grid.Column="0" Grid.Row="0"/>
+                        <Slider Name="ReductionSlider" Value="1" Minimum="1" Maximum="10" SmallChange="0.01" LargeChange="0.01" TickFrequency="0.01" IsSnapToTickEnabled="True" TickPlacement="BottomRight" Grid.Column="1" Grid.Row="0"/>
+                        <Label Content="{Binding ElementName=LoFiPresenter, Path=Reduction, Mode=TwoWay, Converter={StaticResource DoubleRoundingConverter}}" Grid.Column="2" Grid.Row="0"/>
+                        <Label Content="FPS:" Grid.Column="0" Grid.Row="1"/>
+                        <Slider Name="FPSSlider" Value="30" Minimum="1" Maximum="60" SmallChange="1" LargeChange="1" TickFrequency="1" IsSnapToTickEnabled="True" TickPlacement="BottomRight" Grid.Column="1" Grid.Row="1"/>
+                        <Label Content="{Binding ElementName=LoFiPresenter, Path=FramesPerSecond, Mode=TwoWay, Converter={StaticResource DoubleRoundingConverter}}" Grid.Column="2" Grid.Row="1"/>
+                    </Grid>
+                </TabItem>
+                <TabItem Header="Effects">
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                        </Grid.RowDefinitions>
+                        <GroupBox Header="Grayscale" Grid.Row="0">
+                            <Button Content="Apply" Command="{StaticResource ApplyCommand}" CommandParameter="{StaticResource GrayscaleEffect}"/>
+                        </GroupBox>
+                        <GroupBox Header="Negative" Grid.Row="1">
+                            <Button Content="Apply" Command="{StaticResource ApplyCommand}" CommandParameter="{StaticResource NegativeEffect}"/>
+                        </GroupBox>
+                        <GroupBox Header="Posterize" Grid.Row="2">
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto"/>
+                                    <RowDefinition Height="Auto"/>
+                                </Grid.RowDefinitions>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="80"/>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="30"/>
+                                </Grid.ColumnDefinitions>
+                                <Label Content="Steps:" Grid.Row="0" Grid.Column="0"/>
+                                <Slider Value="{Binding Source={StaticResource PosterizeEffect}, Path=Steps, Mode=TwoWay}" IsSnapToTickEnabled="True" TickFrequency="1" Minimum="2" Maximum="255" Grid.Row="0" Grid.Column="1"/>
+                                <Label Content="{Binding Source={StaticResource PosterizeEffect}, Path=Steps, Mode=OneWay, Converter={StaticResource DoubleRoundingConverter}}" Grid.Row="0" Grid.Column="2"/>
+                                <Button Content="Apply" Command="{StaticResource ApplyCommand}" CommandParameter="{StaticResource PosterizeEffect}" Grid.Row="1" Grid.ColumnSpan="3"/>
+                            </Grid>
+                        </GroupBox>
+                        <GroupBox Header="Posterize Multi Channel" Grid.Row="3">
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto"/>
+                                    <RowDefinition Height="Auto"/>
+                                    <RowDefinition Height="Auto"/>
+                                    <RowDefinition Height="Auto"/>
+                                </Grid.RowDefinitions>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="80"/>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="30"/>
+                                </Grid.ColumnDefinitions>
+                                <Label Content="Steps R:" Grid.Row="0" Grid.Column="0"/>
+                                <Slider Value="{Binding Source={StaticResource PosterizeMultiChannelEffect}, Path=StepsR, Mode=TwoWay}" IsSnapToTickEnabled="True" TickFrequency="2" Minimum="1" Maximum="255" Grid.Row="0" Grid.Column="1"/>
+                                <Label Content="{Binding Source={StaticResource PosterizeMultiChannelEffect}, Path=StepsR, Mode=OneWay, Converter={StaticResource DoubleRoundingConverter}}" Grid.Row="0" Grid.Column="2"/>
+                                <Label Content="Steps G:" Grid.Row="1" Grid.Column="0"/>
+                                <Slider Value="{Binding Source={StaticResource PosterizeMultiChannelEffect}, Path=StepsG, Mode=TwoWay}" IsSnapToTickEnabled="True" TickFrequency="2" Minimum="1" Maximum="255" Grid.Row="1" Grid.Column="1"/>
+                                <Label Content="{Binding Source={StaticResource PosterizeMultiChannelEffect}, Path=StepsG, Mode=OneWay, Converter={StaticResource DoubleRoundingConverter}}" Grid.Row="1" Grid.Column="2"/>
+                                <Label Content="Steps B:" Grid.Row="2" Grid.Column="0"/>
+                                <Slider Value="{Binding Source={StaticResource PosterizeMultiChannelEffect}, Path=StepsB, Mode=TwoWay}" IsSnapToTickEnabled="True" TickFrequency="2" Minimum="1" Maximum="255" Grid.Row="2" Grid.Column="1"/>
+                                <Label Content="{Binding Source={StaticResource PosterizeMultiChannelEffect}, Path=StepsB, Mode=OneWay, Converter={StaticResource DoubleRoundingConverter}}" Grid.Row="2" Grid.Column="2"/>
+                                <Button Content="Apply" Command="{StaticResource ApplyCommand}" CommandParameter="{StaticResource PosterizeMultiChannelEffect}" Grid.Row="3" Grid.ColumnSpan="3"/>
+                            </Grid>
+                        </GroupBox>
+                        <GroupBox Header="None" Grid.Row="4">
+                            <Button Content="Apply" Command="{StaticResource ApplyCommand}"/>
+                        </GroupBox>
+                    </Grid>
+                </TabItem>
+            </TabControl>
         </GroupBox>
     </Grid>
 </Window>

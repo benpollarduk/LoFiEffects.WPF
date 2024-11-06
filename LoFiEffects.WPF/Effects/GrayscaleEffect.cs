@@ -1,5 +1,4 @@
-﻿using System;
-using System.Windows;
+﻿using System.Windows;
 using System.Windows.Media;
 using System.Windows.Media.Effects;
 
@@ -10,18 +9,9 @@ namespace LoFiEffects.WPF.Effects
     /// </summary>
     public class GrayscaleEffect : ShaderEffect
     {
-        #region Notes
-
-        /* 
-            Based on:
-            http://bursjootech.blogspot.co.uk/2008/06/grayscale-effect-pixel-shader-effect-in.html
-        */
-
-        #endregion
-
         #region StaticFields
 
-        private static readonly PixelShader pixelShader = new() { UriSource = new Uri(@"pack://application:,,,/LoFiEffects.WPF;component/Effects/Shaders/Grayscale.ps") };
+        private static readonly PixelShader pixelShader = new() { UriSource = UriHelper.FromResource("Effects/Shaders/Grayscale.ps") };
 
         #endregion
 

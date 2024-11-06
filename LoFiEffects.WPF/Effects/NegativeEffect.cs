@@ -12,7 +12,7 @@ namespace LoFiEffects.WPF.Effects
     {
         #region StaticFields
 
-        private static readonly PixelShader pixelShader = new() { UriSource = new Uri(@"pack://application:,,,/LoFiEffects.WPF;component/Effects/Shaders/Negative.ps") };
+        private static readonly PixelShader pixelShader = new() { UriSource = UriHelper.FromResource("Effects/Shaders/Negative.ps") };
 
         #endregion
 

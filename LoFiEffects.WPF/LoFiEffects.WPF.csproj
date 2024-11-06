@@ -24,14 +24,17 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Effects\HLSL\PosterizeMultiChannel.fx" />
     <None Remove="Effects\Shaders\Grayscale.fx" />
     <None Remove="Effects\Shaders\Grayscale.ps" />
     <None Remove="Effects\Shaders\Negative.ps" />
     <None Remove="Effects\Shaders\Posterize.fx" />
     <None Remove="Effects\Shaders\Posterize.ps" />
+    <None Remove="Effects\Shaders\PosterizeMultiChannel.ps" />
   </ItemGroup>
 
   <ItemGroup>
+    <Resource Include="Effects\HLSL\PosterizeMultiChannel.fx" />
     <Resource Include="Effects\Shaders\Posterize.ps" />
   </ItemGroup>
 
@@ -50,6 +53,7 @@
     <Resource Include="Effects\HLSL\Posterize.fx" />
     <Resource Include="Effects\Shaders\Grayscale.ps" />
     <Resource Include="Effects\Shaders\Negative.ps" />
+    <Resource Include="Effects\Shaders\PosterizeMultiChannel.ps" />
   </ItemGroup>
 
   <ItemGroup>
@@ -58,12 +62,8 @@
     </Compile>
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Shaders\" />
-  </ItemGroup>
-
   <Target Name="PreBuild" BeforeTargets="PreBuildEvent">
-    <Exec Command="echo COMPILING SHADERS:&#xD;&#xA;set Fxc=C:\Program Files (x86)\Windows Kits\10\bin\10.0.22621.0\x86\fxc.exe&#xD;&#xA;set Input=$(ProjectDir)Effects\HLSL\Posterize.fx&#xD;&#xA;set Output=$(ProjectDir)Effects\Shaders\Posterize.ps&#xD;&#xA;&#xD;&#xA;&quot;%25Fxc%25&quot; /O0 /Zi /T ps_2_0 /Fo &quot;%25Output%25&quot; &quot;%25Input%25&quot;&#xD;&#xA;&#xD;&#xA;echo DON'T FORGET TO SET SHADER (.ps) FILE BUILD ACTION TO RESOURCE!" />
+    <Exec Command="echo COMPILING SHADERS:&#xD;&#xA;set Fxc=C:\Program Files (x86)\Windows Kits\10\bin\10.0.22621.0\x86\fxc.exe&#xD;&#xA;set Input=$(ProjectDir)Effects\HLSL\PosterizeMultiChannel.fx&#xD;&#xA;set Output=$(ProjectDir)Effects\Shaders\PosterizeMultiChannel.ps&#xD;&#xA;&#xD;&#xA;&quot;%25Fxc%25&quot; /O0 /Zi /T ps_2_0 /Fo &quot;%25Output%25&quot; &quot;%25Input%25&quot;&#xD;&#xA;&#xD;&#xA;echo DON'T FORGET TO SET SHADER (.ps) FILE BUILD ACTION TO RESOURCE!" />
   </Target>
 
 </Project>
