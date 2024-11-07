@@ -15,7 +15,7 @@ namespace LoFiEffects.WPF.TestApp
 
         private void ApplyCommand_Executed(object sender, System.Windows.Input.ExecutedRoutedEventArgs e)
         {
-            LoFiPresenter.Effect = e.Parameter as ShaderEffect;
+            FrameRateReductionPresenter.Effect = e.Parameter as ShaderEffect;
         }
     }
 }

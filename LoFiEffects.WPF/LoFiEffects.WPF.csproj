@@ -62,7 +62,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Compile Update="LoFiPresenter.cs">
+    <Compile Update="FrameRateReductionPresenter.cs">
       <SubType>Code</SubType>
     </Compile>
   </ItemGroup>

@@ -1,39 +1,21 @@
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Media;
 using System.Windows.Threading;
 
 namespace LoFiEffects.WPF.Tests
 {
     [TestClass]
-    public class LoFiPresenter_Tests
+    public class FrameRateReductionPresenter_Tests
     {
         [STATestMethod]
         public void GivenNewPresenter_WhenSettingContentToButton_ThenNoExceptionThrown()
         {
-            var presenter = new LoFiPresenter();
+            var presenter = new FrameRateReductionPresenter();
             var button = new Button();
 
             try
             {
                 presenter.Content = button;
-            }
-            catch (Exception ex)
-            {
-                Assert.Fail($"Exception occurred: {ex.Message}");
-            }
-        }
-
-        [STATestMethod]
-        public void GivenPresenterContainingButton_WhenSettingReductionTo10_ThenNoExceptionThrown()
-        {
-            var presenter = new LoFiPresenter();
-            var button = new Button();
-
-            try
-            {
-                presenter.Content = button;
-                presenter.Reduction = 10;
             }
             catch (Exception ex)
             {
@@ -44,7 +26,7 @@ namespace LoFiEffects.WPF.Tests
         [STATestMethod]
         public void GivenPresenterContainingButton_WhenSettingFramesPerSecondTo10_ThenNoExceptionThrown()
         {
-            var presenter = new LoFiPresenter();
+            var presenter = new FrameRateReductionPresenter();
             var button = new Button();
 
             try
@@ -59,26 +41,9 @@ namespace LoFiEffects.WPF.Tests
         }
 
         [STATestMethod]
-        public void GivenPresenterContainingButton_WhenSettingMaskColorToBlack_ThenNoExceptionThrown()
-        {
-            var presenter = new LoFiPresenter();
-            var button = new Button();
-
-            try
-            {
-                presenter.Content = button;
-                presenter.MaskColor = Colors.Black;
-            }
-            catch (Exception ex)
-            {
-                Assert.Fail($"Exception occurred: {ex.Message}");
-            }
-        }
-
-        [STATestMethod]
         public void GivenPresenterContainingButton_WhenLoadedWithinWindow_ThenNoExceptionThrownWithin1Second()
         {
-            var presenter = new LoFiPresenter();
+            var presenter = new FrameRateReductionPresenter();
             var button = new Button();
 
             try

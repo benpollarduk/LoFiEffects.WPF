@@ -7,7 +7,7 @@
         xmlns:testApp="clr-namespace:LoFiEffects.WPF.TestApp"
         xmlns:effects="clr-namespace:LoFiEffects.WPF.Effects;assembly=LoFiEffects.WPF"
         mc:Ignorable="d"
-        Title="LoFiPresenter Example" Height="730" Width="800">
+        Title="LoFiEffects.WPF Example" Height="730" Width="800">
     <Window.Resources>
         <testApp:DoubleRoundingConverter x:Key="DoubleRoundingConverter"/>
         <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter"/>
@@ -29,7 +29,7 @@
             <RowDefinition Height="Auto" MinHeight="280"/>
         </Grid.RowDefinitions>
         <Border Grid.Row="0">
-            <loFiControl:LoFiPresenter Name="LoFiPresenter" Reduction="{Binding ElementName=ReductionSlider, Path=Value, Mode=OneWay}" FramesPerSecond="{Binding ElementName=FPSSlider, Path=Value, Mode=OneWay}">
+            <loFiControl:FrameRateReductionPresenter Name="FrameRateReductionPresenter" FramesPerSecond="{Binding ElementName=FPSSlider, Path=Value, Mode=OneWay}">
                 <Grid Background="Gray">
                     <Grid.Resources>
                         <Style TargetType="{x:Type Label}">
@@ -51,42 +51,13 @@
                         <Label Content="Age: Unknown"/>
                         <Label Content="Diet: Mince Pies and Sherry"/>
                         <Label Content="Charged With: DUI"/>
+                        <Button Content="Dummy Button" Height="40" Width="150"/>
                     </StackPanel>
-                    <Button Content="Make bad Santa lofi!" Margin="10" FontSize="24" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2">
-                        <Button.Triggers>
-                            <EventTrigger RoutedEvent="Button.Click">
-                                <BeginStoryboard>
-                                    <Storyboard>
-                                        <DoubleAnimation Storyboard.TargetName="ReductionSlider" Storyboard.TargetProperty="Value" From="1" To="10" Duration="0:0:5"/>
-                                    </Storyboard>
-                                </BeginStoryboard>
-                            </EventTrigger>
-                        </Button.Triggers>
-                    </Button>
                 </Grid>
-            </loFiControl:LoFiPresenter>
+            </loFiControl:FrameRateReductionPresenter>
         </Border >
         <GroupBox Header="Controls" Margin="10" Grid.Row="1">
             <TabControl HorizontalAlignment="Stretch">
-                <TabItem Header="LoFi Presenter">
-                    <Grid>
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="Auto"/>
-                            <RowDefinition Height="Auto"/>
-                        </Grid.RowDefinitions>
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="80"/>
-                            <ColumnDefinition Width="*"/>
-                            <ColumnDefinition Width="40"/>
-                        </Grid.ColumnDefinitions>
-                        <Label Content="Reduction:" Grid.Column="0" Grid.Row="0"/>
-                        <Slider Name="ReductionSlider" Value="1" Minimum="1" Maximum="10" SmallChange="0.01" LargeChange="0.01" TickFrequency="0.01" TickPlacement="BottomRight" Grid.Column="1" Grid.Row="0"/>
-                        <Label Content="{Binding ElementName=LoFiPresenter, Path=Reduction, Mode=TwoWay, Converter={StaticResource DoubleRoundingConverter}}" Grid.Column="2" Grid.Row="0"/>
-                        <Label Content="FPS:" Grid.Column="0" Grid.Row="1"/>
-                        <Slider Name="FPSSlider" Value="30" Minimum="1" Maximum="60" SmallChange="1" LargeChange="1" TickFrequency="1" TickPlacement="BottomRight" Grid.Column="1" Grid.Row="1"/>
-                        <Label Content="{Binding ElementName=LoFiPresenter, Path=FramesPerSecond, Mode=TwoWay, Converter={StaticResource DoubleRoundingConverter}}" Grid.Column="2" Grid.Row="1"/>
-                    </Grid>
-                </TabItem>
                 <TabItem Header="Effects">
                     <Grid>
                         <Grid.RowDefinitions>
@@ -199,6 +170,18 @@
                                 </Grid>
                             </StackPanel>
                         </GroupBox>
+                    </Grid>
+                </TabItem>
+                <TabItem Header="Frame Rate Reduction">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="80"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="40"/>
+                        </Grid.ColumnDefinitions>
+                        <Label Content="FPS:" Grid.Column="0" Grid.Row="0"/>
+                        <Slider Name="FPSSlider" Value="60" Minimum="1" Maximum="60" SmallChange="1" LargeChange="1" TickFrequency="1" TickPlacement="BottomRight" Grid.Column="1" Grid.Row="0"/>
+                        <Label Content="{Binding ElementName=FrameRateReductionPresenter, Path=FramesPerSecond, Mode=TwoWay, Converter={StaticResource DoubleRoundingConverter}}" Grid.Column="2" Grid.Row="0"/>
                     </Grid>
                 </TabItem>
             </TabControl>

@@ -6,21 +6,32 @@ using System.Windows.Media.Imaging;
 namespace LoFiEffects.WPF
 {
     /// <summary>
-    /// Provides a Control that acts a mask to provide a lo-fi effect.
+    /// Provides a control that acts a mask to provide a frame rate reduction effect.
     /// </summary>
-    internal class LoFiMask : UserControl, IDisposable
+    internal class FrameRateReductionMask : UserControl, IDisposable
     {
+        #region Constants
+
+        /// <summary>
+        /// Get the minimum frames per second.
+        /// </summary>
+        private const int MinimumFramesPerSecond = 0;
+
+        /// <summary>
+        /// Get the maximum frames per second.
+        /// </summary>
+        private const int MaximumFramesPerSecond = 60;
+
+        #endregion
+
         #region Fields
 
         private FrameworkElement? source;
-        private double reduction = 2;
-        private uint framesPerSecond = 60;
+        private uint framesPerSecond = MaximumFramesPerSecond;
         private bool isRendering;
         private RenderTargetBitmap? bitmap;
         private long lastRenderTime;
         private int delayBetweenFrames;
-        private Color? maskColor;
-        private SolidColorBrush? maskBrush;
         private readonly VisualBrush visualBrush = new();
         private readonly DrawingVisual drawingVisual = new();
         private readonly Point topLeft = new(0, 0);
@@ -38,21 +49,7 @@ namespace LoFiEffects.WPF
             set
             {
                 source = value;
-                Start();
-            }
-        }
-
-        /// <summary>
-        /// Get or set the strength of the reduction. This is a dependency property.
-        /// </summary>
-        public double Reduction
-        {
-            get { return reduction; }
-            set
-            {
-                reduction = value;
-                AdjustScalingMode();
-                Start();
+                RunIfNeeded();
             }
         }
 
@@ -65,26 +62,7 @@ namespace LoFiEffects.WPF
             set
             {
                 framesPerSecond = value;
-                Start();
-            }
-        }
-
-        /// <summary>
-        /// Get or set the mask color. This is a dependency property.
-        /// </summary>
-        public Color? MaskColor
-        {
-            get { return maskColor; }
-            set
-            {
-                maskColor = value;
-
-                if (value.HasValue)
-                    maskBrush = new SolidColorBrush(value.Value);
-                else
-                    maskBrush = null;
-
-                Start();
+                RunIfNeeded();
             }
         }
 
@@ -93,18 +71,14 @@ namespace LoFiEffects.WPF
         #region ConstructionDestruction
 
         /// <summary>
-        /// Initializes a new instance of the LoFiMask class.
+        /// Initializes a new instance of the FrameRateReductionMask class.
         /// </summary>
-        public LoFiMask()
+        public FrameRateReductionMask()
         {
             IsHitTestVisible = false;
-
-            AdjustScalingMode();
-
-            SizeChanged += LofiMask_SizeChanged;
         }
 
-        ~LoFiMask()
+        ~FrameRateReductionMask()
         {
             Dispose();
         }
@@ -114,12 +88,14 @@ namespace LoFiEffects.WPF
         #region Methods
 
         /// <summary>
-        /// Adjust the scaling mode for this control based on the reduction value. Values greater than 1.0 will use BitmapScalingMode.NearestNeighbor for a pixelated effect,
-        /// values less than or equal to 1.0 will use BitmapScalingMode.HighQuality for a smooth effect.
+        /// Run the effect, if needed.
         /// </summary>
-        private void AdjustScalingMode()
+        private void RunIfNeeded()
         {
-            RenderOptions.SetBitmapScalingMode(this, Reduction > 1 ? BitmapScalingMode.NearestNeighbor : BitmapScalingMode.HighQuality);
+            if (Source != null && FramesPerSecond >= MinimumFramesPerSecond && FramesPerSecond < MaximumFramesPerSecond)
+                Start();
+            else
+                Stop();
         }
 
         /// <summary>
@@ -135,19 +111,17 @@ namespace LoFiEffects.WPF
                 if (Source == null)
                     return;
 
-                // calculate the reduced size
-                var reductionSize = new Size(Source.ActualWidth / Reduction, Source.ActualHeight / Reduction);
-
                 // ensure that rendering is possible with the current sizes
                 if (double.IsNaN(ActualWidth) ||
-                    double.IsNaN(ActualHeight) ||
-                    double.IsNaN(reductionSize.Width) ||
-                    double.IsNaN(reductionSize.Height))
+                    double.IsNaN(ActualHeight))
                     return;
 
+                // get size
+                Size size = new(ActualWidth, ActualHeight);
+
                 // check if the bitmap can be reused, if not create it
-                if (bitmap == null || bitmap.PixelWidth != (int)reductionSize.Width || bitmap.PixelHeight != (int)reductionSize.Height)
-                    bitmap = new RenderTargetBitmap((int)reductionSize.Width, (int)reductionSize.Height, 96, 96, PixelFormats.Pbgra32);
+                if (bitmap == null || bitmap.PixelWidth != (int)size.Width || bitmap.PixelHeight != (int)size.Height)
+                    bitmap = new RenderTargetBitmap((int)size.Width, (int)size.Height, 96, 96, PixelFormats.Pbgra32);
 
                 // clear visual
                 drawingVisual.Children.Clear();
@@ -155,15 +129,11 @@ namespace LoFiEffects.WPF
                 // render the source at the reduced size
                 using (var context = drawingVisual.RenderOpen())
                 {
-                    // if a background color has been specified draw it
-                    if (MaskColor.HasValue)
-                        context.DrawRectangle(maskBrush, null, new Rect(topLeft, reductionSize));
-
                     // set visual
                     visualBrush.Visual = Source;
 
                     // draw the source content on top of the background
-                    context.DrawRectangle(visualBrush, null, new Rect(topLeft, reductionSize));
+                    context.DrawRectangle(visualBrush, null, new Rect(topLeft, size));
                 }
 
                 // render the visual in the bitmap
@@ -193,7 +163,9 @@ namespace LoFiEffects.WPF
         {
             Stop();
             delayBetweenFrames = (int)(1000 / FramesPerSecond);
+            
             CompositionTarget.Rendering += CompositionTarget_Rendering;
+            SizeChanged += FrameRateReductionMask_SizeChanged;
         }
 
         /// <summary>
@@ -202,6 +174,12 @@ namespace LoFiEffects.WPF
         private void Stop()
         {
             CompositionTarget.Rendering -= CompositionTarget_Rendering;
+            SizeChanged -= FrameRateReductionMask_SizeChanged;
+
+            if (bitmap != null)
+                bitmap = null;
+
+            Background = null;
         }
 
         #endregion
@@ -219,7 +197,7 @@ namespace LoFiEffects.WPF
             RequestRender();
         }
 
-        private void LofiMask_SizeChanged(object ? sender, EventArgs e)
+        private void FrameRateReductionMask_SizeChanged(object ? sender, EventArgs e)
         {
             RequestRender();
         }
@@ -234,13 +212,6 @@ namespace LoFiEffects.WPF
         public void Dispose()
         {
             Stop();
-
-            SizeChanged -= LofiMask_SizeChanged;
-
-            if (bitmap != null)
-                bitmap = null;
-
-            Background = null;
 
             GC.SuppressFinalize(this);
         }
