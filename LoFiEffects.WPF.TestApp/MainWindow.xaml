@@ -51,7 +51,7 @@
                         <Label Content="Age: Unknown"/>
                         <Label Content="Diet: Mince Pies and Sherry"/>
                         <Label Content="Charged With: DUI"/>
-                        <Button Content="Dummy Button" Height="40" Width="150"/>
+                        <Button Content="Sample Button" Height="150" Width="150" Margin="30"/>
                     </StackPanel>
                 </Grid>
             </loFiControl:FrameRateReductionPresenter>
