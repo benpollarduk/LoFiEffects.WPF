@@ -47,7 +47,7 @@ namespace LoFiEffects.WPF.Effects
         /// <summary>
         /// Identifies the PosterizeEffect.Steps property.
         /// </summary>
-        public static readonly DependencyProperty StepsProperty = DependencyProperty.Register("Steps", typeof(double), typeof(PosterizeEffect), new UIPropertyMetadata(4.0, PixelShaderConstantCallback(0)));
+        public static readonly DependencyProperty StepsProperty = DependencyProperty.Register("Steps", typeof(double), typeof(PosterizeEffect), new UIPropertyMetadata(5.0, PixelShaderConstantCallback(0)));
 
         #endregion
 

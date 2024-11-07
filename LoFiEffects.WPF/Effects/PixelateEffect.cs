@@ -47,7 +47,7 @@ namespace LoFiEffects.WPF.Effects
         /// <summary>
         /// Identifies the PixelateEffect.Intensity property.
         /// </summary>
-        public static readonly DependencyProperty IntensityProperty = DependencyProperty.Register("Intensity", typeof(double), typeof(PixelateEffect), new UIPropertyMetadata(0.1, PixelShaderConstantCallback(0)));
+        public static readonly DependencyProperty IntensityProperty = DependencyProperty.Register("Intensity", typeof(double), typeof(PixelateEffect), new UIPropertyMetadata(0.15, PixelShaderConstantCallback(0)));
 
         #endregion
 

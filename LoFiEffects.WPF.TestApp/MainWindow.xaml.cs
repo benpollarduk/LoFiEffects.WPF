@@ -15,7 +15,7 @@ namespace LoFiEffects.WPF.TestApp
 
         private void ApplyCommand_Executed(object sender, System.Windows.Input.ExecutedRoutedEventArgs e)
         {
-            FrameRateReductionPresenter.Effect = e.Parameter as ShaderEffect;
+            MugshotImage.Effect = e.Parameter as ShaderEffect;
         }
     }
 }

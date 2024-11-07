@@ -65,17 +65,17 @@ namespace LoFiEffects.WPF.Effects
         /// <summary>
         /// Identifies the PosterizeEffect.StepsR property.
         /// </summary>
-        public static readonly DependencyProperty StepsRProperty = DependencyProperty.Register("StepsR", typeof(double), typeof(PosterizeMultiChannelEffect), new UIPropertyMetadata(4.0, PixelShaderConstantCallback(0)));
+        public static readonly DependencyProperty StepsRProperty = DependencyProperty.Register("StepsR", typeof(double), typeof(PosterizeMultiChannelEffect), new UIPropertyMetadata(5.0, PixelShaderConstantCallback(0)));
 
         /// <summary>
         /// Identifies the PosterizeEffect.StepsG property.
         /// </summary>
-        public static readonly DependencyProperty StepsGProperty = DependencyProperty.Register("StepsG", typeof(double), typeof(PosterizeMultiChannelEffect), new UIPropertyMetadata(4.0, PixelShaderConstantCallback(1)));
+        public static readonly DependencyProperty StepsGProperty = DependencyProperty.Register("StepsG", typeof(double), typeof(PosterizeMultiChannelEffect), new UIPropertyMetadata(5.0, PixelShaderConstantCallback(1)));
 
         /// <summary>
         /// Identifies the PosterizeEffect.StepsB property.
         /// </summary>
-        public static readonly DependencyProperty StepsBProperty = DependencyProperty.Register("StepsB", typeof(double), typeof(PosterizeMultiChannelEffect), new UIPropertyMetadata(4.0, PixelShaderConstantCallback(2)));
+        public static readonly DependencyProperty StepsBProperty = DependencyProperty.Register("StepsB", typeof(double), typeof(PosterizeMultiChannelEffect), new UIPropertyMetadata(5.0, PixelShaderConstantCallback(2)));
 
         #endregion
 

@@ -7,7 +7,7 @@
         xmlns:testApp="clr-namespace:LoFiEffects.WPF.TestApp"
         xmlns:effects="clr-namespace:LoFiEffects.WPF.Effects;assembly=LoFiEffects.WPF"
         mc:Ignorable="d"
-        Title="LoFiEffects.WPF Example" Height="750" Width="800">
+        Title="LoFiEffects.WPF Example" Height="850" Width="900">
     <Window.Resources>
         <testApp:DoubleRoundingConverter x:Key="DoubleRoundingConverter"/>
         <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter"/>
@@ -29,7 +29,7 @@
             <RowDefinition Height="Auto" MinHeight="300"/>
         </Grid.RowDefinitions>
         <Border Grid.Row="0">
-            <loFiControl:FrameRateReductionPresenter Name="FrameRateReductionPresenter" FramesPerSecond="{Binding ElementName=FPSSlider, Path=Value, Mode=OneWay}">
+            <loFiControl:FrameRateReductionPresenter FramesPerSecond="{Binding ElementName=FPSSlider, Path=Value, Mode=OneWay}">
                 <Grid Background="Gray">
                     <Grid.Resources>
                         <Style TargetType="{x:Type Label}">
@@ -45,13 +45,205 @@
                         <ColumnDefinition Width="400"/>
                         <ColumnDefinition Width="*"/>
                     </Grid.ColumnDefinitions>
-                    <Image Source="Mugshot.jpg" Margin="10" Grid.Row="0" Grid.Column="0"/>
+                    <Image Name="MugshotImage" Source="Mugshot.jpg" Margin="10" Grid.Row="0" Grid.Column="0"/>
                     <StackPanel Margin="10" Grid.Row="0" Grid.Column="1">
                         <Label Content="Name: Santa"/>
                         <Label Content="Age: Unknown"/>
                         <Label Content="Diet: Mince Pies and Sherry"/>
                         <Label Content="Charged With: DUI"/>
-                        <Button Content="Sample Button" Height="150" Width="150" Margin="30"/>
+                        <Grid Margin="10">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="Auto"/>
+                            </Grid.ColumnDefinitions>
+                            <Image Source="Hat.png" Height="100" Width="100" Grid.Row="0" Grid.Column="0">
+                                <Image.RenderTransform>
+                                    <TransformGroup>
+                                        <RotateTransform x:Name="RotateBase" CenterX="50" CenterY="50"/>
+                                        <ScaleTransform x:Name="ScaleBase" ScaleX="1" ScaleY="1"/>
+                                    </TransformGroup>
+                                </Image.RenderTransform>
+                                <Image.Triggers>
+                                    <EventTrigger RoutedEvent="Image.Loaded">
+                                        <BeginStoryboard>
+                                            <Storyboard>
+                                                <DoubleAnimation Storyboard.TargetName="RotateBase" Storyboard.TargetProperty="Angle" From="-5" To="5" Duration="0:0:1" AutoReverse="True" RepeatBehavior="Forever"/>
+                                                <DoubleAnimation Storyboard.TargetName="ScaleBase" Storyboard.TargetProperty="ScaleX" From="1" To="1.1" Duration="0:0:1" AutoReverse="True" RepeatBehavior="Forever"/>
+                                                <DoubleAnimation Storyboard.TargetName="ScaleBase" Storyboard.TargetProperty="ScaleY" From="1" To="1.1" Duration="0:0:1" AutoReverse="True" RepeatBehavior="Forever"/>
+                                            </Storyboard>
+                                        </BeginStoryboard>
+                                    </EventTrigger>
+                                </Image.Triggers>
+                            </Image>
+                            <Image Source="Hat.png" Height="100" Width="100" Grid.Row="0" Grid.Column="1">
+                                <Image.RenderTransform>
+                                    <TransformGroup>
+                                        <RotateTransform x:Name="RotateGrayscale" CenterX="50" CenterY="50"/>
+                                        <ScaleTransform x:Name="ScaleGrayscale" ScaleX="1" ScaleY="1"/>
+                                    </TransformGroup>
+                                </Image.RenderTransform>
+                                <Image.Effect>
+                                    <effects:GrayscaleEffect/>
+                                </Image.Effect>
+                                <Image.Triggers>
+                                    <EventTrigger RoutedEvent="Image.Loaded">
+                                        <BeginStoryboard>
+                                            <Storyboard>
+                                                <DoubleAnimation Storyboard.TargetName="RotateGrayscale" Storyboard.TargetProperty="Angle" From="-5" To="5" Duration="0:0:1" AutoReverse="True" RepeatBehavior="Forever"/>
+                                                <DoubleAnimation Storyboard.TargetName="ScaleGrayscale" Storyboard.TargetProperty="ScaleX" From="1" To="1.1" Duration="0:0:1" AutoReverse="True" RepeatBehavior="Forever"/>
+                                                <DoubleAnimation Storyboard.TargetName="ScaleGrayscale" Storyboard.TargetProperty="ScaleY" From="1" To="1.1" Duration="0:0:1" AutoReverse="True" RepeatBehavior="Forever"/>
+                                            </Storyboard>
+                                        </BeginStoryboard>
+                                    </EventTrigger>
+                                </Image.Triggers>
+                            </Image>
+                            <Image Source="Hat.png" Height="100" Width="100" Grid.Row="0" Grid.Column="2">
+                                <Image.RenderTransform>
+                                    <TransformGroup>
+                                        <RotateTransform x:Name="RotateNegative" CenterX="50" CenterY="50"/>
+                                        <ScaleTransform x:Name="ScaleNegative" ScaleX="1" ScaleY="1"/>
+                                    </TransformGroup>
+                                </Image.RenderTransform>
+                                <Image.Effect>
+                                    <effects:NegativeEffect/>
+                                </Image.Effect>
+                                <Image.Triggers>
+                                    <EventTrigger RoutedEvent="Image.Loaded">
+                                        <BeginStoryboard>
+                                            <Storyboard>
+                                                <DoubleAnimation Storyboard.TargetName="RotateNegative" Storyboard.TargetProperty="Angle" From="-5" To="5" Duration="0:0:1" AutoReverse="True" RepeatBehavior="Forever"/>
+                                                <DoubleAnimation Storyboard.TargetName="ScaleNegative" Storyboard.TargetProperty="ScaleX" From="1" To="1.1" Duration="0:0:1" AutoReverse="True" RepeatBehavior="Forever"/>
+                                                <DoubleAnimation Storyboard.TargetName="ScaleNegative" Storyboard.TargetProperty="ScaleY" From="1" To="1.1" Duration="0:0:1" AutoReverse="True" RepeatBehavior="Forever"/>
+                                            </Storyboard>
+                                        </BeginStoryboard>
+                                    </EventTrigger>
+                                </Image.Triggers>
+                            </Image>
+                            <Image Source="Hat.png" Height="100" Width="100" Grid.Row="0" Grid.Column="3">
+                                <Image.RenderTransform>
+                                    <TransformGroup>
+                                        <RotateTransform x:Name="RotatePosterize" CenterX="50" CenterY="50"/>
+                                        <ScaleTransform x:Name="ScalePosterize" ScaleX="1" ScaleY="1"/>
+                                    </TransformGroup>
+                                </Image.RenderTransform>
+                                <Image.Effect>
+                                    <effects:PosterizeEffect x:Name="Posterize"/>
+                                </Image.Effect>
+                                <Image.Triggers>
+                                    <EventTrigger RoutedEvent="Image.Loaded">
+                                        <BeginStoryboard>
+                                            <Storyboard>
+                                                <DoubleAnimation Storyboard.TargetName="RotatePosterize" Storyboard.TargetProperty="Angle" From="-5" To="5" Duration="0:0:1" AutoReverse="True" RepeatBehavior="Forever"/>
+                                                <DoubleAnimation Storyboard.TargetName="ScalePosterize" Storyboard.TargetProperty="ScaleX" From="1" To="1.1" Duration="0:0:1" AutoReverse="True" RepeatBehavior="Forever"/>
+                                                <DoubleAnimation Storyboard.TargetName="ScalePosterize" Storyboard.TargetProperty="ScaleY" From="1" To="1.1" Duration="0:0:1" AutoReverse="True" RepeatBehavior="Forever"/>
+                                                <DoubleAnimation Storyboard.TargetName="Posterize" Storyboard.TargetProperty="Steps" From="10" To="5" Duration="0:0:1" AutoReverse="True" RepeatBehavior="Forever"/>
+                                            </Storyboard>
+                                        </BeginStoryboard>
+                                    </EventTrigger>
+                                </Image.Triggers>
+                            </Image>
+                            <Image Source="Hat.png" Height="100" Width="100" Grid.Row="1" Grid.Column="0">
+                                <Image.RenderTransform>
+                                    <TransformGroup>
+                                        <RotateTransform x:Name="RotatePosterizeMultiChannel" CenterX="50" CenterY="50"/>
+                                        <ScaleTransform x:Name="ScalePosterizeMultiChannel" ScaleX="1" ScaleY="1"/>
+                                    </TransformGroup>
+                                </Image.RenderTransform>
+                                <Image.Effect>
+                                    <effects:PosterizeMultiChannelEffect x:Name="PosterizeMultiChannel"/>
+                                </Image.Effect>
+                                <Image.Triggers>
+                                    <EventTrigger RoutedEvent="Image.Loaded">
+                                        <BeginStoryboard>
+                                            <Storyboard>
+                                                <DoubleAnimation Storyboard.TargetName="RotatePosterizeMultiChannel" Storyboard.TargetProperty="Angle" From="-5" To="5" Duration="0:0:1" AutoReverse="True" RepeatBehavior="Forever"/>
+                                                <DoubleAnimation Storyboard.TargetName="ScalePosterizeMultiChannel" Storyboard.TargetProperty="ScaleX" From="1" To="1.1" Duration="0:0:1" AutoReverse="True" RepeatBehavior="Forever"/>
+                                                <DoubleAnimation Storyboard.TargetName="ScalePosterizeMultiChannel" Storyboard.TargetProperty="ScaleY" From="1" To="1.1" Duration="0:0:1" AutoReverse="True" RepeatBehavior="Forever"/>
+                                                <DoubleAnimation Storyboard.TargetName="PosterizeMultiChannel" Storyboard.TargetProperty="StepsR" From="10" To="3" Duration="0:0:1" AutoReverse="True" RepeatBehavior="Forever"/>
+                                                <DoubleAnimation Storyboard.TargetName="PosterizeMultiChannel" Storyboard.TargetProperty="StepsG" From="3" To="10" Duration="0:0:1" AutoReverse="True" RepeatBehavior="Forever"/>
+                                                <DoubleAnimation Storyboard.TargetName="PosterizeMultiChannel" Storyboard.TargetProperty="StepsB" From="3" To="5" Duration="0:0:1" AutoReverse="True" RepeatBehavior="Forever"/>
+                                            </Storyboard>
+                                        </BeginStoryboard>
+                                    </EventTrigger>
+                                </Image.Triggers>
+                            </Image>
+                            <Image Source="Hat.png" Height="100" Width="100" Grid.Row="1" Grid.Column="1">
+                                <Image.RenderTransform>
+                                    <TransformGroup>
+                                        <RotateTransform x:Name="RotateNoise" CenterX="50" CenterY="50"/>
+                                        <ScaleTransform x:Name="ScaleNoise" ScaleX="1" ScaleY="1"/>
+                                    </TransformGroup>
+                                </Image.RenderTransform>
+                                <Image.Effect>
+                                    <effects:NoiseEffect x:Name="Noise"/>
+                                </Image.Effect>
+                                <Image.Triggers>
+                                    <EventTrigger RoutedEvent="Image.Loaded">
+                                        <BeginStoryboard>
+                                            <Storyboard>
+                                                <DoubleAnimation Storyboard.TargetName="RotateNoise" Storyboard.TargetProperty="Angle" From="-5" To="5" Duration="0:0:1" AutoReverse="True" RepeatBehavior="Forever"/>
+                                                <DoubleAnimation Storyboard.TargetName="ScaleNoise" Storyboard.TargetProperty="ScaleX" From="1" To="1.1" Duration="0:0:1" AutoReverse="True" RepeatBehavior="Forever"/>
+                                                <DoubleAnimation Storyboard.TargetName="ScaleNoise" Storyboard.TargetProperty="ScaleY" From="1" To="1.1" Duration="0:0:1" AutoReverse="True" RepeatBehavior="Forever"/>
+                                                <DoubleAnimation Storyboard.TargetName="Noise" Storyboard.TargetProperty="Offset" From="0" To="1" Duration="0:0:1" AutoReverse="True" RepeatBehavior="Forever"/>
+                                                <DoubleAnimation Storyboard.TargetName="Noise" Storyboard.TargetProperty="Intensity" From="0.5" To="1" Duration="0:0:2" AutoReverse="True" RepeatBehavior="Forever"/>
+                                                <DoubleAnimation Storyboard.TargetName="Noise" Storyboard.TargetProperty="Density" From="0.25" To="0.75" Duration="0:0:1" AutoReverse="True" RepeatBehavior="Forever"/>
+                                            </Storyboard>
+                                        </BeginStoryboard>
+                                    </EventTrigger>
+                                </Image.Triggers>
+                            </Image>
+                            <Image Source="Hat.png" Height="100" Width="100" Grid.Row="1" Grid.Column="2">
+                                <Image.RenderTransform>
+                                    <TransformGroup>
+                                        <RotateTransform x:Name="RotatePixelate" CenterX="50" CenterY="50"/>
+                                        <ScaleTransform x:Name="ScalePixelate" ScaleX="1" ScaleY="1"/>
+                                    </TransformGroup>
+                                </Image.RenderTransform>
+                                <Image.Effect>
+                                    <effects:PixelateEffect x:Name="Pixelate"/>
+                                </Image.Effect>
+                                <Image.Triggers>
+                                    <EventTrigger RoutedEvent="Image.Loaded">
+                                        <BeginStoryboard>
+                                            <Storyboard>
+                                                <DoubleAnimation Storyboard.TargetName="RotatePixelate" Storyboard.TargetProperty="Angle" From="-5" To="5" Duration="0:0:1" AutoReverse="True" RepeatBehavior="Forever"/>
+                                                <DoubleAnimation Storyboard.TargetName="ScalePixelate" Storyboard.TargetProperty="ScaleX" From="1" To="1.1" Duration="0:0:1" AutoReverse="True" RepeatBehavior="Forever"/>
+                                                <DoubleAnimation Storyboard.TargetName="ScalePixelate" Storyboard.TargetProperty="ScaleY" From="1" To="1.1" Duration="0:0:1" AutoReverse="True" RepeatBehavior="Forever"/>
+                                                <DoubleAnimation Storyboard.TargetName="Pixelate" Storyboard.TargetProperty="Intensity" From="0" To="1" Duration="0:0:1" AutoReverse="True" RepeatBehavior="Forever"/>
+                                            </Storyboard>
+                                        </BeginStoryboard>
+                                    </EventTrigger>
+                                </Image.Triggers>
+                            </Image>
+                            <Image Source="Hat.png" Height="100" Width="100" Grid.Row="1" Grid.Column="3">
+                                <Image.RenderTransform>
+                                    <TransformGroup>
+                                        <RotateTransform x:Name="RotateScanlines" CenterX="50" CenterY="50"/>
+                                        <ScaleTransform x:Name="ScaleScanlines" ScaleX="1" ScaleY="1"/>
+                                    </TransformGroup>
+                                </Image.RenderTransform>
+                                <Image.Effect>
+                                    <effects:ScanlinesEffect x:Name="Scanlines" XSpacing="2" YSpacing="5" TextureWidth="100" TextureHeight="100"/>
+                                </Image.Effect>
+                                <Image.Triggers>
+                                    <EventTrigger RoutedEvent="Image.Loaded">
+                                        <BeginStoryboard>
+                                            <Storyboard>
+                                                <DoubleAnimation Storyboard.TargetName="RotateScanlines" Storyboard.TargetProperty="Angle" From="-5" To="5" Duration="0:0:1" AutoReverse="True" RepeatBehavior="Forever"/>
+                                                <DoubleAnimation Storyboard.TargetName="ScaleScanlines" Storyboard.TargetProperty="ScaleX" From="1" To="1.1" Duration="0:0:1" AutoReverse="True" RepeatBehavior="Forever"/>
+                                                <DoubleAnimation Storyboard.TargetName="ScaleScanlines" Storyboard.TargetProperty="ScaleY" From="1" To="1.1" Duration="0:0:1" AutoReverse="True" RepeatBehavior="Forever"/>
+                                            </Storyboard>
+                                        </BeginStoryboard>
+                                    </EventTrigger>
+                                </Image.Triggers>
+                            </Image>
+                        </Grid>
                     </StackPanel>
                 </Grid>
             </loFiControl:FrameRateReductionPresenter>

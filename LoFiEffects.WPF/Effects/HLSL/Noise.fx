@@ -15,8 +15,13 @@ float4 main(float2 texCoord : TEXCOORD) : COLOR
     float clampedDensity = clamp(density, 0.0, 1.0);
     float clampedIntensity = clamp(intensity, 0.0, 1.0);
     float2 offsetCoord = texCoord + offset;
-    float noise = RandomNoise(offsetCoord);
     float4 color = tex2D(implicitInput, texCoord);
-    color.rgb += noise * clampedDensity * clampedIntensity;
+
+    if (color.a > 0.0)
+    {
+        float noise = RandomNoise(offsetCoord);
+        color.rgb += noise * clampedDensity * clampedIntensity;
+    }
+
     return color;
 }

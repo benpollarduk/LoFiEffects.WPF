@@ -8,7 +8,7 @@ float4 main(float2 uv : TEXCOORD) : COLOR
 {
     float4 color = tex2D(implicitInput, uv);
 
-    if (fmod(uv.x * textureWidth, xSpacing) < 1.0 || fmod(uv.y * textureHeight, ySpacing) < 1.0)
+    if (color.a != 0 && (fmod(uv.x * textureWidth, xSpacing) < 1.0 || fmod(uv.y * textureHeight, ySpacing) < 1.0))
     {
         color.rgb = float3(0, 0, 0);
     }

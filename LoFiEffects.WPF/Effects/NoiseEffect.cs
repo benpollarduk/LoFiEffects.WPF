@@ -65,12 +65,12 @@ namespace LoFiEffects.WPF.Effects
         /// <summary>
         /// Identifies the NoiseEffect.Density property.
         /// </summary>
-        public static readonly DependencyProperty DensityProperty = DependencyProperty.Register("Density", typeof(double), typeof(NoiseEffect), new UIPropertyMetadata(0.25, PixelShaderConstantCallback(0)));
+        public static readonly DependencyProperty DensityProperty = DependencyProperty.Register("Density", typeof(double), typeof(NoiseEffect), new UIPropertyMetadata(0.3, PixelShaderConstantCallback(0)));
 
         /// <summary>
         /// Identifies the NoiseEffect.Intensity property.
         /// </summary>
-        public static readonly DependencyProperty IntensityProperty = DependencyProperty.Register("Intensity", typeof(double), typeof(NoiseEffect), new UIPropertyMetadata(0.75, PixelShaderConstantCallback(1)));
+        public static readonly DependencyProperty IntensityProperty = DependencyProperty.Register("Intensity", typeof(double), typeof(NoiseEffect), new UIPropertyMetadata(0.8, PixelShaderConstantCallback(1)));
 
         /// <summary>
         /// Identifies the NoiseEffect.Offset property.
