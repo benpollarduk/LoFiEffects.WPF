@@ -20,8 +20,5 @@
         <Style TargetType="RadioButton">
             <Setter Property="Margin" Value="2"/>
         </Style>
-        <Style TargetType="TabControl">
-            <Setter Property="Margin" Value="2"/>
-        </Style>
     </Application.Resources>
 </Application>
