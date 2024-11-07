@@ -17,27 +17,8 @@
         <effects:PosterizeMultiChannelEffect x:Key="PosterizeMultiChannelEffect"/>
         <effects:NoiseEffect x:Key="NoiseEffect"/>
         <effects:ScanlinesEffect x:Key="ScanlinesEffect"/>
+        <effects:PixelateEffect x:Key="PixelateEffect"/>
         <RoutedCommand x:Key="ApplyCommand" />
-        <Style TargetType="Label">
-            <Setter Property="Margin" Value="2"/>
-        </Style>
-        <Style TargetType="Button">
-            <Setter Property="Margin" Value="2"/>
-        </Style>
-        <Style TargetType="GroupBox">
-            <Setter Property="Margin" Value="2"/>
-        </Style>
-        <Style TargetType="Slider">
-            <Setter Property="Margin" Value="2"/>
-            <Setter Property="IsSnapToTickEnabled" Value="True"/>
-            <Setter Property="TickPlacement" Value="BottomRight"/>
-        </Style>
-        <Style TargetType="RadioButton">
-            <Setter Property="Margin" Value="2"/>
-        </Style>
-        <Style TargetType="TabControl">
-            <Setter Property="Margin" Value="2"/>
-        </Style>
     </Window.Resources>
     <Window.CommandBindings>
         <CommandBinding x:Name="ApplyCommand" Command="{StaticResource ApplyCommand}" Executed="ApplyCommand_Executed"/>
@@ -121,6 +102,7 @@
                                 <RadioButton Name="PosterizeMultiChannelRadioButton" Content="Posterize Multi Channel" Command="{StaticResource ApplyCommand}" CommandParameter="{StaticResource PosterizeMultiChannelEffect}"/>
                                 <RadioButton Name="NoiseRadioButton" Content="Noise" Command="{StaticResource ApplyCommand}" CommandParameter="{StaticResource NoiseEffect}"/>
                                 <RadioButton Name="ScanlinesRadioButton" Content="Scanlines" Command="{StaticResource ApplyCommand}" CommandParameter="{StaticResource ScanlinesEffect}"/>
+                                <RadioButton Name="PixelateRadioButton" Content="Pixelate" Command="{StaticResource ApplyCommand}" CommandParameter="{StaticResource PixelateEffect}"/>
                             </WrapPanel>
                         </GroupBox>
                         <GroupBox Header="Settings" Grid.Row="1">
@@ -204,6 +186,16 @@
                                     <Label Content="Height:" Grid.Row="3" Grid.Column="0"/>
                                     <Slider Value="{Binding Source={StaticResource ScanlinesEffect}, Path=TextureHeight, Mode=TwoWay}" TickFrequency="1" Minimum="1" Maximum="1000" Grid.Row="3" Grid.Column="1"/>
                                     <Label Content="{Binding Source={StaticResource ScanlinesEffect}, Path=TextureHeight, Mode=OneWay, Converter={StaticResource DoubleRoundingConverter}}" Grid.Row="3" Grid.Column="2"/>
+                                </Grid>
+                                <Grid Visibility="{Binding ElementName=PixelateRadioButton, Path=IsChecked, Converter={StaticResource BooleanToVisibilityConverter}}">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="80"/>
+                                        <ColumnDefinition Width="*"/>
+                                        <ColumnDefinition Width="40"/>
+                                    </Grid.ColumnDefinitions>
+                                    <Label Content="Pixel Size:" Grid.Row="0" Grid.Column="0"/>
+                                    <Slider Value="{Binding Source={StaticResource PixelateEffect}, Path=Intensity, Mode=TwoWay}" TickFrequency="0.001" Minimum="0" Maximum="1" Grid.Row="0" Grid.Column="1"/>
+                                    <Label Content="{Binding Source={StaticResource PixelateEffect}, Path=Intensity, Mode=OneWay, Converter={StaticResource DoubleRoundingConverter}}" Grid.Row="0" Grid.Column="2"/>
                                 </Grid>
                             </StackPanel>
                         </GroupBox>
