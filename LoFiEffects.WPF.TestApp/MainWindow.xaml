@@ -193,7 +193,7 @@
                                         <ColumnDefinition Width="*"/>
                                         <ColumnDefinition Width="40"/>
                                     </Grid.ColumnDefinitions>
-                                    <Label Content="Pixel Size:" Grid.Row="0" Grid.Column="0"/>
+                                    <Label Content="Intensity:" Grid.Row="0" Grid.Column="0"/>
                                     <Slider Value="{Binding Source={StaticResource PixelateEffect}, Path=Intensity, Mode=TwoWay}" TickFrequency="0.001" Minimum="0" Maximum="1" Grid.Row="0" Grid.Column="1"/>
                                     <Label Content="{Binding Source={StaticResource PixelateEffect}, Path=Intensity, Mode=OneWay, Converter={StaticResource DoubleRoundingConverter}}" Grid.Row="0" Grid.Column="2"/>
                                 </Grid>

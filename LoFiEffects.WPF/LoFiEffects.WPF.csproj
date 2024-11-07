@@ -82,7 +82,7 @@
   </ItemGroup>
 
   <Target Name="PreBuild" BeforeTargets="PreBuildEvent">
-    <Exec Command="echo COMPILING SHADERS:&#xD;&#xA;set Fxc=C:\Program Files (x86)\Windows Kits\10\bin\10.0.22621.0\x86\fxc.exe&#xD;&#xA;set Input=$(ProjectDir)Effects\HLSL\Pixelate.fx&#xD;&#xA;set Output=$(ProjectDir)Effects\Shaders\Pixelate.ps&#xD;&#xA;&quot;%25Fxc%25&quot; /O0 /Zi /T ps_2_0 /Fo &quot;%25Output%25&quot; &quot;%25Input%25&quot;&#xD;&#xA;echo DON'T FORGET TO SET SHADER (.ps) FILE BUILD ACTION TO RESOURCE!" />
+    <Exec Command="echo COMPILING SHADERS:&#xD;&#xA;set Fxc=C:\Program Files (x86)\Windows Kits\10\bin\10.0.22621.0\x86\fxc.exe&#xD;&#xA;set Input=$(ProjectDir)Effects\HLSL\PosterizeMultiChannel.fx&#xD;&#xA;set Output=$(ProjectDir)Effects\Shaders\PosterizeMultiChannel.ps&#xD;&#xA;&quot;%25Fxc%25&quot; /O0 /Zi /T ps_2_0 /Fo &quot;%25Output%25&quot; &quot;%25Input%25&quot;&#xD;&#xA;echo DON'T FORGET TO SET SHADER (.ps) FILE BUILD ACTION TO RESOURCE!" />
   </Target>
 
 </Project>
