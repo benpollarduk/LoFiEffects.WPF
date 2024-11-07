@@ -27,5 +27,56 @@ namespace LoFiEffects.WPF.Tests
                 Assert.Fail($"Exception occurred: {ex.Message}");
             }
         }
+
+        [TestMethod]
+        public void GivenAdjustDensity_ThenNoException()
+        {
+            try
+            {
+                NoiseEffect effect = new()
+                {
+                    Density = 1
+                };
+                Assert.AreEqual(1, effect.Density);
+            }
+            catch (Exception ex)
+            {
+                Assert.Fail($"Exception occurred: {ex.Message}");
+            }
+        }
+
+        [TestMethod]
+        public void GivenAdjustOffset_ThenNoException()
+        {
+            try
+            {
+                NoiseEffect effect = new()
+                {
+                    Offset = 1
+                };
+                Assert.AreEqual(1, effect.Offset);
+            }
+            catch (Exception ex)
+            {
+                Assert.Fail($"Exception occurred: {ex.Message}");
+            }
+        }
+
+        [TestMethod]
+        public void GivenAdjustIntensity_ThenNoException()
+        {
+            try
+            {
+                NoiseEffect effect = new()
+                {
+                    Intensity = 1
+                };
+                Assert.AreEqual(1, effect.Intensity);
+            }
+            catch (Exception ex)
+            {
+                Assert.Fail($"Exception occurred: {ex.Message}");
+            }
+        }
     }
 }

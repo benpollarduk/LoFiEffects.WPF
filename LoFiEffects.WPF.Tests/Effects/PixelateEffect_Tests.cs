@@ -27,5 +27,22 @@ namespace LoFiEffects.WPF.Tests
                 Assert.Fail($"Exception occurred: {ex.Message}");
             }
         }
+
+        [TestMethod]
+        public void GivenAdjustIntensity_ThenNoException()
+        {
+            try
+            {
+                PixelateEffect effect = new()
+                {
+                    Intensity = 1
+                };
+                Assert.AreEqual(1, effect.Intensity);
+            }
+            catch (Exception ex)
+            {
+                Assert.Fail($"Exception occurred: {ex.Message}");
+            }
+        }
     }
 }

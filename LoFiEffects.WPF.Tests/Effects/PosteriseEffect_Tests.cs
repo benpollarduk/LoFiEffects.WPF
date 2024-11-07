@@ -27,5 +27,22 @@ namespace LoFiEffects.WPF.Tests
                 Assert.Fail($"Exception occurred: {ex.Message}");
             }
         }
+
+        [TestMethod]
+        public void GivenAdjustSteps_ThenNoException()
+        {
+            try
+            {
+                PosterizeEffect effect = new()
+                {
+                    Steps = 1
+                };
+                Assert.AreEqual(1, effect.Steps);
+            }
+            catch (Exception ex)
+            {
+                Assert.Fail($"Exception occurred: {ex.Message}");
+            }
+        }
     }
 }
