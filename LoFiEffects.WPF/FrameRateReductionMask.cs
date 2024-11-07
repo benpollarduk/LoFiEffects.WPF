@@ -66,6 +66,11 @@ namespace LoFiEffects.WPF
             }
         }
 
+        /// <summary>
+        /// Get or set mask background. This is a dependency property.
+        /// </summary>
+        public Brush MaskBackground { get; set; } = new SolidColorBrush(Colors.Transparent);
+
         #endregion
 
         #region ConstructionDestruction
@@ -129,6 +134,9 @@ namespace LoFiEffects.WPF
                 // render the source at the reduced size
                 using (var context = drawingVisual.RenderOpen())
                 {
+                    // draw the background
+                    context.DrawRectangle(MaskBackground, null, new Rect(topLeft, size));
+
                     // set visual
                     visualBrush.Visual = Source;
 

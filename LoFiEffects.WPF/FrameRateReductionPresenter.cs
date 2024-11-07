@@ -1,5 +1,6 @@
 ﻿using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Media;
 
 namespace LoFiEffects.WPF
 {
@@ -33,6 +34,15 @@ namespace LoFiEffects.WPF
             set { SetValue(FramesPerSecondProperty, value); }
         }
 
+        /// <summary>
+        /// Get or set the mask background. This is a dependency property.
+        /// </summary>
+        public Brush MaskBackground
+        {
+            get { return (Brush)GetValue(MaskBackgroundProperty); }
+            set { SetValue(MaskBackgroundProperty, value); }
+        }
+
         #endregion
 
         #region DependencyProperties
@@ -41,6 +51,11 @@ namespace LoFiEffects.WPF
         /// Identifies the FrameRateReductionPresenter.FramesPerSecond property.
         /// </summary>
         public static readonly DependencyProperty FramesPerSecondProperty = DependencyProperty.Register(nameof(FramesPerSecond), typeof(uint), typeof(FrameRateReductionPresenter), new PropertyMetadata((uint)30, OnFramesPerSecondPropertyChanged));
+
+        /// <summary>
+        /// Identifies the FrameRateReductionPresenter.MaskBackground property.
+        /// </summary>
+        public static readonly DependencyProperty MaskBackgroundProperty = DependencyProperty.Register(nameof(MaskBackground), typeof(Brush), typeof(FrameRateReductionPresenter), new PropertyMetadata(new SolidColorBrush(Colors.Transparent), OnMaskBackgroundPropertyChanged));
 
         #endregion
 
@@ -61,6 +76,7 @@ namespace LoFiEffects.WPF
                 {
                     mask.Source = Content as FrameworkElement;
                     mask.FramesPerSecond = FramesPerSecond;
+                    mask.MaskBackground = MaskBackground;
                 }
             };
             
@@ -129,6 +145,17 @@ namespace LoFiEffects.WPF
                 return;
 
             mask.FramesPerSecond = (uint)args.NewValue;
+        }
+
+        private static void OnMaskBackgroundPropertyChanged(DependencyObject obj, DependencyPropertyChangedEventArgs args)
+        {
+            var control = obj as FrameRateReductionPresenter;
+            var mask = control?.Mask;
+
+            if (mask == null)
+                return;
+
+            mask.MaskBackground = (Brush)args.NewValue;
         }
 
         #endregion
