@@ -1,4 +1,5 @@
 ﻿using System.Windows;
+using System.Windows.Media.Effects;
 
 namespace LoFiEffects.WPF.TestApp
 {
@@ -9,7 +10,12 @@ namespace LoFiEffects.WPF.TestApp
     {
         public MainWindow()
         {
-            InitializeComponent();
+            InitializeComponent();     
+        }
+
+        private void ApplyCommand_Executed(object sender, System.Windows.Input.ExecutedRoutedEventArgs e)
+        {
+            FrameRateReductionPresenter.Effect = e.Parameter as ShaderEffect;
         }
     }
 }

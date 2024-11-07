@@ -1,17 +1,16 @@
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Media;
 using System.Windows.Threading;
 
 namespace LoFiEffects.WPF.Tests
 {
     [TestClass]
-    public class LoFiPresenter_Tests
+    public class FrameRateReductionPresenter_Tests
     {
         [STATestMethod]
         public void GivenNewPresenter_WhenSettingContentToButton_ThenNoExceptionThrown()
         {
-            var presenter = new LoFiPresenter();
+            var presenter = new FrameRateReductionPresenter();
             var button = new Button();
 
             try
@@ -20,31 +19,14 @@ namespace LoFiEffects.WPF.Tests
             }
             catch (Exception ex)
             {
-                Assert.Fail($"Expected occurred: {ex.Message}");
-            }
-        }
-
-        [STATestMethod]
-        public void GivenPresenterContainingButton_WhenSettingReductionTo10_ThenNoExceptionThrown()
-        {
-            var presenter = new LoFiPresenter();
-            var button = new Button();
-
-            try
-            {
-                presenter.Content = button;
-                presenter.Reduction = 10;
-            }
-            catch (Exception ex)
-            {
-                Assert.Fail($"Expected occurred: {ex.Message}");
+                Assert.Fail($"Exception occurred: {ex.Message}");
             }
         }
 
         [STATestMethod]
         public void GivenPresenterContainingButton_WhenSettingFramesPerSecondTo10_ThenNoExceptionThrown()
         {
-            var presenter = new LoFiPresenter();
+            var presenter = new FrameRateReductionPresenter();
             var button = new Button();
 
             try
@@ -54,48 +36,14 @@ namespace LoFiEffects.WPF.Tests
             }
             catch (Exception ex)
             {
-                Assert.Fail($"Expected occurred: {ex.Message}");
-            }
-        }
-
-        [STATestMethod]
-        public void GivenPresenterContainingButton_WhenSettingMaskColorToBlack_ThenNoExceptionThrown()
-        {
-            var presenter = new LoFiPresenter();
-            var button = new Button();
-
-            try
-            {
-                presenter.Content = button;
-                presenter.MaskColor = Colors.Black;
-            }
-            catch (Exception ex)
-            {
-                Assert.Fail($"Expected occurred: {ex.Message}");
-            }
-        }
-
-        [STATestMethod]
-        public void GivenPresenterContainingButton_WhenDispose_ThenNoExceptionThrown()
-        {
-            var presenter = new LoFiPresenter();
-            var button = new Button();
-
-            try
-            {
-                presenter.Content = button;
-                presenter.Dispose();
-            }
-            catch (Exception ex)
-            {
-                Assert.Fail($"Expected occurred: {ex.Message}");
+                Assert.Fail($"Exception occurred: {ex.Message}");
             }
         }
 
         [STATestMethod]
         public void GivenPresenterContainingButton_WhenLoadedWithinWindow_ThenNoExceptionThrownWithin1Second()
         {
-            var presenter = new LoFiPresenter();
+            var presenter = new FrameRateReductionPresenter();
             var button = new Button();
 
             try
@@ -131,7 +79,7 @@ namespace LoFiEffects.WPF.Tests
             }
             catch (Exception ex)
             {
-                Assert.Fail($"Expected occurred: {ex.Message}");
+                Assert.Fail($"Exception occurred: {ex.Message}");
             }
         }
     }

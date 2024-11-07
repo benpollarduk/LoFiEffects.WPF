@@ -3,6 +3,25 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              StartupUri="MainWindow.xaml">
     <Application.Resources>
-         
+        <Style TargetType="Label">
+            <Setter Property="Margin" Value="2"/>
+        </Style>
+        <Style TargetType="Button">
+            <Setter Property="Margin" Value="2"/>
+        </Style>
+        <Style TargetType="GroupBox">
+            <Setter Property="Margin" Value="2"/>
+        </Style>
+        <Style TargetType="Slider">
+            <Setter Property="Margin" Value="2"/>
+            <Setter Property="IsSnapToTickEnabled" Value="True"/>
+            <Setter Property="TickPlacement" Value="BottomRight"/>
+        </Style>
+        <Style TargetType="RadioButton">
+            <Setter Property="Margin" Value="2"/>
+        </Style>
+        <Style TargetType="TabControl">
+            <Setter Property="Margin" Value="2"/>
+        </Style>
     </Application.Resources>
 </Application>
