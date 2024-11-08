@@ -4,7 +4,7 @@ using System.Windows;
 namespace LoFiEffects.WPF.Tests
 {
     [TestClass]
-    public class NoiseEffect_Tests
+    public class DegradeEffect_Tests
     {
         [TestInitialize]
         public void Setup()
@@ -17,7 +17,7 @@ namespace LoFiEffects.WPF.Tests
         {
             try
             {
-                NoiseEffect result = new();
+                DegradeEffect result = new();
                 Assert.IsNotNull(result);
             }
             catch (Exception ex)
@@ -31,7 +31,7 @@ namespace LoFiEffects.WPF.Tests
         {
             try
             {
-                NoiseEffect effect = new()
+                DegradeEffect effect = new()
                 {
                     Density = 1
                 };
@@ -48,7 +48,7 @@ namespace LoFiEffects.WPF.Tests
         {
             try
             {
-                NoiseEffect effect = new()
+                DegradeEffect effect = new()
                 {
                     Offset = 1
                 };
@@ -65,7 +65,7 @@ namespace LoFiEffects.WPF.Tests
         {
             try
             {
-                NoiseEffect effect = new()
+                DegradeEffect effect = new()
                 {
                     Intensity = 1
                 };
@@ -82,7 +82,7 @@ namespace LoFiEffects.WPF.Tests
         {
             try
             {
-                NoiseEffect effect = new()
+                DegradeEffect effect = new()
                 {
                     RenderOverTransparent = true
                 };

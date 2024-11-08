@@ -1,5 +1,6 @@
 using LoFiEffects.WPF.Effects;
 using System.Windows;
+using System.Windows.Media;
 
 namespace LoFiEffects.WPF.Tests
 {
@@ -9,9 +10,7 @@ namespace LoFiEffects.WPF.Tests
         [TestInitialize]
         public void Setup()
         {
-            // application needs to be created in order for pack Uri's to be able to resolve
-            if (Application.Current == null)
-                new Application();
+            TestSetupHelper.PrepareTestToUsePackUri();
         }
 
         [TestMethod]
@@ -89,6 +88,40 @@ namespace LoFiEffects.WPF.Tests
                     TextureHeight = 100
                 };
                 Assert.AreEqual(100, effect.TextureHeight);
+            }
+            catch (Exception ex)
+            {
+                Assert.Fail($"Exception occurred: {ex.Message}");
+            }
+        }
+
+        [TestMethod]
+        public void GivenAdjustRenderOverTransparent_ThenNoException()
+        {
+            try
+            {
+                ScanlinesEffect effect = new()
+                {
+                    RenderOverTransparent = true
+                };
+                Assert.IsTrue(effect.RenderOverTransparent);
+            }
+            catch (Exception ex)
+            {
+                Assert.Fail($"Exception occurred: {ex.Message}");
+            }
+        }
+
+        [TestMethod]
+        public void GivenAdjustScanlineColor_ThenNoException()
+        {
+            try
+            {
+                ScanlinesEffect effect = new()
+                {
+                    ScanlineColor = Colors.Blue
+                };
+                Assert.AreEqual(Colors.Blue, effect.ScanlineColor);
             }
             catch (Exception ex)
             {

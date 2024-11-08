@@ -1,5 +1,6 @@
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Media;
 using System.Windows.Threading;
 
 namespace LoFiEffects.WPF.Tests
@@ -33,6 +34,23 @@ namespace LoFiEffects.WPF.Tests
             {
                 presenter.Content = button;
                 presenter.FramesPerSecond = 10;
+            }
+            catch (Exception ex)
+            {
+                Assert.Fail($"Exception occurred: {ex.Message}");
+            }
+        }
+
+        [STATestMethod]
+        public void GivenPresenterContainingButton_WhenSettingMaskBackgroundToWhite_ThenNoExceptionThrown()
+        {
+            var presenter = new FrameRateReductionPresenter();
+            var button = new Button();
+
+            try
+            {
+                presenter.Content = button;
+                presenter.MaskBackground = new SolidColorBrush(Colors.White);
             }
             catch (Exception ex)
             {

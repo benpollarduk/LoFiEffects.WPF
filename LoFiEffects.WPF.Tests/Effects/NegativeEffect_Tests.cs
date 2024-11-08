@@ -9,9 +9,7 @@ namespace LoFiEffects.WPF.Tests
         [TestInitialize]
         public void Setup()
         {
-            // application needs to be created in order for pack Uri's to be able to resolve
-            if (Application.Current == null)
-                new Application();
+            TestSetupHelper.PrepareTestToUsePackUri();
         }
 
         [TestMethod]

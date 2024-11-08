@@ -1,4 +1,6 @@
-﻿using System.Windows;
+﻿using LoFiEffects.WPF.Effects;
+using System.Windows;
+using System.Windows.Media;
 using System.Windows.Media.Effects;
 
 namespace LoFiEffects.WPF.TestApp
@@ -13,9 +15,17 @@ namespace LoFiEffects.WPF.TestApp
             InitializeComponent();     
         }
 
-        private void ApplyCommand_Executed(object sender, System.Windows.Input.ExecutedRoutedEventArgs e)
+        private void ApplyCommandBinding_Executed(object sender, System.Windows.Input.ExecutedRoutedEventArgs e)
         {
             MugshotImage.Effect = e.Parameter as ShaderEffect;
+        }
+
+        private void SetScanlineColorCommandBinding_Executed(object sender, System.Windows.Input.ExecutedRoutedEventArgs e)
+        {
+            var effect = FindResource("ScanlinesEffect") as ScanlinesEffect;
+            
+            if (effect != null)
+                effect.ScanlineColor = (Color)e.Parameter;
         }
     }
 }

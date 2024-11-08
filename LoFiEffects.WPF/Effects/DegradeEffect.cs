@@ -5,13 +5,13 @@ using System.Windows.Media.Effects;
 namespace LoFiEffects.WPF.Effects
 {
     /// <summary>
-    /// Represents a noise shader effect.
+    /// Represents a degrade shader effect.
     /// </summary>
-    public class NoiseEffect : ShaderEffect
+    public class DegradeEffect : ShaderEffect
     {
         #region StaticFields
 
-        private static readonly PixelShader pixelShader = new() { UriSource = UriHelper.FromResource(@"Effects/Shaders/Noise.ps") };
+        private static readonly PixelShader pixelShader = new() { UriSource = UriHelper.FromResource(@"Effects/Shaders/Degrade.ps") };
 
         #endregion
 
@@ -76,43 +76,43 @@ namespace LoFiEffects.WPF.Effects
         #region DependencyProperties
 
         /// <summary>
-        /// Identifies the NoiseEffect.Input property.
+        /// Identifies the DegradeEffect.Input property.
         /// </summary>
-        public static readonly DependencyProperty InputProperty = RegisterPixelShaderSamplerProperty("Input", typeof(NoiseEffect), 0);
+        public static readonly DependencyProperty InputProperty = RegisterPixelShaderSamplerProperty("Input", typeof(DegradeEffect), 0);
 
         /// <summary>
-        /// Identifies the NoiseEffect.Density property.
+        /// Identifies the DegradeEffect.Density property.
         /// </summary>
-        public static readonly DependencyProperty DensityProperty = DependencyProperty.Register("Density", typeof(double), typeof(NoiseEffect), new UIPropertyMetadata(0.3, PixelShaderConstantCallback(0)));
+        public static readonly DependencyProperty DensityProperty = DependencyProperty.Register("Density", typeof(double), typeof(DegradeEffect), new UIPropertyMetadata(0.3, PixelShaderConstantCallback(0)));
 
         /// <summary>
-        /// Identifies the NoiseEffect.Intensity property.
+        /// Identifies the DegradeEffect.Intensity property.
         /// </summary>
-        public static readonly DependencyProperty IntensityProperty = DependencyProperty.Register("Intensity", typeof(double), typeof(NoiseEffect), new UIPropertyMetadata(0.8, PixelShaderConstantCallback(1)));
+        public static readonly DependencyProperty IntensityProperty = DependencyProperty.Register("Intensity", typeof(double), typeof(DegradeEffect), new UIPropertyMetadata(0.8, PixelShaderConstantCallback(1)));
 
         /// <summary>
-        /// Identifies the NoiseEffect.Offset property.
+        /// Identifies the DegradeEffect.Offset property.
         /// </summary>
-        public static readonly DependencyProperty OffsetProperty = DependencyProperty.Register("Offset", typeof(double), typeof(NoiseEffect), new UIPropertyMetadata(0.0, PixelShaderConstantCallback(2)));
+        public static readonly DependencyProperty OffsetProperty = DependencyProperty.Register("Offset", typeof(double), typeof(DegradeEffect), new UIPropertyMetadata(0.0, PixelShaderConstantCallback(2)));
 
         /// <summary>
-        /// Identifies the NoiseEffect.RenderOverTransparent property.
+        /// Identifies the DegradeEffect.RenderOverTransparent property.
         /// </summary>
-        public static readonly DependencyProperty RenderOverTransparentProperty = DependencyProperty.Register("RenderOverTransparent", typeof(bool), typeof(NoiseEffect), new PropertyMetadata(false, new PropertyChangedCallback(OnRenderOverTransparentPropertyChanged)));
-
+        public static readonly DependencyProperty RenderOverTransparentProperty = DependencyProperty.Register("RenderOverTransparent", typeof(bool), typeof(DegradeEffect), new PropertyMetadata(false, new PropertyChangedCallback(OnRenderOverTransparentPropertyChanged)));
+        
         /// <summary>
-        /// Identifies the NoiseEffect.RenderOverTransparentDouble property.
+        /// Identifies the DegradeEffect.RenderOverTransparentDouble property.
         /// </summary>
-        public static readonly DependencyProperty RenderOverTransparentDoubleProperty = DependencyProperty.Register("RenderOverTransparentDouble", typeof(double), typeof(NoiseEffect), new UIPropertyMetadata(0.0, PixelShaderConstantCallback(3)));
+        public static readonly DependencyProperty RenderOverTransparentDoubleProperty = DependencyProperty.Register("RenderOverTransparentDouble", typeof(double), typeof(DegradeEffect), new UIPropertyMetadata(0.0, PixelShaderConstantCallback(3)));
 
         #endregion
 
         #region Constructors
 
         /// <summary>
-        /// Initializes a new instance of the NoiseEffect class.
+        /// Initializes a new instance of the DegradeEffect class.
         /// </summary>
-        public NoiseEffect()
+        public DegradeEffect()
         {
             PixelShader = pixelShader;
 
@@ -120,7 +120,7 @@ namespace LoFiEffects.WPF.Effects
             UpdateShaderValue(DensityProperty);
             UpdateShaderValue(IntensityProperty);
             UpdateShaderValue(OffsetProperty);
-            UpdateShaderValue(RenderOverTransparentProperty);
+            UpdateShaderValue(RenderOverTransparentDoubleProperty);
         }
 
         #endregion
@@ -129,12 +129,12 @@ namespace LoFiEffects.WPF.Effects
 
         private static void OnRenderOverTransparentPropertyChanged(DependencyObject obj, DependencyPropertyChangedEventArgs args)
         {
-            var noise = obj as NoiseEffect;
+            var degrade = obj as DegradeEffect;
 
-            if (noise == null)
+            if (degrade == null)
                 return;
 
-            noise.RenderOverTransparentDouble = (bool)args.NewValue ? 1.0 : 0.0;
+            degrade.RenderOverTransparentDouble = (bool)args.NewValue ? 1.0 : 0.0;
         }
 
         #endregion

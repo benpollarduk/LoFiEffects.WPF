@@ -20,7 +20,7 @@ A WPF library for displaying content in reduced fidelity. Supports .Net 8.0.
 
 ## Introduction
 There aren't many options available for rendering WPF UIElements in artificially low resolution.
-LoFiPresenter provides a simple control that can display content at a reduced resolution and frame rate.
+LoFiEffects.WPF provides a simple collection of shader effects and controls that can display content with reduced frame rates and visual effects.
 
 ## Getting Started
 
@@ -34,42 +34,73 @@ Or add the NuGet package:
 dotnet add package LoFiEffects.WPF
 ```
 
-### Use
+### Frame Rate Reduction
+The **FrameRateReductionPresenter** can be used to reduce the frame rate that the content is rendered at.
+
+#### Use
 ```xml
-<LoFiPresenter Reduction="3" FramesPerSecond="20">
-    <Label Content="This is an example label" FontSize="20"/>
-</LoFiPresenter>
+<FrameRateReductionPresenter FramesPerSecond="5">
+    <Button Content="This is an example button"/>
+</FrameRateReductionPresenter>
 ```
 
-### Example
-Reduction 1:
+The **FramesPerSecond** property can be used to reduce the frame rate.
 
-![image](https://github.com/benpollarduk/LoFiEffects.WPF/assets/129943363/cfb4cdf6-2657-4e38-aeff-04612c1cf7a8)
+> Note: Values higher than 60 will disable the effect and normal rendering will be resumed.
 
-Reduction 2:
+#### How it works
+* **FrameRateReductionPresenter** hosts WPF content and a **FrameRateReductionMask**.
+* **FrameRateReductionMask** creates a bitmap of the the hosted content.
+* **FrameRateReductionMask** then renders this bitmap as its background.
+* **FrameRateReductionMask** isn't visible to hit testing so allows the UI beneath it to function as usual.
 
-![image](https://github.com/benpollarduk/LoFiEffects.WPF/assets/129943363/f4208e65-53af-49c2-8f59-7fd60d6dc024)
+### Shader Effects
+All visual effects are created with shader effects.
 
-Reduction 3:
+#### Grayscale
+Grayscale applies a simple grayscale effect, converting the target into grayscale. The following purposely crude algorithm is used:
 
-![image](https://github.com/benpollarduk/LoFiEffects.WPF/assets/129943363/a63ba834-fa3f-459f-877f-7fd89363e139)
+```
+gray = (red + green + blue) / 3
+```
 
-Reduction 4:
+Example:
 
-![image](https://github.com/benpollarduk/LoFiEffects.WPF/assets/129943363/264664e1-e06b-4359-bd25-5504bd0bdcaf)
+```xaml
+<Button>
+    <Button.Effect>
+        <GrayscaleEffect/>
+    </Button.Effect>
+</Button>
+```
 
-Reduction 5:
+#### Negative
+Negative applies a simple negative effect, converting the target into a negative.
 
-![image](https://github.com/benpollarduk/LoFiEffects.WPF/assets/129943363/0468753b-727b-4ea0-ab15-c044d6110ea2)
+Example:
+
+```xaml
+<Button>
+    <Button.Effect>
+        <NegativeEffect/>
+    </Button.Effect>
+</Button>
+```
+
+#### Posterize
+
+#### Posterize Multi Channel
+
+#### Noise
+
+#### Degrade
+
+#### Pixelate
+
+#### Scanlines
+
 
 ### Hello World
 For a Hello World example with a simple UI see [LoFiEffects.WPF.TestApp/MainWindow.xaml](https://github.com/benpollarduk/LoFiEffects.WPF/blob/main/LoFiEffects.WPF.TestApp/MainWindow.xaml)
 
 ![lofi-example](https://github.com/benpollarduk/LoFiEffects.WPF/assets/129943363/d209cf53-4607-4735-b2c8-f19ed36b4fce)
-
-## How it works
-**LoFiControl** is a simple codebase with 2 main classes, **LoFiPresenter** and **LoFiMask**.
-* **LoFiPresenter** hosts WPF content and a **LoFiMask**.
-* **LoFiMask** creates a bitmap at a lower resolution from the hosted content.
-* **LoFiMask** then renders this bitmap as its background at the same size as the hostesd content using *BitmapScalingMode.NearestNeighbor* to get the pixelated effect.
-* **LoFiMask** isn't visible to hit testing so allows the UI beneath it to function as usual.
