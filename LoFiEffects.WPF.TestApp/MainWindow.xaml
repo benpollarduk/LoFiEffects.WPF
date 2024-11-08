@@ -7,7 +7,7 @@
         xmlns:testApp="clr-namespace:LoFiEffects.WPF.TestApp"
         xmlns:effects="clr-namespace:LoFiEffects.WPF.Effects;assembly=LoFiEffects.WPF"
         mc:Ignorable="d"
-        Title="LoFiEffects.WPF Example" Height="920" Width="950">
+        Title="LoFiEffects.WPF Example" Height="540" Width="1200" WindowStyle="ToolWindow" ResizeMode="NoResize">
     <Window.Resources>
         <testApp:DoubleRoundingConverter x:Key="DoubleRoundingConverter"/>
         <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter"/>
@@ -27,12 +27,12 @@
         <CommandBinding x:Name="SetScanlineColorCommandBinding" Command="{StaticResource SetScanlineColor}" Executed="SetScanlineColorCommandBinding_Executed"/>
     </Window.CommandBindings>
     <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="*"/>
-            <RowDefinition Height="Auto" MinHeight="370"/>
-        </Grid.RowDefinitions>
-        <Border Grid.Row="0">
-            <loFiControl:FrameRateReductionPresenter FramesPerSecond="{Binding ElementName=FPSSlider, Path=Value, Mode=OneWay}">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="350"/>
+        </Grid.ColumnDefinitions>
+        <Border Grid.Column="0">
+            <loFiControl:FrameRateReductionPresenter FramesPerSecond="{Binding ElementName=FPSSlider, Path=Value, Mode=OneWay}" VerticalAlignment="Top">
                 <Grid Background="Gray">
                     <Grid.Resources>
                         <Style TargetType="{x:Type Label}">
@@ -238,7 +238,7 @@
                 </Grid>
             </loFiControl:FrameRateReductionPresenter>
         </Border >
-        <GroupBox Header="Controls" Margin="10" Grid.Row="1">
+        <GroupBox Header="Controls" Margin="10" Grid.Column="1">
             <Grid>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto"/>
