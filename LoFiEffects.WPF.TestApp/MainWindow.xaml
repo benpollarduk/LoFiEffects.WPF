@@ -360,6 +360,7 @@
                                 <RowDefinition Height="Auto"/>
                                 <RowDefinition Height="Auto"/>
                                 <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
                             </Grid.RowDefinitions>
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="80"/>
@@ -378,8 +379,11 @@
                             <Label Content="Height:" Grid.Row="3" Grid.Column="0"/>
                             <Slider Value="{Binding Source={StaticResource ScanlinesEffect}, Path=TextureHeight, Mode=TwoWay}" TickFrequency="1" Minimum="1" Maximum="1000" Grid.Row="3" Grid.Column="1"/>
                             <Label Content="{Binding Source={StaticResource ScanlinesEffect}, Path=TextureHeight, Mode=OneWay, Converter={StaticResource DoubleRoundingConverter}}" Grid.Row="3" Grid.Column="2"/>
-                            <CheckBox Content="Render over transparency?" IsChecked="{Binding Source={StaticResource ScanlinesEffect}, Path=RenderOverTransparent, Mode=TwoWay}" Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="3"/>
-                            <GroupBox Header="Color" Grid.Row="5" Grid.Column="0" Grid.ColumnSpan="3">
+                            <Label Content="Radius:" Grid.Row="4" Grid.Column="0"/>
+                            <Slider Value="{Binding Source={StaticResource ScanlinesEffect}, Path=CornerRadius, Mode=TwoWay}" TickFrequency="0.1" Minimum="0" Maximum="10" Grid.Row="4" Grid.Column="1"/>
+                            <Label Content="{Binding Source={StaticResource ScanlinesEffect}, Path=CornerRadius, Mode=OneWay, Converter={StaticResource DoubleRoundingConverter}}" Grid.Row="4" Grid.Column="2"/>
+                            <CheckBox Content="Render over transparency?" IsChecked="{Binding Source={StaticResource ScanlinesEffect}, Path=CornerRadius, Mode=TwoWay}" Grid.Row="5" Grid.Column="0" Grid.ColumnSpan="3"/>
+                            <GroupBox Header="Color" Grid.Row="6" Grid.Column="0" Grid.ColumnSpan="3">
                                 <WrapPanel Orientation="Horizontal">
                                     <RadioButton Content="Black" Command="{StaticResource SetScanlineColor}" IsChecked="True">
                                         <RadioButton.CommandParameter>

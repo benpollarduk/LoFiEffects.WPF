@@ -128,5 +128,22 @@ namespace LoFiEffects.WPF.Tests
                 Assert.Fail($"Exception occurred: {ex.Message}");
             }
         }
+
+        [TestMethod]
+        public void GivenAdjustCornerRadius_ThenNoException()
+        {
+            try
+            {
+                ScanlinesEffect effect = new()
+                {
+                    CornerRadius = 2
+                };
+                Assert.AreEqual(2, effect.CornerRadius);
+            }
+            catch (Exception ex)
+            {
+                Assert.Fail($"Exception occurred: {ex.Message}");
+            }
+        }
     }
 }

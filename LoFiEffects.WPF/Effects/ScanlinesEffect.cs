@@ -89,6 +89,15 @@ namespace LoFiEffects.WPF.Effects
             set { SetValue(ScanlineColorProperty, value); }
         }
 
+        /// <summary>
+        /// Get or set the corner radius. This is a dependency property.
+        /// </summary>
+        public double CornerRadius
+        {
+            get { return (double)GetValue(CornerRadiusProperty); }
+            set { SetValue(CornerRadiusProperty, value); }
+        }
+
         #endregion
 
         #region DependencyProperties
@@ -133,6 +142,11 @@ namespace LoFiEffects.WPF.Effects
         /// </summary>
         public static readonly DependencyProperty ScanlineColorProperty = DependencyProperty.Register("ScanlineColor", typeof(Color), typeof(ScanlinesEffect), new UIPropertyMetadata(Colors.Black, PixelShaderConstantCallback(5)));
 
+        /// <summary>
+        /// Identifies the ScanlinesEffect.CornerRadius property.
+        /// </summary>
+        public static readonly DependencyProperty CornerRadiusProperty = DependencyProperty.Register("CornerRadius", typeof(double), typeof(ScanlinesEffect), new UIPropertyMetadata(1.5, PixelShaderConstantCallback(6)));
+
         #endregion
 
         #region Constructors
@@ -151,10 +165,10 @@ namespace LoFiEffects.WPF.Effects
             UpdateShaderValue(TextureHeightProperty);
             UpdateShaderValue(RenderOverTransparentProperty);
             UpdateShaderValue(ScanlineColorProperty);
+            UpdateShaderValue(CornerRadiusProperty);
         }
 
         #endregion
-
 
         #region StaticMethods
 

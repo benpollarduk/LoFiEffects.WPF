@@ -96,6 +96,17 @@ Example:
 #### Degrade
 
 #### Pixelate
+Creates a pixelated effect reminiscent of the 8 bit era.
+
+Example:
+
+```xaml
+<Button>
+    <Button.Effect>
+        <PixelateEffect Intensity="0.5"/>
+    </Button.Effect>
+</Button>
+```
 
 #### Scanlines
 
