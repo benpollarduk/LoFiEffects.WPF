@@ -34,6 +34,8 @@ Or add the NuGet package:
 dotnet add package LoFiEffects.WPF
 ```
 
+## Controls
+
 ### Frame Rate Reduction
 The **FrameRateReductionPresenter** can be used to reduce the frame rate that the content is rendered at.
 
@@ -54,10 +56,10 @@ The **FramesPerSecond** property can be used to reduce the frame rate.
 * **FrameRateReductionMask** then renders this bitmap as its background.
 * **FrameRateReductionMask** isn't visible to hit testing so allows the UI beneath it to function as usual.
 
-### Shader Effects
+## Shader Effects
 All visual effects are created with shader effects.
 
-#### Grayscale
+### Grayscale
 Grayscale applies a simple grayscale effect, converting the target into grayscale. The following purposely crude algorithm is used:
 
 ```
@@ -74,7 +76,7 @@ Example:
 </Button>
 ```
 
-#### Negative
+### Negative
 Negative applies a simple negative effect, converting the target into a negative.
 
 Example:
@@ -87,15 +89,15 @@ Example:
 </Button>
 ```
 
-#### Posterize
+### Posterize
 
-#### Posterize Multi Channel
+### Posterize Multi Channel
 
-#### Noise
+### Noise
 
-#### Degrade
+### Degrade
 
-#### Pixelate
+### Pixelate
 Creates a pixelated effect reminiscent of the 8 bit era.
 
 Example:
@@ -108,10 +110,8 @@ Example:
 </Button>
 ```
 
-#### Scanlines
+### Scanlines
 
 
-### Hello World
+## Hello World
 For a Hello World example with a simple UI see [LoFiEffects.WPF.TestApp/MainWindow.xaml](https://github.com/benpollarduk/LoFiEffects.WPF/blob/main/LoFiEffects.WPF.TestApp/MainWindow.xaml)
-
-![lofi-example](https://github.com/benpollarduk/LoFiEffects.WPF/assets/129943363/d209cf53-4607-4735-b2c8-f19ed36b4fce)
