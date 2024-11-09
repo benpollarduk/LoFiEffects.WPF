@@ -3,7 +3,7 @@ using LoFiEffects.WPF.Effects;
 namespace LoFiEffects.WPF.Tests
 {
     [TestClass]
-    public class NoiseEffect_Tests
+    public class CrtEffect_Tests
     {
         [TestInitialize]
         public void Setup()
@@ -16,7 +16,7 @@ namespace LoFiEffects.WPF.Tests
         {
             try
             {
-                NoiseEffect result = new();
+                CrtEffect result = new();
                 Assert.IsNotNull(result);
             }
             catch (Exception ex)
@@ -26,15 +26,15 @@ namespace LoFiEffects.WPF.Tests
         }
 
         [TestMethod]
-        public void GivenAdjustDensity_ThenNoException()
+        public void GivenAdjustTextureWidth_ThenNoException()
         {
             try
             {
-                NoiseEffect effect = new()
+                CrtEffect effect = new()
                 {
-                    Density = 1
+                    TextureWidth = 100
                 };
-                Assert.AreEqual(1, effect.Density);
+                Assert.AreEqual(100, effect.TextureWidth);
             }
             catch (Exception ex)
             {
@@ -43,15 +43,15 @@ namespace LoFiEffects.WPF.Tests
         }
 
         [TestMethod]
-        public void GivenAdjustOffset_ThenNoException()
+        public void GivenAdjustTextureHeight_ThenNoException()
         {
             try
             {
-                NoiseEffect effect = new()
+                CrtEffect effect = new()
                 {
-                    Offset = 1
+                    TextureHeight = 100
                 };
-                Assert.AreEqual(1, effect.Offset);
+                Assert.AreEqual(100, effect.TextureHeight);
             }
             catch (Exception ex)
             {
@@ -60,32 +60,15 @@ namespace LoFiEffects.WPF.Tests
         }
 
         [TestMethod]
-        public void GivenAdjustIntensity_ThenNoException()
+        public void GAdjustIncludeScanlines_ThenNoException()
         {
             try
             {
-                NoiseEffect effect = new()
+                CrtEffect effect = new()
                 {
-                    Intensity = 1
+                    IncludeScanlines = true
                 };
-                Assert.AreEqual(1, effect.Intensity);
-            }
-            catch (Exception ex)
-            {
-                Assert.Fail($"Exception occurred: {ex.Message}");
-            }
-        }
-
-        [TestMethod]
-        public void GivenAdjustRenderOverTransparent_ThenNoException()
-        {
-            try
-            {
-                NoiseEffect effect = new()
-                {
-                    RenderOverTransparent = true
-                };
-                Assert.IsTrue(effect.RenderOverTransparent);
+                Assert.IsTrue(effect.IncludeScanlines);
             }
             catch (Exception ex)
             {

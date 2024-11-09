@@ -25,6 +25,7 @@
 
   <ItemGroup>
     <None Remove="Effects\HLSL\PosterizeMultiChannel.fx" />
+    <None Remove="Effects\Shaders\Crt.ps" />
     <None Remove="Effects\Shaders\Degrade.ps" />
     <None Remove="Effects\Shaders\Grayscale.fx" />
     <None Remove="Effects\Shaders\Grayscale.ps" />
@@ -34,11 +35,11 @@
     <None Remove="Effects\Shaders\Posterize.fx" />
     <None Remove="Effects\Shaders\Posterize.ps" />
     <None Remove="Effects\Shaders\PosterizeMultiChannel.ps" />
-    <None Remove="Effects\Shaders\Scanlines.ps" />
   </ItemGroup>
 
   <ItemGroup>
     <Resource Include="Effects\HLSL\PosterizeMultiChannel.fx" />
+    <Resource Include="Effects\Shaders\Crt.ps" />
     <Resource Include="Effects\Shaders\Degrade.ps" />
     <Resource Include="Effects\Shaders\Noise.ps" />
     <Resource Include="Effects\Shaders\Posterize.ps" />
@@ -60,7 +61,6 @@
     <Resource Include="Effects\Shaders\Grayscale.ps" />
     <Resource Include="Effects\Shaders\Negative.ps" />
     <Resource Include="Effects\Shaders\PosterizeMultiChannel.ps" />
-    <Resource Include="Effects\Shaders\Scanlines.ps" />
   </ItemGroup>
 
   <ItemGroup>
@@ -84,7 +84,7 @@
   </ItemGroup>
 
   <Target Name="PreBuild" BeforeTargets="PreBuildEvent">
-    <Exec Command="::echo COMPILING SHADERS:&#xD;&#xA;::set Fxc=C:\Program Files (x86)\Windows Kits\10\bin\10.0.22621.0\x86\fxc.exe&#xD;&#xA;::set Input=$(ProjectDir)Effects\HLSL\Scanlines.fx&#xD;&#xA;::set Output=$(ProjectDir)Effects\Shaders\Scanlines.ps&#xD;&#xA;::&quot;%25Fxc%25&quot; /O0 /Zi /T ps_2_0 /Fo &quot;%25Output%25&quot; &quot;%25Input%25&quot;&#xD;&#xA;::echo DON'T FORGET TO SET SHADER (.ps) FILE BUILD ACTION TO RESOURCE!" />
+    <Exec Command="::echo COMPILING SHADERS:&#xD;&#xA;::set Fxc=C:\Program Files (x86)\Windows Kits\10\bin\10.0.22621.0\x86\fxc.exe&#xD;&#xA;::set Input=$(ProjectDir)Effects\HLSL\Crt.fx&#xD;&#xA;::set Output=$(ProjectDir)Effects\Shaders\Crt.ps&#xD;&#xA;::&quot;%25Fxc%25&quot; /O0 /Zi /T ps_2_0 /Fo &quot;%25Output%25&quot; &quot;%25Input%25&quot;&#xD;&#xA;::echo DON'T FORGET TO SET SHADER (.ps) FILE BUILD ACTION TO RESOURCE!" />
   </Target>
 
 </Project>

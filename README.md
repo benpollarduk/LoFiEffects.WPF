@@ -110,7 +110,7 @@ Example:
 </Button>
 ```
 
-### Scanlines
+### Crt
 
 
 ## Hello World

@@ -17,14 +17,12 @@
         <effects:PosterizeMultiChannelEffect x:Key="PosterizeMultiChannelEffect"/>
         <effects:NoiseEffect x:Key="NoiseEffect"/>
         <effects:DegradeEffect x:Key="DegradeEffect"/>
-        <effects:ScanlinesEffect x:Key="ScanlinesEffect"/>
         <effects:PixelateEffect x:Key="PixelateEffect"/>
+        <effects:CrtEffect x:Key="CrtEffect"/>
         <RoutedCommand x:Key="ApplyCommand" />
-        <RoutedCommand x:Key="SetScanlineColor" />
     </Window.Resources>
     <Window.CommandBindings>
         <CommandBinding x:Name="ApplyCommandBinding" Command="{StaticResource ApplyCommand}" Executed="ApplyCommandBinding_Executed"/>
-        <CommandBinding x:Name="SetScanlineColorCommandBinding" Command="{StaticResource SetScanlineColor}" Executed="SetScanlineColorCommandBinding_Executed"/>
     </Window.CommandBindings>
     <Grid>
         <Grid.ColumnDefinitions>
@@ -48,7 +46,7 @@
                         <ColumnDefinition Width="400"/>
                         <ColumnDefinition Width="*"/>
                     </Grid.ColumnDefinitions>
-                    <Image Name="MugshotImage" Source="Mugshot.jpg" Margin="10" Grid.Row="0" Grid.Column="0"/>
+                    <Image Name="MugshotImage" Source="Mugshot.jpg" Margin="10" Grid.Row="0" Grid.Column="0" SizeChanged="MugshotImage_SizeChanged"/>
                     <StackPanel Margin="10" Grid.Row="0" Grid.Column="1">
                         <Label Content="Name: Santa"/>
                         <Label Content="Age: Unknown"/>
@@ -216,18 +214,18 @@
                                     </EventTrigger>
                                 </Image.Triggers>
                             </Image>
-                            <Image Source="Hat.png" Height="100" Width="100" Grid.Row="2" Grid.Column="0">
+                            <Image Name="CrtImage" Source="Hat.png" Height="100" Width="100" Grid.Row="2" Grid.Column="0">
                                 <Image.RenderTransform>
-                                    <RotateTransform x:Name="RotateScanlines" CenterX="50" CenterY="50"/>
+                                    <RotateTransform x:Name="RotateCrt" CenterX="50" CenterY="50"/>
                                 </Image.RenderTransform>
                                 <Image.Effect>
-                                    <effects:ScanlinesEffect x:Name="Scanlines" XSpacing="2" YSpacing="5" TextureWidth="100" TextureHeight="100"/>
+                                    <effects:CrtEffect x:Name="Crt" TextureWidth="{Binding ElementName=CrtImage, Path=ActualWidth}" TextureHeight="{Binding ElementName=CrtImage, Path=ActualHeight}"/>
                                 </Image.Effect>
                                 <Image.Triggers>
                                     <EventTrigger RoutedEvent="Image.Loaded">
                                         <BeginStoryboard>
                                             <Storyboard>
-                                                <DoubleAnimation Storyboard.TargetName="RotateScanlines" Storyboard.TargetProperty="Angle" From="-3" To="3" Duration="0:0:1" AutoReverse="True" RepeatBehavior="Forever"/>
+                                                <DoubleAnimation Storyboard.TargetName="RotateCrt" Storyboard.TargetProperty="Angle" From="-3" To="3" Duration="0:0:1" AutoReverse="True" RepeatBehavior="Forever"/>
                                             </Storyboard>
                                         </BeginStoryboard>
                                     </EventTrigger>
@@ -266,8 +264,8 @@
                         <RadioButton Name="PosterizeMultiChannelRadioButton" Content="Posterize Multi Channel" Command="{StaticResource ApplyCommand}" CommandParameter="{StaticResource PosterizeMultiChannelEffect}"/>
                         <RadioButton Name="NoiseRadioButton" Content="Noise" Command="{StaticResource ApplyCommand}" CommandParameter="{StaticResource NoiseEffect}"/>
                         <RadioButton Name="DegradeRadioButton" Content="Degrade" Command="{StaticResource ApplyCommand}" CommandParameter="{StaticResource DegradeEffect}"/>
-                        <RadioButton Name="ScanlinesRadioButton" Content="Scanlines" Command="{StaticResource ApplyCommand}" CommandParameter="{StaticResource ScanlinesEffect}"/>
                         <RadioButton Name="PixelateRadioButton" Content="Pixelate" Command="{StaticResource ApplyCommand}" CommandParameter="{StaticResource PixelateEffect}"/>
+                        <RadioButton Name="CrtRadioButton" Content="Crt" Command="{StaticResource ApplyCommand}" CommandParameter="{StaticResource CrtEffect}"/>
                     </WrapPanel>
                 </GroupBox>
                 <GroupBox Header="Settings" Grid.Row="2">
@@ -352,67 +350,6 @@
                             <Label Content="{Binding Source={StaticResource DegradeEffect}, Path=Offset, Mode=OneWay, Converter={StaticResource DoubleRoundingConverter}}" Grid.Row="2" Grid.Column="2"/>
                             <CheckBox Content="Render over transparency?" IsChecked="{Binding Source={StaticResource DegradeEffect}, Path=RenderOverTransparent, Mode=TwoWay}" Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="3"/>
                         </Grid>
-                        <Grid Visibility="{Binding ElementName=ScanlinesRadioButton, Path=IsChecked, Converter={StaticResource BooleanToVisibilityConverter}}">
-                            <Grid.RowDefinitions>
-                                <RowDefinition Height="Auto"/>
-                                <RowDefinition Height="Auto"/>
-                                <RowDefinition Height="Auto"/>
-                                <RowDefinition Height="Auto"/>
-                                <RowDefinition Height="Auto"/>
-                                <RowDefinition Height="Auto"/>
-                                <RowDefinition Height="Auto"/>
-                            </Grid.RowDefinitions>
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="80"/>
-                                <ColumnDefinition Width="*"/>
-                                <ColumnDefinition Width="40"/>
-                            </Grid.ColumnDefinitions>
-                            <Label Content="X Spacing:" Grid.Row="0" Grid.Column="0"/>
-                            <Slider Value="{Binding Source={StaticResource ScanlinesEffect}, Path=XSpacing, Mode=TwoWay}" TickFrequency="1" Minimum="1" Maximum="30" Grid.Row="0" Grid.Column="1"/>
-                            <Label Content="{Binding Source={StaticResource ScanlinesEffect}, Path=XSpacing, Mode=OneWay, Converter={StaticResource DoubleRoundingConverter}}" Grid.Row="0" Grid.Column="2"/>
-                            <Label Content="Y Spacing:" Grid.Row="1" Grid.Column="0"/>
-                            <Slider Value="{Binding Source={StaticResource ScanlinesEffect}, Path=YSpacing, Mode=TwoWay}" TickFrequency="1" Minimum="1" Maximum="30" Grid.Row="1" Grid.Column="1"/>
-                            <Label Content="{Binding Source={StaticResource ScanlinesEffect}, Path=YSpacing, Mode=OneWay, Converter={StaticResource DoubleRoundingConverter}}" Grid.Row="1" Grid.Column="2"/>
-                            <Label Content="Width:" Grid.Row="2" Grid.Column="0"/>
-                            <Slider Value="{Binding Source={StaticResource ScanlinesEffect}, Path=TextureWidth, Mode=TwoWay}" TickFrequency="1" Minimum="1" Maximum="1000" Grid.Row="2" Grid.Column="1"/>
-                            <Label Content="{Binding Source={StaticResource ScanlinesEffect}, Path=TextureWidth, Mode=OneWay, Converter={StaticResource DoubleRoundingConverter}}" Grid.Row="2" Grid.Column="2"/>
-                            <Label Content="Height:" Grid.Row="3" Grid.Column="0"/>
-                            <Slider Value="{Binding Source={StaticResource ScanlinesEffect}, Path=TextureHeight, Mode=TwoWay}" TickFrequency="1" Minimum="1" Maximum="1000" Grid.Row="3" Grid.Column="1"/>
-                            <Label Content="{Binding Source={StaticResource ScanlinesEffect}, Path=TextureHeight, Mode=OneWay, Converter={StaticResource DoubleRoundingConverter}}" Grid.Row="3" Grid.Column="2"/>
-                            <Label Content="Radius:" Grid.Row="4" Grid.Column="0"/>
-                            <Slider Value="{Binding Source={StaticResource ScanlinesEffect}, Path=CornerRadius, Mode=TwoWay}" TickFrequency="0.1" Minimum="0" Maximum="10" Grid.Row="4" Grid.Column="1"/>
-                            <Label Content="{Binding Source={StaticResource ScanlinesEffect}, Path=CornerRadius, Mode=OneWay, Converter={StaticResource DoubleRoundingConverter}}" Grid.Row="4" Grid.Column="2"/>
-                            <CheckBox Content="Render over transparency?" IsChecked="{Binding Source={StaticResource ScanlinesEffect}, Path=CornerRadius, Mode=TwoWay}" Grid.Row="5" Grid.Column="0" Grid.ColumnSpan="3"/>
-                            <GroupBox Header="Color" Grid.Row="6" Grid.Column="0" Grid.ColumnSpan="3">
-                                <WrapPanel Orientation="Horizontal">
-                                    <RadioButton Content="Black" Command="{StaticResource SetScanlineColor}" IsChecked="True">
-                                        <RadioButton.CommandParameter>
-                                            <Color>Black</Color>
-                                        </RadioButton.CommandParameter>
-                                    </RadioButton>
-                                    <RadioButton Content="White" Command="{StaticResource SetScanlineColor}">
-                                        <RadioButton.CommandParameter>
-                                            <Color>White</Color>
-                                        </RadioButton.CommandParameter>
-                                    </RadioButton>
-                                    <RadioButton Content="Red" Command="{StaticResource SetScanlineColor}">
-                                        <RadioButton.CommandParameter>
-                                            <Color>Red</Color>
-                                        </RadioButton.CommandParameter>
-                                    </RadioButton>
-                                    <RadioButton Content="Green" Command="{StaticResource SetScanlineColor}">
-                                        <RadioButton.CommandParameter>
-                                            <Color>Green</Color>
-                                        </RadioButton.CommandParameter>
-                                    </RadioButton>
-                                    <RadioButton Content="Blue" Command="{StaticResource SetScanlineColor}">
-                                        <RadioButton.CommandParameter>
-                                            <Color>Blue</Color>
-                                        </RadioButton.CommandParameter>
-                                    </RadioButton>
-                                </WrapPanel>
-                            </GroupBox>
-                        </Grid>
                         <Grid Visibility="{Binding ElementName=PixelateRadioButton, Path=IsChecked, Converter={StaticResource BooleanToVisibilityConverter}}">
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="80"/>
@@ -422,6 +359,9 @@
                             <Label Content="Intensity:" Grid.Row="0" Grid.Column="0"/>
                             <Slider Value="{Binding Source={StaticResource PixelateEffect}, Path=Intensity, Mode=TwoWay}" TickFrequency="0.001" Minimum="0" Maximum="1" Grid.Row="0" Grid.Column="1"/>
                             <Label Content="{Binding Source={StaticResource PixelateEffect}, Path=Intensity, Mode=OneWay, Converter={StaticResource DoubleRoundingConverter}}" Grid.Row="0" Grid.Column="2"/>
+                        </Grid>
+                        <Grid Visibility="{Binding ElementName=CrtRadioButton, Path=IsChecked, Converter={StaticResource BooleanToVisibilityConverter}}">
+                            <CheckBox Content="Include scanlines?" IsChecked="{Binding Source={StaticResource CrtEffect}, Path=IncludeScanlines, Mode=TwoWay}"/>
                         </Grid>
                     </StackPanel>
                 </GroupBox>

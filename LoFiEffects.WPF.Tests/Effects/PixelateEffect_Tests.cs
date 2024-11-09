@@ -1,5 +1,4 @@
 using LoFiEffects.WPF.Effects;
-using System.Windows;
 
 namespace LoFiEffects.WPF.Tests
 {
