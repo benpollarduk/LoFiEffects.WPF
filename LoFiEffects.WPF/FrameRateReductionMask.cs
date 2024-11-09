@@ -108,60 +108,47 @@ namespace LoFiEffects.WPF
         /// </summary>
         private void RequestRender()
         {
-            try
+            isRendering = true;
+            lastRenderTime = Environment.TickCount;
+
+            if (Source == null)
+                return;
+
+            // ensure that rendering is possible with the current sizes
+            if (double.IsNaN(ActualWidth) ||
+                double.IsNaN(ActualHeight))
+                return;
+
+            // get size
+            Size size = new(ActualWidth, ActualHeight);
+
+            // check if the bitmap can be reused, if not create it
+            if (bitmap == null || bitmap.PixelWidth != (int)size.Width || bitmap.PixelHeight != (int)size.Height)
+                bitmap = new RenderTargetBitmap((int)size.Width, (int)size.Height, 96, 96, PixelFormats.Pbgra32);
+
+            // clear visual
+            drawingVisual.Children.Clear();
+
+            // render the source at the reduced size
+            using (var context = drawingVisual.RenderOpen())
             {
-                isRendering = true;
-                lastRenderTime = Environment.TickCount;
+                // draw the background
+                context.DrawRectangle(MaskBackground, null, new Rect(topLeft, size));
 
-                if (Source == null)
-                    return;
+                // set visual
+                visualBrush.Visual = Source;
 
-                // ensure that rendering is possible with the current sizes
-                if (double.IsNaN(ActualWidth) ||
-                    double.IsNaN(ActualHeight))
-                    return;
-
-                // get size
-                Size size = new(ActualWidth, ActualHeight);
-
-                // check if the bitmap can be reused, if not create it
-                if (bitmap == null || bitmap.PixelWidth != (int)size.Width || bitmap.PixelHeight != (int)size.Height)
-                    bitmap = new RenderTargetBitmap((int)size.Width, (int)size.Height, 96, 96, PixelFormats.Pbgra32);
-
-                // clear visual
-                drawingVisual.Children.Clear();
-
-                // render the source at the reduced size
-                using (var context = drawingVisual.RenderOpen())
-                {
-                    // draw the background
-                    context.DrawRectangle(MaskBackground, null, new Rect(topLeft, size));
-
-                    // set visual
-                    visualBrush.Visual = Source;
-
-                    // draw the source content on top of the background
-                    context.DrawRectangle(visualBrush, null, new Rect(topLeft, size));
-                }
-
-                // render the visual in the bitmap
-                bitmap.Render(drawingVisual);
-
-                // render the lo-fi bitmap as the background of the mask
-                Background = new ImageBrush(bitmap);
+                // draw the source content on top of the background
+                context.DrawRectangle(visualBrush, null, new Rect(topLeft, size));
             }
-            catch (TaskCanceledException)
-            {
-                // these can occur if the timer is stopped during a render
-            }
-            catch (ObjectDisposedException)
-            {
-                // these can occur if the timer is disposed during a render
-            }
-            finally
-            {
-                isRendering = false;
-            }
+
+            // render the visual in the bitmap
+            bitmap.Render(drawingVisual);
+
+            // render the lo-fi bitmap as the background of the mask
+            Background = new ImageBrush(bitmap);
+
+            isRendering = false;
         }
 
         /// <summary>
