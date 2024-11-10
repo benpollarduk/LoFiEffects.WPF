@@ -77,6 +77,13 @@ Creates a pixelated effect reminiscent of the 8 bit era.
 An effect that aims to create the impression that the visual is being displayed on a cathode-ray tube (CRT) display.
 
 #### Example
+```xaml
+<Button>
+    <Button.Effect>
+        <CrtEffect TextureWidth="100" TextureHeight="35" IncludeScanlines="False"/>
+    </Button.Effect>
+</Button>
+```
 
 #### Properties
 * Texture width. A double specifying the rendered width of the texture in WPF units.
@@ -86,8 +93,36 @@ An effect that aims to create the impression that the visual is being displayed 
 ### Degrade
 Adds overall degradation to the visual. Simpliar to the *Noise* effect but works in a subtractive manner.
 
+#### Example
+```xaml
+<Button>
+    <Button.Effect>
+        <DegradeEffect Intensity="0.5" Density="0.5" Offset="0"/>
+    </Button.Effect>
+</Button>
+```
+
+#### Properties
+* Intensity. A double specifying the intensity of the effect within a normalised range of 0-1.
+* Density. A double specifying the density of the effect within a normalised range of 0-1.
+* Offset. A double specifying an offset to apply to the effect within a normalised range of 0-1. When this value changes different patterns are generated which can be used to add a pseudo-random effect.
+
 ### Noise
 Adds noise to the visual. Similar to *Degrade* but is additive.
+
+#### Example
+```xaml
+<Button>
+    <Button.Effect>
+        <NoiseEffect Intensity="0.5" Density="0.5" Offset="0"/>
+    </Button.Effect>
+</Button>
+```
+
+#### Properties
+* Intensity. A double specifying the intensity of the effect within a normalised range of 0-1.
+* Density. A double specifying the density of the effect within a normalised range of 0-1.
+* Offset. A double specifying an offset to apply to the effect within a normalised range of 0-1. When this value changes different patterns are generated which can be used to add a pseudo-random effect.
 
 ### Grayscale
 Applies a simple grayscale effect, converting the target into grayscale. The following purposely crude algorithm is used:
@@ -119,12 +154,26 @@ Applies a simple negative effect, inverting all channels except alpha, rendering
 ### Posterize
 
 #### Example
+```xaml
+<Button>
+    <Button.Effect>
+        <PosterizeEffect/>
+    </Button.Effect>
+</Button>
+```
 
 #### Properties
 
 ### Posterize Multi Channel
 
 #### Example
+```xaml
+<Button>
+    <Button.Effect>
+        <PosterizeMultiChannelEffect/>
+    </Button.Effect>
+</Button>
+```
 
 #### Properties
 
