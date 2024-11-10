@@ -5,9 +5,9 @@ using System.Windows.Media;
 namespace LoFiEffects.WPF
 {
     /// <summary>
-    /// Provides a control for presenting content at a reduced fidelity.
+    /// Provides a control for presenting content at a reduced frame rate.
     /// </summary>
-    public class LoFiPresenter : ContentControl, IDisposable
+    public class FrameRateReductionPresenter : ContentControl
     {
         #region Fields
 
@@ -19,20 +19,11 @@ namespace LoFiEffects.WPF
         /// <summary>
         /// Get the LoFiMask used to mask the contents of the Presenter.
         /// </summary>
-        private LoFiMask? Mask => GetTemplateChild("PART_MASK") as LoFiMask;
+        private FrameRateReductionMask? Mask => GetTemplateChild("PART_MASK") as FrameRateReductionMask;
 
         #endregion
 
         #region Properties
-
-        /// <summary>
-        /// Get or set the strength of the reduction. This is a dependency property.
-        /// </summary>
-        public double Reduction
-        {
-            get { return (double)GetValue(ReductionProperty); }
-            set { SetValue(ReductionProperty, value); }
-        }
 
         /// <summary>
         /// Get or set the number of frames per second the mask updates at. This is a dependency property.
@@ -44,12 +35,12 @@ namespace LoFiEffects.WPF
         }
 
         /// <summary>
-        /// Get or set the mask color. This is a dependency property.
+        /// Get or set the mask background. This is a dependency property.
         /// </summary>
-        public Color? MaskColor
+        public Brush MaskBackground
         {
-            get { return (Color?)GetValue(MaskColorProperty); }
-            set { SetValue(MaskColorProperty, value); }
+            get { return (Brush)GetValue(MaskBackgroundProperty); }
+            set { SetValue(MaskBackgroundProperty, value); }
         }
 
         #endregion
@@ -57,28 +48,23 @@ namespace LoFiEffects.WPF
         #region DependencyProperties
 
         /// <summary>
-        /// Identifies the LoFiPresenter.Reduction property.
+        /// Identifies the FrameRateReductionPresenter.FramesPerSecond property.
         /// </summary>
-        public static readonly DependencyProperty ReductionProperty = DependencyProperty.Register(nameof(Reduction), typeof(double), typeof(LoFiPresenter), new PropertyMetadata(2d, OnReductionPropertyChanged));
+        public static readonly DependencyProperty FramesPerSecondProperty = DependencyProperty.Register(nameof(FramesPerSecond), typeof(uint), typeof(FrameRateReductionPresenter), new PropertyMetadata((uint)30, OnFramesPerSecondPropertyChanged));
 
         /// <summary>
-        /// Identifies the LoFiPresenter.FramesPerSecond property.
+        /// Identifies the FrameRateReductionPresenter.MaskBackground property.
         /// </summary>
-        public static readonly DependencyProperty FramesPerSecondProperty = DependencyProperty.Register(nameof(FramesPerSecond), typeof(uint), typeof(LoFiPresenter), new PropertyMetadata((uint)30, OnFramesPerSecondPropertyChanged));
-
-        /// <summary>
-        /// Identifies the LoFiPresenter.MaskColor property.
-        /// </summary>
-        public static readonly DependencyProperty MaskColorProperty = DependencyProperty.Register(nameof(MaskColor), typeof(Color?), typeof(LoFiPresenter), new PropertyMetadata(OnMaskColorPropertyChanged));
+        public static readonly DependencyProperty MaskBackgroundProperty = DependencyProperty.Register(nameof(MaskBackground), typeof(Brush), typeof(FrameRateReductionPresenter), new PropertyMetadata(new SolidColorBrush(Colors.Transparent), OnMaskBackgroundPropertyChanged));
 
         #endregion
 
         #region Constructors
 
         /// <summary>
-        /// Initializes a new instance of the LoFiPresenter class.
+        /// Initializes a new instance of the FrameRateReductionPresenter class.
         /// </summary>
-        public LoFiPresenter()
+        public FrameRateReductionPresenter()
         {
             Template = CreateTemplate();
             
@@ -89,9 +75,8 @@ namespace LoFiEffects.WPF
                 if (mask != null)
                 {
                     mask.Source = Content as FrameworkElement;
-                    mask.Reduction = Reduction;
                     mask.FramesPerSecond = FramesPerSecond;
-                    mask.MaskColor = MaskColor;
+                    mask.MaskBackground = MaskBackground;
                 }
             };
             
@@ -109,10 +94,10 @@ namespace LoFiEffects.WPF
         #region Overrides of ContentControl
 
         /// <summary>
-        /// Called when the <see cref="P:System.Windows.Controls.ContentControl.Content" /> property changes.
+        /// Called when the System.Windows.Controls.ContentControl.Content property changes.
         /// </summary>
-        /// <param name="oldContent">The old value of the <see cref="P:System.Windows.Controls.ContentControl.Content" /> property.</param>
-        /// <param name="newContent">The new value of the <see cref="P:System.Windows.Controls.ContentControl.Content" /> property.</param>
+        /// <param name="oldContent">The old value of the System.Windows.Controls.ContentControl.Content property.</param>
+        /// <param name="newContent">The new value of the System.Windows.Controls.ContentControl.Content property.</param>
         protected override void OnContentChanged(object oldContent, object newContent)
         {
             base.OnContentChanged(oldContent, newContent);
@@ -130,14 +115,14 @@ namespace LoFiEffects.WPF
 
         private static ControlTemplate CreateTemplate()
         {
-            var template = new ControlTemplate(typeof(LoFiPresenter));
+            var template = new ControlTemplate(typeof(FrameRateReductionPresenter));
 
             var contentPresenter = new FrameworkElementFactory(typeof(ContentPresenter))
             {
                 Name = "PART_PRESENTER"
             };
 
-            var mask = new FrameworkElementFactory(typeof(LoFiMask))
+            var mask = new FrameworkElementFactory(typeof(FrameRateReductionMask))
             {
                 Name = "PART_MASK"
             };
@@ -151,20 +136,9 @@ namespace LoFiEffects.WPF
             return template;
         }
 
-        private static void OnReductionPropertyChanged(DependencyObject obj, DependencyPropertyChangedEventArgs args)
-        {
-            var control = obj as LoFiPresenter;
-            var mask = control?.Mask;
-
-            if (mask == null)
-                return;
-
-            mask.Reduction = (double)args.NewValue;
-        }
-
         private static void OnFramesPerSecondPropertyChanged(DependencyObject obj, DependencyPropertyChangedEventArgs args)
         {
-            var control = obj as LoFiPresenter;
+            var control = obj as FrameRateReductionPresenter;
             var mask = control?.Mask;
 
             if (mask == null)
@@ -173,27 +147,15 @@ namespace LoFiEffects.WPF
             mask.FramesPerSecond = (uint)args.NewValue;
         }
 
-        private static void OnMaskColorPropertyChanged(DependencyObject obj, DependencyPropertyChangedEventArgs args)
+        private static void OnMaskBackgroundPropertyChanged(DependencyObject obj, DependencyPropertyChangedEventArgs args)
         {
-            var control = obj as LoFiPresenter;
+            var control = obj as FrameRateReductionPresenter;
             var mask = control?.Mask;
 
             if (mask == null)
                 return;
 
-            mask.MaskColor = (Color?)args.NewValue;
-        }
-
-        #endregion
-
-        #region IDisposable
-
-        /// <summary>
-        /// Performs application-defined tasks associated with freeing, releasing, or resetting unmanaged resources.
-        /// </summary>
-        public void Dispose()
-        {
-            Mask?.Dispose();
+            mask.MaskBackground = (Brush)args.NewValue;
         }
 
         #endregion

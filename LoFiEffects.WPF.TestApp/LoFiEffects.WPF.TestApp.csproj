@@ -9,6 +9,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Hat.png" />
     <None Remove="Mugshot.jpg" />
   </ItemGroup>
 
@@ -17,7 +18,10 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Resource Include="Mugshot.jpg">
+    <Resource Include="Images\Hat.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Images\Mugshot.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>
   </ItemGroup>

@@ -1,4 +1,6 @@
-﻿using System.Windows;
+﻿using LoFiEffects.WPF.Effects;
+using System.Windows;
+using System.Windows.Media.Effects;
 
 namespace LoFiEffects.WPF.TestApp
 {
@@ -9,7 +11,23 @@ namespace LoFiEffects.WPF.TestApp
     {
         public MainWindow()
         {
-            InitializeComponent();
+            InitializeComponent();     
+        }
+
+        private void ApplyCommandBinding_Executed(object sender, System.Windows.Input.ExecutedRoutedEventArgs e)
+        {
+            FrameRateReductionPresenter.Effect = e.Parameter as ShaderEffect;
+        }
+
+        private void MugshotImage_SizeChanged(object sender, SizeChangedEventArgs e)
+        {
+            var effect = FindResource("CrtEffect") as CrtEffect;
+
+            if (effect == null)
+                return;
+
+            effect.TextureWidth = e.NewSize.Width;
+            effect.TextureHeight = e.NewSize.Height;
         }
     }
 }
