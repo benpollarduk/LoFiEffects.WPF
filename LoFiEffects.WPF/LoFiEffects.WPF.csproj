@@ -19,7 +19,7 @@
     <PackageReleaseNotes></PackageReleaseNotes>
     <RepositoryUrl>https://github.com/benpollarduk/lofieffects.wpf</RepositoryUrl>
     <PackageProjectUrl>https://github.com/benpollarduk/lofieffects.wpf</PackageProjectUrl>
-    <Description>An open source library for providing WPF controls that present content in reduced fidelity.</Description>
+    <Description>An open source library of controls and shader effects that can display content with reduced frame rates and other visual effects aimed at degrading visual quality.</Description>
     <GenerateDocumentationFile>True</GenerateDocumentationFile>
   </PropertyGroup>
 
