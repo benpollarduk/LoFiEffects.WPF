@@ -86,9 +86,9 @@ An effect that aims to create the impression that the visual is being displayed 
 ```
 
 #### Properties
-* Texture width. A double specifying the rendered width of the texture in WPF units.
-* Texture height. A double specifying the rendered height of the texture in WPF units.
-* Include scanlines. A boolean specifying if scan lines should be included.
+* TextureWidth. A double specifying the rendered width of the texture in WPF units.
+* TextureHeight. A double specifying the rendered height of the texture in WPF units.
+* IncludeScanlines. A boolean specifying if scan lines should be included.
 
 ### Degrade
 Adds overall degradation to the visual. Simpliar to the *Noise* effect but works in a subtractive manner.
