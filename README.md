@@ -58,15 +58,44 @@ The **FramesPerSecond** property can be used to reduce the frame rate.
 ## Shader Effects
 All visual effects are created with shader effects.
 
-### Grayscale
-Grayscale applies a simple grayscale effect, converting the target into grayscale. The following purposely crude algorithm is used:
+### Pixelate
+Creates a pixelated effect reminiscent of the 8 bit era.
 
+#### Example
+```xaml
+<Button>
+    <Button.Effect>
+        <PixelateEffect Intensity="0.5"/>
+    </Button.Effect>
+</Button>
+```
+
+#### Properties
+* Intensity. A double specifying the intensity of the effect within a normalised range of 0-1.
+
+### Crt
+An effect that aims to create the impression that the visual is being displayed on a cathode-ray tube (CRT) display.
+
+#### Example
+
+#### Properties
+* Texture width. A double specifying the rendered width of the texture in WPF units.
+* Texture height. A double specifying the rendered height of the texture in WPF units.
+* Include scanlines. A boolean specifying if scan lines should be included.
+
+### Degrade
+Adds overall degradation to the visual. Simpliar to the *Noise* effect but works in a subtractive manner.
+
+### Noise
+Adds noise to the visual. Similar to *Degrade* but is additive.
+
+### Grayscale
+Applies a simple grayscale effect, converting the target into grayscale. The following purposely crude algorithm is used:
 ```
 gray = (red + green + blue) / 3
 ```
 
-Example:
-
+#### Example
 ```xaml
 <Button>
     <Button.Effect>
@@ -76,10 +105,9 @@ Example:
 ```
 
 ### Negative
-Negative applies a simple negative effect, converting the target into a negative.
+Applies a simple negative effect, inverting all channels except alpha, rendering the visual as a negative.
 
-Example:
-
+#### Example
 ```xaml
 <Button>
     <Button.Effect>
@@ -90,27 +118,15 @@ Example:
 
 ### Posterize
 
+#### Example
+
+#### Properties
+
 ### Posterize Multi Channel
 
-### Noise
+#### Example
 
-### Degrade
-
-### Pixelate
-Creates a pixelated effect reminiscent of the 8 bit era.
-
-Example:
-
-```xaml
-<Button>
-    <Button.Effect>
-        <PixelateEffect Intensity="0.5"/>
-    </Button.Effect>
-</Button>
-```
-
-### Crt
-
+#### Properties
 
 ## Hello World
 For a Hello World example with a simple UI see [LoFiEffects.WPF.TestApp/MainWindow.xaml](https://github.com/benpollarduk/LoFiEffects.WPF/blob/main/LoFiEffects.WPF.TestApp/MainWindow.xaml)
