@@ -199,7 +199,5 @@ Reduces apparent bit depth across all channels individually to produce a banding
 * **StepsG**: Sets the number of steps used to represent the green channel. Supports values between 1 and 255. Low values will have a more pronounced effect, higher values will be subtle.
 * **StepsB**: Sets the number of steps used to represent the blue channel. Supports values between 1 and 255. Low values will have a more pronounced effect, higher values will be subtle.
 
-#### Properties
-
 ## Hello World
 For a Hello World example with a simple UI see [LoFiEffects.WPF.TestApp/MainWindow.xaml](https://github.com/benpollarduk/LoFiEffects.WPF/blob/main/LoFiEffects.WPF.TestApp/MainWindow.xaml)
