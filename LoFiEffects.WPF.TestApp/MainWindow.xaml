@@ -30,7 +30,7 @@
             <ColumnDefinition Width="350"/>
         </Grid.ColumnDefinitions>
         <Border Grid.Column="0">
-            <loFiControl:FrameRateReductionPresenter FramesPerSecond="{Binding ElementName=FPSSlider, Path=Value, Mode=OneWay}" VerticalAlignment="Top">
+            <loFiControl:FrameRateReductionPresenter x:Name="FrameRateReductionPresenter" FramesPerSecond="{Binding ElementName=FPSSlider, Path=Value, Mode=OneWay}" VerticalAlignment="Top">
                 <Grid Background="Gray">
                     <Grid.Resources>
                         <Style TargetType="{x:Type Label}">
@@ -46,7 +46,7 @@
                         <ColumnDefinition Width="400"/>
                         <ColumnDefinition Width="*"/>
                     </Grid.ColumnDefinitions>
-                    <Image Name="MugshotImage" Source="Mugshot.jpg" Margin="10" Grid.Row="0" Grid.Column="0" SizeChanged="MugshotImage_SizeChanged"/>
+                    <Image Source="Images/Mugshot.jpg" Margin="10" Grid.Row="0" Grid.Column="0" SizeChanged="MugshotImage_SizeChanged"/>
                     <StackPanel Margin="10" Grid.Row="0" Grid.Column="1">
                         <Label Content="Name: Santa"/>
                         <Label Content="Age: Unknown"/>
@@ -80,7 +80,7 @@
                                     </Image.Triggers>
                                 </Image>
                             </loFiControl:FrameRateReductionPresenter>
-                            <Image Source="Hat.png" Height="100" Width="100" Grid.Row="0" Grid.Column="1">
+                            <Image Source="Images/Hat.png" Height="100" Width="100" Grid.Row="0" Grid.Column="1">
                                 <Image.RenderTransform>
                                     <RotateTransform x:Name="RotateGrayscale" CenterX="50" CenterY="50"/>
                                 </Image.RenderTransform>
@@ -97,7 +97,7 @@
                                     </EventTrigger>
                                 </Image.Triggers>
                             </Image>
-                            <Image Source="Hat.png" Height="100" Width="100" Grid.Row="0" Grid.Column="2">
+                            <Image Source="Images/Hat.png" Height="100" Width="100" Grid.Row="0" Grid.Column="2">
                                 <Image.RenderTransform>
                                     <RotateTransform x:Name="RotateNegative" CenterX="50" CenterY="50"/>
                                 </Image.RenderTransform>
@@ -114,7 +114,7 @@
                                     </EventTrigger>
                                 </Image.Triggers>
                             </Image>
-                            <Image Source="Hat.png" Height="100" Width="100" Grid.Row="0" Grid.Column="3">
+                            <Image Source="Images/Hat.png" Height="100" Width="100" Grid.Row="0" Grid.Column="3">
                                 <Image.RenderTransform>
                                     <RotateTransform x:Name="RotatePosterize" CenterX="50" CenterY="50"/>
                                 </Image.RenderTransform>
@@ -132,7 +132,7 @@
                                     </EventTrigger>
                                 </Image.Triggers>
                             </Image>
-                            <Image Source="Hat.png" Height="100" Width="100" Grid.Row="1" Grid.Column="0">
+                            <Image Source="Images/Hat.png" Height="100" Width="100" Grid.Row="1" Grid.Column="0">
                                 <Image.RenderTransform>
                                     <RotateTransform x:Name="RotatePosterizeMultiChannel" CenterX="50" CenterY="50"/>
                                 </Image.RenderTransform>
@@ -152,7 +152,7 @@
                                     </EventTrigger>
                                 </Image.Triggers>
                             </Image>
-                            <Image Source="Hat.png" Height="100" Width="100" Grid.Row="1" Grid.Column="1">
+                            <Image Source="Images/Hat.png" Height="100" Width="100" Grid.Row="1" Grid.Column="1">
                                 <Image.RenderTransform>
                                     <TransformGroup>
                                         <RotateTransform x:Name="RotateNoise" CenterX="50" CenterY="50"/>
@@ -174,7 +174,7 @@
                                     </EventTrigger>
                                 </Image.Triggers>
                             </Image>
-                            <Image Source="Hat.png" Height="100" Width="100" Grid.Row="1" Grid.Column="2">
+                            <Image Source="Images/Hat.png" Height="100" Width="100" Grid.Row="1" Grid.Column="2">
                                 <Image.RenderTransform>
                                     <TransformGroup>
                                         <RotateTransform x:Name="RotateDegrade" CenterX="50" CenterY="50"/>
@@ -196,7 +196,7 @@
                                     </EventTrigger>
                                 </Image.Triggers>
                             </Image>
-                            <Image Source="Hat.png" Height="100" Width="100" Grid.Row="1" Grid.Column="3">
+                            <Image Source="Images/Hat.png" Height="100" Width="100" Grid.Row="1" Grid.Column="3">
                                 <Image.RenderTransform>
                                     <RotateTransform x:Name="RotatePixelate" CenterX="50" CenterY="50"/>
                                 </Image.RenderTransform>
@@ -214,7 +214,7 @@
                                     </EventTrigger>
                                 </Image.Triggers>
                             </Image>
-                            <Image Name="CrtImage" Source="Hat.png" Height="100" Width="100" Grid.Row="2" Grid.Column="0">
+                            <Image Name="CrtImage" Source="Images/Hat.png" Height="100" Width="100" Grid.Row="2" Grid.Column="0">
                                 <Image.RenderTransform>
                                     <RotateTransform x:Name="RotateCrt" CenterX="50" CenterY="50"/>
                                 </Image.RenderTransform>

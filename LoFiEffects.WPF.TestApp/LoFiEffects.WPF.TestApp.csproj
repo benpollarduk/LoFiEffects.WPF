@@ -18,16 +18,12 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Resource Include="Hat.png">
+    <Resource Include="Images\Hat.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>
-    <Resource Include="Mugshot.jpg">
+    <Resource Include="Images\Mugshot.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Images\" />
   </ItemGroup>
 
 </Project>

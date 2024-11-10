@@ -51,7 +51,7 @@ The **FramesPerSecond** property can be used to reduce the frame rate.
 
 #### How it works
 * **FrameRateReductionPresenter** hosts WPF content and a **FrameRateReductionMask**.
-* **FrameRateReductionMask** creates a bitmap of the the hosted content.
+* **FrameRateReductionMask** creates a bitmap of the hosted content.
 * **FrameRateReductionMask** then renders this bitmap as its background.
 * **FrameRateReductionMask** isn't visible to hit testing so allows the UI beneath it to function as usual.
 
@@ -95,7 +95,7 @@ An effect that aims to create the impression that the visual is being displayed 
 * **IncludeScanlines**: A boolean specifying if scan lines should be included.
 
 ### Degrade
-Adds overall degradation to the visual. Simpliar to the *Noise* effect but works in a subtractive manner.
+Adds overall degradation to the visual. Similar to the *Noise* effect but works in a subtractive manner.
 
 ![image](https://github.com/user-attachments/assets/7a12dfdc-0809-4c17-a501-d52025fe6636)
 
@@ -164,7 +164,7 @@ Applies a simple negative effect, inverting all channels except alpha, rendering
 ```
 
 ### Posterize
-Reduces apparent bit depth accross all channels to produce a banding effect.
+Reduces apparent bit depth across all channels to produce a banding effect.
 
 ![image](https://github.com/user-attachments/assets/e09458db-d79b-42d0-9c98-a0e30d15eb92)
 
@@ -178,10 +178,10 @@ Reduces apparent bit depth accross all channels to produce a banding effect.
 ```
 
 #### Properties
-* **Steps**: Sets the number of steps used to represent all channels. Supports values between 1 and 255. 1 will reduce a pure black visual as there will be only a single step, and 255 will have no effect as each channel will be represented in full. Low values will have a more pronouced effect, higher values will be subtle.
+* **Steps**: Sets the number of steps used to represent all channels. Supports values between 1 and 255. 1 will reduce a pure black visual as there will be only a single step, and 255 will have no effect as each channel will be represented in full. Low values will have a more pronounced effect, higher values will be subtle.
 
 ### Posterize Multi Channel
-Reduces apparent bit depth accross all channels individually to produce a banding effect.
+Reduces apparent bit depth across all channels individually to produce a banding effect.
 
 ![image](https://github.com/user-attachments/assets/49c67b3b-7a76-4f3e-8453-b1fcc67b9ff7)
 
@@ -195,9 +195,9 @@ Reduces apparent bit depth accross all channels individually to produce a bandin
 ```
 
 #### Properties
-* **StepsR**: Sets the number of steps used to represent the red channel. Supports values between 1 and 255. Low values will have a more pronouced effect, higher values will be subtle.
-* **StepsG**: Sets the number of steps used to represent the green channel. Supports values between 1 and 255. Low values will have a more pronouced effect, higher values will be subtle.
-* **StepsB**: Sets the number of steps used to represent the blue channel. Supports values between 1 and 255. Low values will have a more pronouced effect, higher values will be subtle.
+* **StepsR**: Sets the number of steps used to represent the red channel. Supports values between 1 and 255. Low values will have a more pronounced effect, higher values will be subtle.
+* **StepsG**: Sets the number of steps used to represent the green channel. Supports values between 1 and 255. Low values will have a more pronounced effect, higher values will be subtle.
+* **StepsB**: Sets the number of steps used to represent the blue channel. Supports values between 1 and 255. Low values will have a more pronounced effect, higher values will be subtle.
 
 #### Properties
 

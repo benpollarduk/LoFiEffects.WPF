@@ -5,7 +5,7 @@ using System.Windows.Media.Effects;
 namespace LoFiEffects.WPF.Effects
 {
     /// <summary>
-    /// Represents a cathode-ray tube shader effect.
+    /// Represents a cathode ray tube (CRT) shader effect.
     /// </summary>
     public class CrtEffect : ShaderEffect
     {
