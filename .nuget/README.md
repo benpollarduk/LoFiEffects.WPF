@@ -193,7 +193,7 @@ set Input=$(ProjectDir)Effects\HLSL\%Shader%.fx
 set Output=$(ProjectDir)Effects\Shaders\%Shader%.ps
 
 if %Shader% == "" (
-  echo Not compiling shader as not shader set. To compile a shader edit the $(ProjectName) pre-build event.
+  echo Not compiling shader as no shader has been set. To compile a shader edit the $(ProjectName) pre-build event.
 ) else (
   echo Compiling shader %Input%...
   "%Fxc%" /O0 /Zi /T ps_2_0 /Fo "%Output%" "%Input%"
