@@ -84,7 +84,7 @@
   </ItemGroup>
 
   <Target Name="PreBuild" BeforeTargets="PreBuildEvent">
-    <Exec Command="::echo COMPILING SHADERS:&#xD;&#xA;::set Fxc=C:\Program Files (x86)\Windows Kits\10\bin\10.0.22621.0\x86\fxc.exe&#xD;&#xA;::set Input=$(ProjectDir)Effects\HLSL\Crt.fx&#xD;&#xA;::set Output=$(ProjectDir)Effects\Shaders\Crt.ps&#xD;&#xA;::&quot;%25Fxc%25&quot; /O0 /Zi /T ps_2_0 /Fo &quot;%25Output%25&quot; &quot;%25Input%25&quot;&#xD;&#xA;::echo DON'T FORGET TO SET SHADER (.ps) FILE BUILD ACTION TO RESOURCE!" />
+    <Exec Command="REM to compile a shader specify the name of the shader, e.g:&#xD;&#xA;REM set Shader=Crt&#xD;&#xA;REM Otherwise use &quot;&quot;, e.g:&#xD;&#xA;REM set Shader=&quot;&quot;&#xD;&#xA;set Shader=&quot;&quot;&#xD;&#xA;&#xD;&#xA;set Fxc=C:\Program Files (x86)\Windows Kits\10\bin\10.0.22621.0\x86\fxc.exe&#xD;&#xA;set Input=$(ProjectDir)Effects\HLSL\%25Shader%25.fx&#xD;&#xA;set Output=$(ProjectDir)Effects\Shaders\%25Shader%25.ps&#xD;&#xA;&#xD;&#xA;if %25Shader%25 == &quot;&quot; (&#xD;&#xA;  echo Not compiling shader as not shader set. To compile a shader edit the $(ProjectName) pre-build event.&#xD;&#xA;) else (&#xD;&#xA;  echo Compiling shader %25Input%25...&#xD;&#xA;  &quot;%25Fxc%25&quot; /O0 /Zi /T ps_2_0 /Fo &quot;%25Output%25&quot; &quot;%25Input%25&quot;&#xD;&#xA;  echo Shader compiled to %25Output%25. Don't forget to set compiled shader build action to &quot;Resource&quot;.&#xD;&#xA;)" />
   </Target>
 
 </Project>

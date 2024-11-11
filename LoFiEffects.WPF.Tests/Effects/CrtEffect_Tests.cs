@@ -75,5 +75,22 @@ namespace LoFiEffects.WPF.Tests
                 Assert.Fail($"Exception occurred: {ex.Message}");
             }
         }
+
+        [TestMethod]
+        public void GAdjustIntensity_ThenNoException()
+        {
+            try
+            {
+                CrtEffect effect = new()
+                {
+                    Intensity = 0.5
+                };
+                Assert.AreEqual(0.5, effect.Intensity);
+            }
+            catch (Exception ex)
+            {
+                Assert.Fail($"Exception occurred: {ex.Message}");
+            }
+        }
     }
 }

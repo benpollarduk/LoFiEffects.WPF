@@ -62,6 +62,15 @@ namespace LoFiEffects.WPF.Effects
             set { SetValue(IncludeScanlinesDoubleProperty, value); }
         }
 
+        /// <summary>
+        /// Get or set the intensity. Higher values will produce a more pronounced effect. This is a dependency property.
+        /// </summary>
+        public double Intensity
+        {
+            get { return (double)GetValue(IntensityProperty); }
+            set { SetValue(IntensityProperty, value); }
+        }
+
         #endregion
 
         #region DependencyProperties
@@ -91,6 +100,11 @@ namespace LoFiEffects.WPF.Effects
         /// </summary>
         public static readonly DependencyProperty IncludeScanlinesDoubleProperty = DependencyProperty.Register("IncludeScanlinesDouble", typeof(double), typeof(CrtEffect), new UIPropertyMetadata(0.0, PixelShaderConstantCallback(2)));
 
+        /// <summary>
+        /// Identifies the CrtEffect.Intensity property.
+        /// </summary>
+        public static readonly DependencyProperty IntensityProperty = DependencyProperty.Register("Intensity", typeof(double), typeof(CrtEffect), new UIPropertyMetadata(1.0, PixelShaderConstantCallback(3)));
+
         #endregion
 
         #region Constructors
@@ -106,6 +120,7 @@ namespace LoFiEffects.WPF.Effects
             UpdateShaderValue(TextureWidthProperty);
             UpdateShaderValue(TextureHeightProperty);
             UpdateShaderValue(IncludeScanlinesDoubleProperty);
+            UpdateShaderValue(IntensityProperty);
         }
 
         #endregion

@@ -361,7 +361,19 @@
                             <Label Content="{Binding Source={StaticResource PixelateEffect}, Path=Intensity, Mode=OneWay, Converter={StaticResource DoubleRoundingConverter}}" Grid.Row="0" Grid.Column="2"/>
                         </Grid>
                         <Grid Visibility="{Binding ElementName=CrtRadioButton, Path=IsChecked, Converter={StaticResource BooleanToVisibilityConverter}}">
-                            <CheckBox Content="Include scanlines?" IsChecked="{Binding Source={StaticResource CrtEffect}, Path=IncludeScanlines, Mode=TwoWay}"/>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="80"/>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="40"/>
+                            </Grid.ColumnDefinitions>
+                            <Label Content="Intensity:" Grid.Row="0" Grid.Column="0"/>
+                            <Slider Value="{Binding Source={StaticResource CrtEffect}, Path=Intensity, Mode=TwoWay}" TickFrequency="0.01" Minimum="0" Maximum="1" Grid.Row="0" Grid.Column="1"/>
+                            <Label Content="{Binding Source={StaticResource CrtEffect}, Path=Intensity, Mode=OneWay, Converter={StaticResource DoubleRoundingConverter}}" Grid.Row="0" Grid.Column="2"/>
+                            <CheckBox Content="Include scanlines?" IsChecked="{Binding Source={StaticResource CrtEffect}, Path=IncludeScanlines, Mode=TwoWay}" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="3"/>
                         </Grid>
                     </StackPanel>
                 </GroupBox>

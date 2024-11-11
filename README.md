@@ -84,7 +84,7 @@ An effect that aims to create the impression that the visual is being displayed 
 ```xaml
 <Button>
     <Button.Effect>
-        <CrtEffect TextureWidth="100" TextureHeight="35" IncludeScanlines="False"/>
+        <CrtEffect TextureWidth="100" TextureHeight="35" IncludeScanlines="False" Intensity="1"/>
     </Button.Effect>
 </Button>
 ```
@@ -93,6 +93,7 @@ An effect that aims to create the impression that the visual is being displayed 
 * **TextureWidth**: A double specifying the rendered width of the texture in WPF units.
 * **TextureHeight**: A double specifying the rendered height of the texture in WPF units.
 * **IncludeScanlines**: A boolean specifying if scan lines should be included.
+* **Intensity**: A double specifying the intensity of the effect within a normalised range of 0-1.
 
 ### Degrade
 Adds overall degradation to the visual. Similar to the *Noise* effect but works in a subtractive manner.
@@ -201,3 +202,36 @@ Reduces apparent bit depth across all channels individually to produce a banding
 
 ## Hello World
 For a Hello World example with a simple UI see [LoFiEffects.WPF.TestApp/MainWindow.xaml](https://github.com/benpollarduk/LoFiEffects.WPF/blob/main/LoFiEffects.WPF.TestApp/MainWindow.xaml)
+
+## Compiling Shaders
+Shaders can be compiled using FXC.exe. The *LoiEffects.WPF* project has a pre-build event that can be used to compile a shader effect when it is built.
+
+The *Shader* variable needs to be set to the name of the shader effect to compile:
+
+```
+set Shader=Noise
+```
+
+> Note: The path to fxc.exe may need to be changed to suit your build environment depending on the version installed.
+
+```
+REM to compile a shader specify the name of the shader, e.g:
+REM set Shader=Crt
+REM Otherwise use "", e.g:
+REM set Shader=""
+set Shader=""
+
+set Fxc=C:\Program Files (x86)\Windows Kits\10\bin\10.0.22621.0\x86\fxc.exe
+set Input=$(ProjectDir)Effects\HLSL\%Shader%.fx
+set Output=$(ProjectDir)Effects\Shaders\%Shader%.ps
+
+if %Shader% == "" (
+  echo Not compiling shader as not shader set. To compile a shader edit the $(ProjectName) pre-build event.
+) else (
+  echo Compiling shader %Input%...
+  "%Fxc%" /O0 /Zi /T ps_2_0 /Fo "%Output%" "%Input%"
+  echo Shader compiled to %Output%. Don't forget to set compiled shader build action to "Resource".
+)
+```
+
+> Note: If a shader is built for the first time its *Build Action* will need to be manually set to *Resource* to be used by the project.
