@@ -8,5 +8,6 @@ float4 main(float2 uv : TEXCOORD) : COLOR
     float clampedIntensity = clamp(intensity, 0.0, 1.0);
     float size =  min + ((max - min) * clampedIntensity);
     float2 coord = floor(uv / size) * size;
-    return tex2D(implicitInput, coord);
+    float2 centralCoord = coord + 0.5 * size;
+    return tex2D(implicitInput, centralCoord);
 }
