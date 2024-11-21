@@ -46,7 +46,7 @@ All visual effects are created with shader effects.
 Creates a pixelated effect reminiscent of the 8 bit era.
 
 #### Example
-```xaml
+```xml
 <Button>
     <Button.Effect>
         <PixelateEffect Intensity="0.15"/>
@@ -61,7 +61,7 @@ Creates a pixelated effect reminiscent of the 8 bit era.
 An effect that aims to create the impression that the visual is being displayed on a cathode ray tube (CRT) display.
 
 #### Example
-```xaml
+```xml
 <Button>
     <Button.Effect>
         <CrtEffect TextureWidth="100" TextureHeight="35" IncludeScanlines="False"/>
@@ -78,7 +78,7 @@ An effect that aims to create the impression that the visual is being displayed 
 Adds overall degradation to the visual. Similar to the *Noise* effect but works in a subtractive manner.
 
 #### Example
-```xaml
+```xml
 <Button>
     <Button.Effect>
         <DegradeEffect Intensity="0.3" Density="0.8" Offset="0"/>
@@ -95,7 +95,7 @@ Adds overall degradation to the visual. Similar to the *Noise* effect but works 
 Adds noise to the visual. Similar to *Degrade* but is additive.
 
 #### Example
-```xaml
+```xml
 <Button>
     <Button.Effect>
         <NoiseEffect Intensity="0.3" Density="0.8" Offset="0"/>
@@ -115,7 +115,7 @@ gray = (red + green + blue) / 3
 ```
 
 #### Example
-```xaml
+```xml
 <Button>
     <Button.Effect>
         <GrayscaleEffect/>
@@ -127,7 +127,7 @@ gray = (red + green + blue) / 3
 Applies a simple negative effect, inverting all channels except alpha, rendering the visual as a negative.
 
 #### Example
-```xaml
+```xml
 <Button>
     <Button.Effect>
         <NegativeEffect/>
@@ -139,7 +139,7 @@ Applies a simple negative effect, inverting all channels except alpha, rendering
 Reduces apparent bit depth across all channels to produce a banding effect.
 
 #### Example
-```xaml
+```xml
 <Button>
     <Button.Effect>
         <PosterizeEffect Steps="5"/>
@@ -154,7 +154,7 @@ Reduces apparent bit depth across all channels to produce a banding effect.
 Reduces apparent bit depth across all channels individually to produce a banding effect.
 
 #### Example
-```xaml
+```xml
 <Button>
     <Button.Effect>
         <PosterizeMultiChannelEffect StepsR="3" StepsG="11" StepsB="5"/>
