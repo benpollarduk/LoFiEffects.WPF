@@ -64,7 +64,7 @@ Creates a pixelated effect reminiscent of the 8 bit era.
 ![image](https://github.com/user-attachments/assets/26a00dcb-01c3-449c-8e42-f58ea9e6de46)
 
 #### Example
-```xaml
+```xml
 <Button>
     <Button.Effect>
         <PixelateEffect Intensity="0.15"/>
@@ -81,7 +81,7 @@ An effect that aims to create the impression that the visual is being displayed 
 ![image](https://github.com/user-attachments/assets/0613a7a6-d929-4b6f-bd2a-7f31e2488e24)
 
 #### Example
-```xaml
+```xml
 <Button>
     <Button.Effect>
         <CrtEffect TextureWidth="100" TextureHeight="35" IncludeScanlines="False" Intensity="1"/>
@@ -101,7 +101,7 @@ Adds overall degradation to the visual. Similar to the *Noise* effect but works 
 ![image](https://github.com/user-attachments/assets/7a12dfdc-0809-4c17-a501-d52025fe6636)
 
 #### Example
-```xaml
+```xml
 <Button>
     <Button.Effect>
         <DegradeEffect Intensity="0.3" Density="0.8" Offset="0"/>
@@ -120,7 +120,7 @@ Adds noise to the visual. Similar to *Degrade* but is additive.
 ![image](https://github.com/user-attachments/assets/164989b9-f3ba-49d7-8dc4-c661f0a16f41)
 
 #### Example
-```xaml
+```xml
 <Button>
     <Button.Effect>
         <NoiseEffect Intensity="0.3" Density="0.8" Offset="0"/>
@@ -142,7 +142,7 @@ gray = (red + green + blue) / 3
 ![image](https://github.com/user-attachments/assets/d29e749c-f243-4390-8f88-2344cfee1b0e)
 
 #### Example
-```xaml
+```xml
 <Button>
     <Button.Effect>
         <GrayscaleEffect/>
@@ -156,7 +156,7 @@ Applies a simple negative effect, inverting all channels except alpha, rendering
 ![image](https://github.com/user-attachments/assets/54195394-e0a8-43f8-9bf8-0cf35a0039a5)
 
 #### Example
-```xaml
+```xml
 <Button>
     <Button.Effect>
         <NegativeEffect/>
@@ -170,7 +170,7 @@ Reduces apparent bit depth across all channels to produce a banding effect.
 ![image](https://github.com/user-attachments/assets/e09458db-d79b-42d0-9c98-a0e30d15eb92)
 
 #### Example
-```xaml
+```xml
 <Button>
     <Button.Effect>
         <PosterizeEffect Steps="5"/>
@@ -187,7 +187,7 @@ Reduces apparent bit depth across all channels individually to produce a banding
 ![image](https://github.com/user-attachments/assets/49c67b3b-7a76-4f3e-8453-b1fcc67b9ff7)
 
 #### Example
-```xaml
+```xml
 <Button>
     <Button.Effect>
         <PosterizeMultiChannelEffect StepsR="3" StepsG="11" StepsB="5"/>
