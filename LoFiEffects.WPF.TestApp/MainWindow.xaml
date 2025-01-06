@@ -19,6 +19,7 @@
         <effects:DegradeEffect x:Key="DegradeEffect"/>
         <effects:PixelateEffect x:Key="PixelateEffect"/>
         <effects:CrtEffect x:Key="CrtEffect"/>
+        <effects:WatercolorEffect x:Key="WatercolorEffect"/>
         <RoutedCommand x:Key="ApplyCommand" />
     </Window.Resources>
     <Window.CommandBindings>
@@ -231,6 +232,23 @@
                                     </EventTrigger>
                                 </Image.Triggers>
                             </Image>
+                            <Image Name="WatercolorImage" Source="Images/Hat.png" Height="100" Width="100" Grid.Row="2" Grid.Column="1">
+                                <Image.RenderTransform>
+                                    <RotateTransform x:Name="RotateWatercolor" CenterX="50" CenterY="50"/>
+                                </Image.RenderTransform>
+                                <Image.Effect>
+                                    <effects:WatercolorEffect x:Name="Watercolor" Intensity="0.5" TextureWidth="{Binding ElementName=WatercolorImage, Path=ActualWidth}" TextureHeight="{Binding ElementName=WatercolorImage, Path=ActualHeight}"/>
+                                </Image.Effect>
+                                <Image.Triggers>
+                                    <EventTrigger RoutedEvent="Image.Loaded">
+                                        <BeginStoryboard>
+                                            <Storyboard>
+                                                <DoubleAnimation Storyboard.TargetName="RotateWatercolor" Storyboard.TargetProperty="Angle" From="-3" To="3" Duration="0:0:1" AutoReverse="True" RepeatBehavior="Forever"/>
+                                            </Storyboard>
+                                        </BeginStoryboard>
+                                    </EventTrigger>
+                                </Image.Triggers>
+                            </Image>
                         </Grid>
                     </StackPanel>
                 </Grid>
@@ -266,6 +284,7 @@
                         <RadioButton Name="DegradeRadioButton" Content="Degrade" Command="{StaticResource ApplyCommand}" CommandParameter="{StaticResource DegradeEffect}"/>
                         <RadioButton Name="PixelateRadioButton" Content="Pixelate" Command="{StaticResource ApplyCommand}" CommandParameter="{StaticResource PixelateEffect}"/>
                         <RadioButton Name="CrtRadioButton" Content="Crt" Command="{StaticResource ApplyCommand}" CommandParameter="{StaticResource CrtEffect}"/>
+                        <RadioButton Name="WatercolorRadioButton" Content="Watercolor" Command="{StaticResource ApplyCommand}" CommandParameter="{StaticResource WatercolorEffect}"/>
                     </WrapPanel>
                 </GroupBox>
                 <GroupBox Header="Settings" Grid.Row="2">
@@ -374,6 +393,16 @@
                             <Slider Value="{Binding Source={StaticResource CrtEffect}, Path=Intensity, Mode=TwoWay}" TickFrequency="0.01" Minimum="0" Maximum="1" Grid.Row="0" Grid.Column="1"/>
                             <Label Content="{Binding Source={StaticResource CrtEffect}, Path=Intensity, Mode=OneWay, Converter={StaticResource DoubleRoundingConverter}}" Grid.Row="0" Grid.Column="2"/>
                             <CheckBox Content="Include scanlines?" IsChecked="{Binding Source={StaticResource CrtEffect}, Path=IncludeScanlines, Mode=TwoWay}" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="3"/>
+                        </Grid>
+                        <Grid Visibility="{Binding ElementName=WatercolorRadioButton, Path=IsChecked, Converter={StaticResource BooleanToVisibilityConverter}}">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="80"/>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="40"/>
+                            </Grid.ColumnDefinitions>
+                            <Label Content="Intensity:" Grid.Row="0" Grid.Column="0"/>
+                            <Slider Value="{Binding Source={StaticResource WatercolorEffect}, Path=Intensity, Mode=TwoWay}" TickFrequency="0.01" Minimum="0" Maximum="1" Grid.Row="0" Grid.Column="1"/>
+                            <Label Content="{Binding Source={StaticResource WatercolorEffect}, Path=Intensity, Mode=OneWay, Converter={StaticResource DoubleRoundingConverter}}" Grid.Row="0" Grid.Column="2"/>
                         </Grid>
                     </StackPanel>
                 </GroupBox>
