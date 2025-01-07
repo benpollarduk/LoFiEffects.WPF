@@ -3,7 +3,7 @@ using LoFiEffects.WPF.Effects;
 namespace LoFiEffects.WPF.Tests
 {
     [TestClass]
-    public class PosterizeMultiChannelEffect_Tests
+    public class WatercolorEffect_Tests
     {
         [TestInitialize]
         public void Setup()
@@ -16,7 +16,7 @@ namespace LoFiEffects.WPF.Tests
         {
             try
             {
-                PosterizeMultiChannelEffect result = new();
+                WatercolorEffect result = new();
                 Assert.IsNotNull(result);
             }
             catch (Exception ex)
@@ -26,15 +26,15 @@ namespace LoFiEffects.WPF.Tests
         }
 
         [TestMethod]
-        public void GivenAdjustStepsR_ThenNoException()
+        public void GivenAdjustIntensity_ThenNoException()
         {
             try
             {
-                PosterizeMultiChannelEffect effect = new()
+                WatercolorEffect effect = new()
                 {
-                    StepsR = 1
+                    Intensity = 1
                 };
-                Assert.AreEqual(1, effect.StepsR);
+                Assert.AreEqual(1, effect.Intensity);
             }
             catch (Exception ex)
             {
@@ -43,15 +43,15 @@ namespace LoFiEffects.WPF.Tests
         }
 
         [TestMethod]
-        public void GivenAdjustStepsG_ThenNoException()
+        public void GivenAdjustTextureWidth_ThenNoException()
         {
             try
             {
-                PosterizeMultiChannelEffect effect = new()
+                WatercolorEffect effect = new()
                 {
-                    StepsG = 1
+                    TextureWidth = 1
                 };
-                Assert.AreEqual(1, effect.StepsG);
+                Assert.AreEqual(1, effect.TextureWidth);
             }
             catch (Exception ex)
             {
@@ -60,15 +60,15 @@ namespace LoFiEffects.WPF.Tests
         }
 
         [TestMethod]
-        public void GivenAdjustStepsB_ThenNoException()
+        public void GivenAdjustTextureHeight_ThenNoException()
         {
             try
             {
-                PosterizeMultiChannelEffect effect = new()
+                WatercolorEffect effect = new()
                 {
-                    StepsB = 1
+                    TextureHeight = 1
                 };
-                Assert.AreEqual(1, effect.StepsB);
+                Assert.AreEqual(1, effect.TextureHeight);
             }
             catch (Exception ex)
             {

@@ -21,13 +21,21 @@ namespace LoFiEffects.WPF.TestApp
 
         private void MugshotImage_SizeChanged(object sender, SizeChangedEventArgs e)
         {
-            var effect = FindResource("CrtEffect") as CrtEffect;
+            var crtEffect = FindResource("CrtEffect") as CrtEffect;
 
-            if (effect == null)
-                return;
+            if (crtEffect != null)
+            {
+                crtEffect.TextureWidth = e.NewSize.Width;
+                crtEffect.TextureHeight = e.NewSize.Height;
+            }
 
-            effect.TextureWidth = e.NewSize.Width;
-            effect.TextureHeight = e.NewSize.Height;
+            var watercolorEffect = FindResource("WatercolorEffect") as WatercolorEffect;
+
+            if (watercolorEffect != null)
+            {
+                watercolorEffect.TextureWidth = e.NewSize.Width;
+                watercolorEffect.TextureHeight = e.NewSize.Height;
+            }
         }
     }
 }
