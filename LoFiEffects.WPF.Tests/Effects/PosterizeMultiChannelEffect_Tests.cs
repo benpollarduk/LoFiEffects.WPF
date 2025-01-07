@@ -3,7 +3,7 @@ using LoFiEffects.WPF.Effects;
 namespace LoFiEffects.WPF.Tests
 {
     [TestClass]
-    public class PosteriseEffect_Tests
+    public class PosterizeMultiChannelEffect_Tests
     {
         [TestInitialize]
         public void Setup()
@@ -16,7 +16,7 @@ namespace LoFiEffects.WPF.Tests
         {
             try
             {
-                PosterizeEffect result = new();
+                PosterizeMultiChannelEffect result = new();
                 Assert.IsNotNull(result);
             }
             catch (Exception ex)
