@@ -198,6 +198,8 @@ Reduces apparent bit depth across all channels individually to produce a banding
 ### Watercolor
 Applies some simple filtering to produce a subtle watercolor effect.
 
+![image](https://github.com/user-attachments/assets/3168a908-72f3-4ce9-a16f-9c53533ca230)
+
 #### Example
 ```xml
 <Button>
