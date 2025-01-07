@@ -195,10 +195,22 @@ Reduces apparent bit depth across all channels individually to produce a banding
 </Button>
 ```
 
+### Watercolor
+Applies some simple filtering to produce a subtle watercolor effect.
+
+#### Example
+```xml
+<Button>
+    <Button.Effect>
+        <WatercolorEffect TextureWidth="100" TextureHeight="35" Intensity="0.5"/>
+    </Button.Effect>
+</Button>
+```
+
 #### Properties
-* **StepsR**: Sets the number of steps used to represent the red channel. Supports values between 1 and 255. Low values will have a more pronounced effect, higher values will be subtle.
-* **StepsG**: Sets the number of steps used to represent the green channel. Supports values between 1 and 255. Low values will have a more pronounced effect, higher values will be subtle.
-* **StepsB**: Sets the number of steps used to represent the blue channel. Supports values between 1 and 255. Low values will have a more pronounced effect, higher values will be subtle.
+* **TextureWidth**: A double specifying the rendered width of the texture in WPF units.
+* **TextureHeight**: A double specifying the rendered height of the texture in WPF units.
+* **Intensity**: A double specifying the intensity of the effect within a normalised range of 0-1.
 
 ## Hello World
 For a Hello World example with a simple UI see [LoFiEffects.WPF.TestApp/MainWindow.xaml](https://github.com/benpollarduk/LoFiEffects.WPF/blob/main/LoFiEffects.WPF.TestApp/MainWindow.xaml)
