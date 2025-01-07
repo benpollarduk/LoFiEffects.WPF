@@ -25,7 +25,7 @@ float4 main(float2 uv : TEXCOORD) : COLOR
     // apply the blur kernel
     for (int i = 0; i < 9; i++)
     {
-        float2 sampleUV = uv + offsets[i] * texel * intensity * 2;
+        float2 sampleUV = uv + offsets[i] * texel * intensity * 2.5;
         color += tex2D(implicitInput, sampleUV) * weights[i];
     }
 
@@ -36,18 +36,18 @@ float4 main(float2 uv : TEXCOORD) : COLOR
     color.rgb = lerp(gray, color.rgb, saturationFactor);
 
     // posterize
-    float steps = 100 - (255.0 * intensity);
-    float clampedSteps = clamp(steps, 3.0, 255.0);
+    float steps = 100 - (100.0 * intensity);
+    float clampedSteps = clamp(steps, 3.0, 100.0);
     color.r = floor(color.r * clampedSteps) / clampedSteps;
     color.g = floor(color.g * clampedSteps) / clampedSteps;
     color.b = floor(color.b * clampedSteps) / clampedSteps;
 
-    // Dynamically adjust brightness to prevent darkening
+    // dynamically adjust brightness to prevent darkening
     float brightnessFactor = 1.0 + intensity * 0.25;
     color.rgb *= brightnessFactor;
 
-    // Adjust opacity (optional)
-    color.a = lerp(color.a, 1.0, 1.0 - intensity);
+    // adjust opacity
+    color.a = color.a * (1.0 - (intensity / 4));
 
     return color;
 }
