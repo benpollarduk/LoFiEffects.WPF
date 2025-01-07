@@ -16,7 +16,7 @@ namespace LoFiEffects.WPF.Tests
         {
             try
             {
-                PosterizeEffect result = new();
+                PosterizeMultiChannelEffect result = new();
                 Assert.IsNotNull(result);
             }
             catch (Exception ex)
