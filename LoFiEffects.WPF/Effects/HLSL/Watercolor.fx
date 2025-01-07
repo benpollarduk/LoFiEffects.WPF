@@ -8,40 +8,46 @@ float4 main(float2 uv : TEXCOORD) : COLOR
     float2 texel = float2(1.0 / textureWidth, 1.0 / textureHeight);
     float4 color = float4(0.0, 0.0, 0.0, 0.0);
 
-    // Define the blur kernel offsets
+    // define the blur kernel offsets
     float2 offsets[9] = {
         float2(-1, -1), float2( 0, -1), float2( 1, -1),
         float2(-1,  0), float2( 0,  0), float2( 1,  0),
         float2(-1,  1), float2( 0,  1), float2( 1,  1)
     };
 
-    // Define the weights for the blur kernel
+    // define the weights for the blur kernel
     float weights[9] = {
         1.0 / 16.0, 2.0 / 16.0, 1.0 / 16.0,
         2.0 / 16.0, 4.0 / 16.0, 2.0 / 16.0,
         1.0 / 16.0, 2.0 / 16.0, 1.0 / 16.0
     };
 
-    // Apply the blur kernel with greater intensity scaling
+    // apply the blur kernel
     for (int i = 0; i < 9; i++)
     {
-        // Scale the offset by a larger factor based on intensity
-        float2 sampleUV = uv + offsets[i] * texel * intensity * 5.0; // 5.0 increases the blur significantly
+        float2 sampleUV = uv + offsets[i] * texel * intensity * 2;
         color += tex2D(implicitInput, sampleUV) * weights[i];
     }
 
-    // Enhance color saturation
-    float luminance = dot(color.rgb, float3(0.299, 0.587, 0.114)); // Calculate luminance
-    float3 gray = float3(luminance, luminance, luminance);          // Grayscale color
-    float saturationFactor = lerp(1.0, 1.5, intensity);             // Increase saturation by up to 1.5x
+    // enhance saturation
+    float luminance = dot(color.rgb, float3(0.299, 0.587, 0.114));
+    float3 gray = float3(luminance, luminance, luminance);
+    float saturationFactor = lerp(1.0, 1.5, intensity);
     color.rgb = lerp(gray, color.rgb, saturationFactor);
 
+    // posterize
+    float steps = 100 - (255.0 * intensity);
+    float clampedSteps = clamp(steps, 3.0, 255.0);
+    color.r = floor(color.r * clampedSteps) / clampedSteps;
+    color.g = floor(color.g * clampedSteps) / clampedSteps;
+    color.b = floor(color.b * clampedSteps) / clampedSteps;
+
     // Dynamically adjust brightness to prevent darkening
-    float brightnessFactor = 1.0 + intensity * 0.5; // Increase brightness up to 1.5x
+    float brightnessFactor = 1.0 + intensity * 0.25;
     color.rgb *= brightnessFactor;
 
-    // Adjust opacity
-    color.a = color.a - (intensity / 4.0);
+    // Adjust opacity (optional)
+    color.a = lerp(color.a, 1.0, 1.0 - intensity);
 
     return color;
 }
