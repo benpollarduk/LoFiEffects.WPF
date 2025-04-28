@@ -123,8 +123,8 @@ namespace LoFiEffects.WPF
             Size size = new(ActualWidth, ActualHeight);
 
             // check if the bitmap can be reused, if not create it
-            if (bitmap == null || bitmap.PixelWidth != size.Width || bitmap.PixelHeight != size.Height)
-                bitmap = new RenderTargetBitmap(size.Width, size.Height, 96, 96, PixelFormats.Pbgra32);
+            if (bitmap == null || bitmap.PixelWidth != (int)size.Width || bitmap.PixelHeight != (int)size.Height)
+                bitmap = new RenderTargetBitmap((int)size.Width, (int)size.Height, 96, 96, PixelFormats.Pbgra32);
 
             // clear visual
             drawingVisual.Children.Clear();
