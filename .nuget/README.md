@@ -188,7 +188,7 @@ Applies some simple filtering to produce a subtle watercolor effect.
 For a Hello World example with a simple UI see [LoFiEffects.WPF.TestApp/MainWindow.xaml](https://github.com/benpollarduk/LoFiEffects.WPF/blob/main/LoFiEffects.WPF.TestApp/MainWindow.xaml)
 
 ## Compiling Shaders
-Shaders can be compiled using FXC.exe. The *LoiEffects.WPF* project has a pre-build event that can be used to compile a shader effect when it is built.
+Shaders can be compiled using FXC.exe. The *LoFiEffects.WPF* project has a pre-build event that can be used to compile a shader effect when it is built.
 
 The *Shader* variable needs to be set to the name of the shader effect to compile:
 
