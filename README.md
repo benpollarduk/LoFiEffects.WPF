@@ -55,6 +55,11 @@ The **FramesPerSecond** property can be used to reduce the frame rate.
 * **FrameRateReductionMask** then renders this bitmap as its background.
 * **FrameRateReductionMask** isn't visible to hit testing so allows the UI beneath it to function as usual.
 
+## Sample Image
+To illustrate the following shader effects this sample image will be used:
+
+![image](https://raw.githubusercontent.com/benpollarduk/LoFiEffects.WPF/refs/heads/main/LoFiEffects.WPF.TestApp/Images/Mugshot.jpg)
+
 ## Shader Effects
 All visual effects are created with shader effects.
 
@@ -249,4 +254,5 @@ if %Shader% == "" (
 ```
 
 > Note: If a shader is built for the first time its *Build Action* will need to be manually set to *Resource* to be used by the project.
+
 
