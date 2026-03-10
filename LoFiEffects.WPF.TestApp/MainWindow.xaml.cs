@@ -36,6 +36,22 @@ namespace LoFiEffects.WPF.TestApp
                 watercolorEffect.TextureWidth = e.NewSize.Width;
                 watercolorEffect.TextureHeight = e.NewSize.Height;
             }
+
+            var ditheringEffect = FindResource("DitheringEffect") as DitheringEffect;
+
+            if (ditheringEffect != null)
+            {
+                ditheringEffect.TextureWidth = e.NewSize.Width;
+                ditheringEffect.TextureHeight = e.NewSize.Height;
+            }
+
+            var chromaticAberrationEffect = FindResource("ChromaticAberrationEffect") as ChromaticAberrationEffect;
+
+            if (chromaticAberrationEffect != null)
+            {
+                chromaticAberrationEffect.TextureWidth = e.NewSize.Width;
+                chromaticAberrationEffect.TextureHeight = e.NewSize.Height;
+            }
         }
 
         private void CopyToClipBoardButton_Click(object sender, RoutedEventArgs e)

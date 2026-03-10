@@ -20,6 +20,9 @@
         <effects:PixelateEffect x:Key="PixelateEffect"/>
         <effects:CrtEffect x:Key="CrtEffect"/>
         <effects:WatercolorEffect x:Key="WatercolorEffect"/>
+        <effects:DitheringEffect x:Key="DitheringEffect"/>
+        <effects:ChromaticAberrationEffect x:Key="ChromaticAberrationEffect"/>
+        <effects:VignetteEffect x:Key="VignetteEffect"/>
         <RoutedCommand x:Key="ApplyCommand" />
     </Window.Resources>
     <Window.CommandBindings>
@@ -55,6 +58,7 @@
                         <Label Content="Charged With: DUI"/>
                         <Grid Margin="10">
                             <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"/>
                                 <RowDefinition Height="Auto"/>
                                 <RowDefinition Height="Auto"/>
                                 <RowDefinition Height="Auto"/>
@@ -249,6 +253,60 @@
                                     </EventTrigger>
                                 </Image.Triggers>
                             </Image>
+                            <Image Name="DitheringImage" Source="Images/Hat.png" Height="100" Width="100" Grid.Row="2" Grid.Column="2">
+                                <Image.RenderTransform>
+                                    <RotateTransform x:Name="RotateDithering" CenterX="50" CenterY="50"/>
+                                </Image.RenderTransform>
+                                <Image.Effect>
+                                    <effects:DitheringEffect x:Name="Dithering" Intensity="1.0" TextureWidth="{Binding ElementName=DitheringImage, Path=ActualWidth}" TextureHeight="{Binding ElementName=DitheringImage, Path=ActualHeight}"/>
+                                </Image.Effect>
+                                <Image.Triggers>
+                                    <EventTrigger RoutedEvent="Image.Loaded">
+                                        <BeginStoryboard>
+                                            <Storyboard>
+                                                <DoubleAnimation Storyboard.TargetName="RotateDithering" Storyboard.TargetProperty="Angle" From="-3" To="3" Duration="0:0:1" AutoReverse="True" RepeatBehavior="Forever"/>
+                                                <DoubleAnimation Storyboard.TargetName="Dithering" Storyboard.TargetProperty="Intensity" From="0.5" To="1.5" Duration="0:0:1" AutoReverse="True" RepeatBehavior="Forever"/>
+                                            </Storyboard>
+                                        </BeginStoryboard>
+                                    </EventTrigger>
+                                </Image.Triggers>
+                            </Image>
+                            <Image Name="ChromaticAberrationImage" Source="Images/Hat.png" Height="100" Width="100" Grid.Row="2" Grid.Column="3">
+                                <Image.RenderTransform>
+                                    <RotateTransform x:Name="RotateChromatic" CenterX="50" CenterY="50"/>
+                                </Image.RenderTransform>
+                                <Image.Effect>
+                                    <effects:ChromaticAberrationEffect x:Name="Chromatic" Intensity="2.0" TextureWidth="{Binding ElementName=ChromaticAberrationImage, Path=ActualWidth}" TextureHeight="{Binding ElementName=ChromaticAberrationImage, Path=ActualHeight}"/>
+                                </Image.Effect>
+                                <Image.Triggers>
+                                    <EventTrigger RoutedEvent="Image.Loaded">
+                                        <BeginStoryboard>
+                                            <Storyboard>
+                                                <DoubleAnimation Storyboard.TargetName="RotateChromatic" Storyboard.TargetProperty="Angle" From="-3" To="3" Duration="0:0:1" AutoReverse="True" RepeatBehavior="Forever"/>
+                                                <DoubleAnimation Storyboard.TargetName="Chromatic" Storyboard.TargetProperty="Intensity" From="0.0" To="10.0" Duration="0:0:1" AutoReverse="True" RepeatBehavior="Forever"/>
+                                            </Storyboard>
+                                        </BeginStoryboard>
+                                    </EventTrigger>
+                                </Image.Triggers>
+                            </Image>
+                            <Image Source="Images/Hat.png" Height="100" Width="100" Grid.Row="3" Grid.Column="0">
+                                <Image.RenderTransform>
+                                    <RotateTransform x:Name="RotateVignette" CenterX="50" CenterY="50"/>
+                                </Image.RenderTransform>
+                                <Image.Effect>
+                                    <effects:VignetteEffect x:Name="Vignette" Intensity="0.8"/>
+                                </Image.Effect>
+                                <Image.Triggers>
+                                    <EventTrigger RoutedEvent="Image.Loaded">
+                                        <BeginStoryboard>
+                                            <Storyboard>
+                                                <DoubleAnimation Storyboard.TargetName="RotateVignette" Storyboard.TargetProperty="Angle" From="-3" To="3" Duration="0:0:1" AutoReverse="True" RepeatBehavior="Forever"/>
+                                                <DoubleAnimation Storyboard.TargetName="Vignette" Storyboard.TargetProperty="Intensity" From="0.5" To="1.0" Duration="0:0:1" AutoReverse="True" RepeatBehavior="Forever"/>
+                                            </Storyboard>
+                                        </BeginStoryboard>
+                                    </EventTrigger>
+                                </Image.Triggers>
+                            </Image>
                         </Grid>
                     </StackPanel>
                 </Grid>
@@ -286,6 +344,9 @@
                         <RadioButton Name="PixelateRadioButton" Content="Pixelate" Command="{StaticResource ApplyCommand}" CommandParameter="{StaticResource PixelateEffect}"/>
                         <RadioButton Name="CrtRadioButton" Content="Crt" Command="{StaticResource ApplyCommand}" CommandParameter="{StaticResource CrtEffect}"/>
                         <RadioButton Name="WatercolorRadioButton" Content="Watercolor" Command="{StaticResource ApplyCommand}" CommandParameter="{StaticResource WatercolorEffect}"/>
+                        <RadioButton Name="DitheringRadioButton" Content="Dithering" Command="{StaticResource ApplyCommand}" CommandParameter="{StaticResource DitheringEffect}"/>
+                        <RadioButton Name="ChromaticAberrationRadioButton" Content="Chromatic Aberration" Command="{StaticResource ApplyCommand}" CommandParameter="{StaticResource ChromaticAberrationEffect}"/>
+                        <RadioButton Name="VignetteRadioButton" Content="Vignette" Command="{StaticResource ApplyCommand}" CommandParameter="{StaticResource VignetteEffect}"/>
                     </WrapPanel>
                 </GroupBox>
                 <GroupBox Header="Settings" Grid.Row="2">
@@ -408,6 +469,36 @@
                             <Label Content="Intensity:" Grid.Row="0" Grid.Column="0"/>
                             <Slider Value="{Binding Source={StaticResource WatercolorEffect}, Path=Intensity, Mode=TwoWay}" TickFrequency="0.01" Minimum="0" Maximum="1" Grid.Row="0" Grid.Column="1"/>
                             <Label Content="{Binding Source={StaticResource WatercolorEffect}, Path=Intensity, Mode=OneWay, Converter={StaticResource DoubleRoundingConverter}}" Grid.Row="0" Grid.Column="2"/>
+                        </Grid>
+                        <Grid Visibility="{Binding ElementName=DitheringRadioButton, Path=IsChecked, Converter={StaticResource BooleanToVisibilityConverter}}">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="80"/>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="40"/>
+                            </Grid.ColumnDefinitions>
+                            <Label Content="Intensity:" Grid.Row="0" Grid.Column="0"/>
+                            <Slider Value="{Binding Source={StaticResource DitheringEffect}, Path=Intensity, Mode=TwoWay}" TickFrequency="0.01" Minimum="0" Maximum="5" Grid.Row="0" Grid.Column="1"/>
+                            <Label Content="{Binding Source={StaticResource DitheringEffect}, Path=Intensity, Mode=OneWay, Converter={StaticResource DoubleRoundingConverter}}" Grid.Row="0" Grid.Column="2"/>
+                        </Grid>
+                        <Grid Visibility="{Binding ElementName=ChromaticAberrationRadioButton, Path=IsChecked, Converter={StaticResource BooleanToVisibilityConverter}}">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="80"/>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="40"/>
+                            </Grid.ColumnDefinitions>
+                            <Label Content="Intensity:" Grid.Row="0" Grid.Column="0"/>
+                            <Slider Value="{Binding Source={StaticResource ChromaticAberrationEffect}, Path=Intensity, Mode=TwoWay}" TickFrequency="0.1" Minimum="0" Maximum="20" Grid.Row="0" Grid.Column="1"/>
+                            <Label Content="{Binding Source={StaticResource ChromaticAberrationEffect}, Path=Intensity, Mode=OneWay, Converter={StaticResource DoubleRoundingConverter}}" Grid.Row="0" Grid.Column="2"/>
+                        </Grid>
+                        <Grid Visibility="{Binding ElementName=VignetteRadioButton, Path=IsChecked, Converter={StaticResource BooleanToVisibilityConverter}}">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="80"/>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="40"/>
+                            </Grid.ColumnDefinitions>
+                            <Label Content="Intensity:" Grid.Row="0" Grid.Column="0"/>
+                            <Slider Value="{Binding Source={StaticResource VignetteEffect}, Path=Intensity, Mode=TwoWay}" TickFrequency="0.01" Minimum="0" Maximum="1" Grid.Row="0" Grid.Column="1"/>
+                            <Label Content="{Binding Source={StaticResource VignetteEffect}, Path=Intensity, Mode=OneWay, Converter={StaticResource DoubleRoundingConverter}}" Grid.Row="0" Grid.Column="2"/>
                         </Grid>
                     </StackPanel>
                 </GroupBox>
