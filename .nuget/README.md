@@ -1,6 +1,6 @@
 # LoFiEffects.WPF
 
-A WPF library for displaying content in reduced fidelity. Supports .Net 8.0.
+A WPF library for rendering content in reduced fidelity. Supports .Net 8.0.
 
 ## Introduction
 A library of controls and shader effects that can display content with reduced frame rates and other visual effects aimed at degrading visual quality.
