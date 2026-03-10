@@ -313,7 +313,7 @@ Applies a wavefolding effect to the color channels of the visual to create disto
 ## Hello World
 For a Hello World example with a simple UI see [LoFiEffects.WPF.TestApp/MainWindow.xaml](https://github.com/benpollarduk/LoFiEffects.WPF/blob/main/LoFiEffects.WPF.TestApp/MainWindow.xaml)
 
-<img width="506" height="612" alt="image" src="https://github.com/user-attachments/assets/524b1765-6d86-4e20-a7ef-14a1e8ff49b2" />
+<img width="1734" height="829" alt="image" src="https://github.com/user-attachments/assets/9897a38f-7cfc-4705-870b-06fa0f833ea7" />
 
 ## Compiling Shaders
 Shaders can be compiled using FXC.exe. The *LoFiEffects.WPF* project has a pre-build event that can be used to compile a shader effect when it is built.
@@ -347,6 +347,7 @@ if %Shader% == "" (
 ```
 
 > Note: If a shader is built for the first time its *Build Action* will need to be manually set to *Resource* to be used by the project.
+
 
 
 
