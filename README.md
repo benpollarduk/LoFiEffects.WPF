@@ -83,7 +83,7 @@ Creates a pixelated effect reminiscent of the 8 bit era.
 ### Crt
 An effect that aims to create the impression that the visual is being displayed on a cathode ray tube (CRT) display.
 
-![image](https://github.com/user-attachments/assets/0613a7a6-d929-4b6f-bd2a-7f31e2488e24)
+<img width="506" height="612" alt="image" src="https://github.com/user-attachments/assets/76a9d73f-0d22-4177-a46f-d0a724255aa8" />
 
 #### Example
 ```xml
@@ -204,7 +204,7 @@ Reduces apparent bit depth across all channels individually to produce a banding
 ### Watercolor
 Applies some simple filtering to produce a subtle watercolor effect.
 
-![image](https://github.com/user-attachments/assets/3168a908-72f3-4ce9-a16f-9c53533ca230)
+<img width="506" height="612" alt="image" src="https://github.com/user-attachments/assets/8aac68ba-0a76-4aca-b7e7-49cf8ca43933" />
 
 #### Example
 ```xml
@@ -222,6 +222,8 @@ Applies some simple filtering to produce a subtle watercolor effect.
 
 ## Hello World
 For a Hello World example with a simple UI see [LoFiEffects.WPF.TestApp/MainWindow.xaml](https://github.com/benpollarduk/LoFiEffects.WPF/blob/main/LoFiEffects.WPF.TestApp/MainWindow.xaml)
+
+<img width="1734" height="829" alt="image" src="https://github.com/user-attachments/assets/37081d95-c1e7-49e8-aac5-2818601cc464" />
 
 ## Compiling Shaders
 Shaders can be compiled using FXC.exe. The *LoFiEffects.WPF* project has a pre-build event that can be used to compile a shader effect when it is built.
@@ -255,5 +257,6 @@ if %Shader% == "" (
 ```
 
 > Note: If a shader is built for the first time its *Build Action* will need to be manually set to *Resource* to be used by the project.
+
 
 
