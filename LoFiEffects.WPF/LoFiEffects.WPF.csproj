@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>net8.0-windows</TargetFramework>
@@ -85,12 +85,8 @@
 
   <ItemGroup>
     <Resource Include="Effects\Shaders\Pixelate.ps" />
-    <Resource Include="Effects\Shaders\Dithering.ps" />
     <Resource Include="Effects\Shaders\ChromaticAberration.ps" />
-    <Resource Include="Effects\Shaders\Vignette.ps" />
-    <Resource Include="Effects\HLSL\Dithering.fx" />
     <Resource Include="Effects\HLSL\ChromaticAberration.fx" />
-    <Resource Include="Effects\HLSL\Vignette.fx" />
   </ItemGroup>
 
   <Target Name="PreBuild" BeforeTargets="PreBuildEvent">
@@ -101,14 +97,10 @@
     <Resource Include="Effects\Shaders\BlockDisplacement.ps" />
     <Resource Include="Effects\Shaders\Wavefolding.ps" />
     <Resource Include="Effects\Shaders\SampleRateReduction.ps" />
-    <Resource Include="Effects\Shaders\DataCorruptor.ps" />
-    <Resource Include="Effects\Shaders\QuantizationNoise.ps" />
     <Resource Include="Effects\Shaders\SampleAndHold.ps" />
     <Resource Include="Effects\HLSL\BlockDisplacement.fx" />
     <Resource Include="Effects\HLSL\Wavefolding.fx" />
     <Resource Include="Effects\HLSL\SampleRateReduction.fx" />
-    <Resource Include="Effects\HLSL\DataCorruptor.fx" />
-    <Resource Include="Effects\HLSL\QuantizationNoise.fx" />
     <Resource Include="Effects\HLSL\SampleAndHold.fx" />
   </ItemGroup>
 </Project>

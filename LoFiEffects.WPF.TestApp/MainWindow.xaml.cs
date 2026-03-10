@@ -37,14 +37,6 @@ namespace LoFiEffects.WPF.TestApp
                 watercolorEffect.TextureHeight = e.NewSize.Height;
             }
 
-            var ditheringEffect = FindResource("DitheringEffect") as DitheringEffect;
-
-            if (ditheringEffect != null)
-            {
-                ditheringEffect.TextureWidth = e.NewSize.Width;
-                ditheringEffect.TextureHeight = e.NewSize.Height;
-            }
-
             var chromaticAberrationEffect = FindResource("ChromaticAberrationEffect") as ChromaticAberrationEffect;
 
             if (chromaticAberrationEffect != null)
