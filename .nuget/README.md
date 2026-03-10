@@ -64,7 +64,7 @@ An effect that aims to create the impression that the visual is being displayed 
 ```xml
 <Button>
     <Button.Effect>
-        <CrtEffect TextureWidth="100" TextureHeight="35" IncludeScanlines="False"/>
+        <CrtEffect TextureWidth="100" TextureHeight="35" IncludeScanlines="False" Intensity="1" CurvatureIntensity="1"/>
     </Button.Effect>
 </Button>
 ```
@@ -73,6 +73,8 @@ An effect that aims to create the impression that the visual is being displayed 
 * **TextureWidth**: A double specifying the rendered width of the texture in WPF units.
 * **TextureHeight**: A double specifying the rendered height of the texture in WPF units.
 * **IncludeScanlines**: A boolean specifying if scan lines should be included.
+* **Intensity**: A double specifying the intensity of the effect within a normalised range of 0-1.
+* **CurvatureIntensity**: A double specifying the intensity of the curvature effect within a normalised range of 0-1.
 
 ### Degrade
 Adds overall degradation to the visual. Similar to the *Noise* effect but works in a subtractive manner.
