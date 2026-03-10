@@ -223,11 +223,13 @@ Applies some simple filtering to produce a subtle watercolor effect.
 ### Block Displacement
 Displaces blocks of pixels in the visual to create a glitch or digital transmission error effect.
 
+<img width="506" height="612" alt="image" src="https://github.com/user-attachments/assets/9518a9fa-29c4-44bb-9419-3cff0a850d25" />
+
 #### Example
 ```xml
 <Button>
     <Button.Effect>
-        <BlockDisplacementEffect Intensity="0.1" Resolution="20" Time="0"/>
+        <BlockDisplacementEffect Intensity="0.1" Resolution="50" Time="50"/>
     </Button.Effect>
 </Button>
 ```
@@ -240,11 +242,13 @@ Displaces blocks of pixels in the visual to create a glitch or digital transmiss
 ### Chromatic Aberration
 Simulates the effect of chromatic aberration by separating color channels and shifting them.
 
+<img width="506" height="612" alt="image" src="https://github.com/user-attachments/assets/aafc9d12-fcf5-4e97-884e-827850234283" />
+
 #### Example
 ```xml
 <Button>
     <Button.Effect>
-        <ChromaticAberrationEffect Intensity="2.0" TextureWidth="100" TextureHeight="35"/>
+        <ChromaticAberrationEffect Intensity="10" TextureWidth="100" TextureHeight="35"/>
     </Button.Effect>
 </Button>
 ```
@@ -256,6 +260,8 @@ Simulates the effect of chromatic aberration by separating color channels and sh
 
 ### Sample And Hold
 Simulates a sample and hold effect, keeping the color value of pixels over a region.
+
+<img width="506" height="612" alt="image" src="https://github.com/user-attachments/assets/dfebdbcc-2261-4601-be94-1094324b04f4" />
 
 #### Example
 ```xml
@@ -271,6 +277,8 @@ Simulates a sample and hold effect, keeping the color value of pixels over a reg
 
 ### Sample Rate Reduction
 Reduces the sample rate of the visual, effectively lowering its fidelity.
+
+<img width="506" height="612" alt="image" src="https://github.com/user-attachments/assets/32784dea-3d6d-4fc7-8005-feb1b1cd3c3f" />
 
 #### Example
 ```xml
@@ -288,11 +296,13 @@ Reduces the sample rate of the visual, effectively lowering its fidelity.
 ### Wavefolding
 Applies a wavefolding effect to the color channels of the visual to create distortion.
 
+<img width="506" height="612" alt="image" src="https://github.com/user-attachments/assets/724eb185-c620-4418-9649-8652ac789836" />
+
 #### Example
 ```xml
 <Button>
     <Button.Effect>
-        <WavefoldingEffect Intensity="2.0"/>
+        <WavefoldingEffect Intensity="5"/>
     </Button.Effect>
 </Button>
 ```
@@ -303,7 +313,7 @@ Applies a wavefolding effect to the color channels of the visual to create disto
 ## Hello World
 For a Hello World example with a simple UI see [LoFiEffects.WPF.TestApp/MainWindow.xaml](https://github.com/benpollarduk/LoFiEffects.WPF/blob/main/LoFiEffects.WPF.TestApp/MainWindow.xaml)
 
-<img width="1734" height="829" alt="image" src="https://github.com/user-attachments/assets/37081d95-c1e7-49e8-aac5-2818601cc464" />
+<img width="506" height="612" alt="image" src="https://github.com/user-attachments/assets/524b1765-6d86-4e20-a7ef-14a1e8ff49b2" />
 
 ## Compiling Shaders
 Shaders can be compiled using FXC.exe. The *LoFiEffects.WPF* project has a pre-build event that can be used to compile a shader effect when it is built.
@@ -337,6 +347,7 @@ if %Shader% == "" (
 ```
 
 > Note: If a shader is built for the first time its *Build Action* will need to be manually set to *Resource* to be used by the project.
+
 
 
 
