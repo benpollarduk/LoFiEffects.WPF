@@ -6,28 +6,34 @@ float textureHeight : register(c2);
 float4 main(float2 uv : TEXCOORD) : COLOR
 {
     float2 texel = float2(1.0 / textureWidth, 1.0 / textureHeight);
-    float4 color = tex2D(implicitInput, uv);
 
-    // edge detection
-    float edge = abs(tex2D(implicitInput, uv + texel).r - tex2D(implicitInput, uv - texel).r) * 0.5;
-    edge += abs(tex2D(implicitInput, uv + float2(texel.x, 0)).r - tex2D(implicitInput, uv - float2(texel.x, 0)).r) * 0.5;
-    edge = saturate(edge * 2);
+    // Single noise calculation for both wobble and granulation
+    float noise = frac(sin(dot(uv, float2(12.9898, 78.233))) * 43758.5453);
 
-    // granulation (single noise layer)
-    float noise = frac(sin(dot(uv * 5.0, float2(12.9898, 78.233))) * 43758.5453);
-    color.rgb += (noise - 0.5) * intensity * 0.1;
+    // Wobble UVs
+    float2 wobble = (float2(noise, frac(noise * 2.0)) - 0.5) * intensity * 6.0 * texel;
+    float2 warpedUV = uv + wobble;
 
-    // enhance edges
-    color.rgb *= 1.0 - edge * intensity;
+    // Take just 3 samples to blend colors and keep instruction count low
+    float4 c1 = tex2D(implicitInput, warpedUV);
+    float4 c2 = tex2D(implicitInput, warpedUV + texel * intensity * 3.0);
+    float4 c3 = tex2D(implicitInput, warpedUV - texel * intensity * 3.0);
 
-    // posterize
-    float steps = lerp(40.0, 5.0, intensity);
+    float4 color = (c1 + c2 + c3) * 0.3333;
+
+    // Edge darkening (pseudo-edge detection based on sample differences)
+    float edge = distance(c2.rgb, c3.rgb);
+    color.rgb -= saturate(edge) * intensity * 0.8;
+
+    // Posterize to flatten color regions like dried paint
+    float steps = lerp(20.0, 8.0, intensity);
     color.rgb = floor(color.rgb * steps) / steps;
 
-    // brightness adjustment to maintain consistency
-    float averageBrightness = dot(color.rgb, float3(0.299, 0.587, 0.114)); // Luminance
-    float brightnessFactor = lerp(1.0, 1.0 / max(averageBrightness, 0.1), intensity * 0.5);
-    color.rgb *= brightnessFactor;
+    // Apply paper-like granulation
+    color.rgb += (noise - 0.5) * intensity * 0.15;
 
-    return color;
+    // Keep bright, wash-like tone
+    color.rgb *= (1.0 + 0.15 * intensity);
+
+    return float4(saturate(color.rgb), color.a);
 }
