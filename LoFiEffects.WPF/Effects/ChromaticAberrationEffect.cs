@@ -58,22 +58,20 @@ namespace LoFiEffects.WPF.Effects
         #region DependencyProperties
 
         /// <summary>
-        /// The <see cref="DependencyProperty"/> for the <see cref="Input"/> property.
+        /// Identifies the ChromaticAberrationEffect.Input property.
         /// </summary>
-        public static readonly DependencyProperty InputProperty = ShaderEffect.RegisterPixelShaderSamplerProperty("Input", typeof(ChromaticAberrationEffect), 0);
+        public static readonly DependencyProperty InputProperty = RegisterPixelShaderSamplerProperty("Input", typeof(ChromaticAberrationEffect), 0);
 
         /// <summary>
-        /// The <see cref="DependencyProperty"/> for the <see cref="Intensity"/> property.
+        /// Identifies the ChromaticAberrationEffect.Intensity property.
         /// </summary>
         public static readonly DependencyProperty IntensityProperty = DependencyProperty.Register("Intensity", typeof(double), typeof(ChromaticAberrationEffect), new UIPropertyMetadata(2.0, PixelShaderConstantCallback(0)));
-
         /// <summary>
-        /// The <see cref="DependencyProperty"/> for the <see cref="TextureWidth"/> property.
+        /// Identifies the ChromaticAberrationEffect.TextureWidth property.
         /// </summary>
         public static readonly DependencyProperty TextureWidthProperty = DependencyProperty.Register("TextureWidth", typeof(double), typeof(ChromaticAberrationEffect), new UIPropertyMetadata(800.0, PixelShaderConstantCallback(1)));
-
         /// <summary>
-        /// The <see cref="DependencyProperty"/> for the <see cref="TextureHeight"/> property.
+        /// Identifies the ChromaticAberrationEffect.TextureHeight property.
         /// </summary>
         public static readonly DependencyProperty TextureHeightProperty = DependencyProperty.Register("TextureHeight", typeof(double), typeof(ChromaticAberrationEffect), new UIPropertyMetadata(600.0, PixelShaderConstantCallback(2)));
 
@@ -82,7 +80,7 @@ namespace LoFiEffects.WPF.Effects
         #region Constructors
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="ChromaticAberrationEffect"/> class.
+        /// Initializes a new instance of the ChromaticAberrationEffect class.
         /// </summary>
         public ChromaticAberrationEffect()
         {
