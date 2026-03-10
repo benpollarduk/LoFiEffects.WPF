@@ -1,4 +1,4 @@
-﻿<Window x:Class="LoFiEffects.WPF.TestApp.MainWindow"
+<Window x:Class="LoFiEffects.WPF.TestApp.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
@@ -20,6 +20,11 @@
         <effects:PixelateEffect x:Key="PixelateEffect"/>
         <effects:CrtEffect x:Key="CrtEffect"/>
         <effects:WatercolorEffect x:Key="WatercolorEffect"/>
+        <effects:ChromaticAberrationEffect x:Key="ChromaticAberrationEffect"/>
+        <effects:BlockDisplacementEffect x:Key="BlockDisplacementEffect"/>
+        <effects:SampleAndHoldEffect x:Key="SampleAndHoldEffect"/>
+        <effects:SampleRateReductionEffect x:Key="SampleRateReductionEffect"/>
+        <effects:WavefoldingEffect x:Key="WavefoldingEffect"/>
         <RoutedCommand x:Key="ApplyCommand" />
     </Window.Resources>
     <Window.CommandBindings>
@@ -55,6 +60,9 @@
                         <Label Content="Charged With: DUI"/>
                         <Grid Margin="10">
                             <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
                                 <RowDefinition Height="Auto"/>
                                 <RowDefinition Height="Auto"/>
                                 <RowDefinition Height="Auto"/>
@@ -249,6 +257,96 @@
                                     </EventTrigger>
                                 </Image.Triggers>
                             </Image>
+                            <Image Name="ChromaticAberrationImage" Source="Images/Hat.png" Height="100" Width="100" Grid.Row="2" Grid.Column="2">
+                                <Image.RenderTransform>
+                                    <RotateTransform x:Name="RotateChromatic" CenterX="50" CenterY="50"/>
+                                </Image.RenderTransform>
+                                <Image.Effect>
+                                    <effects:ChromaticAberrationEffect x:Name="Chromatic" Intensity="2.0" TextureWidth="{Binding ElementName=ChromaticAberrationImage, Path=ActualWidth}" TextureHeight="{Binding ElementName=ChromaticAberrationImage, Path=ActualHeight}"/>
+                                </Image.Effect>
+                                <Image.Triggers>
+                                    <EventTrigger RoutedEvent="Image.Loaded">
+                                        <BeginStoryboard>
+                                            <Storyboard>
+                                                <DoubleAnimation Storyboard.TargetName="RotateChromatic" Storyboard.TargetProperty="Angle" From="-3" To="3" Duration="0:0:1" AutoReverse="True" RepeatBehavior="Forever"/>
+                                                <DoubleAnimation Storyboard.TargetName="Chromatic" Storyboard.TargetProperty="Intensity" From="0.0" To="10.0" Duration="0:0:1" AutoReverse="True" RepeatBehavior="Forever"/>
+                                            </Storyboard>
+                                        </BeginStoryboard>
+                                    </EventTrigger>
+                                </Image.Triggers>
+                            </Image>
+                            <Image Source="Images/Hat.png" Height="100" Width="100" Grid.Row="2" Grid.Column="3">
+                                <Image.RenderTransform>
+                                    <RotateTransform x:Name="RotateBlockDisplacement" CenterX="50" CenterY="50"/>
+                                </Image.RenderTransform>
+                                <Image.Effect>
+                                    <effects:BlockDisplacementEffect x:Name="BlockDisplacement" Intensity="0.1"/>
+                                </Image.Effect>
+                                <Image.Triggers>
+                                    <EventTrigger RoutedEvent="Image.Loaded">
+                                        <BeginStoryboard>
+                                            <Storyboard>
+                                                <DoubleAnimation Storyboard.TargetName="RotateBlockDisplacement" Storyboard.TargetProperty="Angle" From="-3" To="3" Duration="0:0:1" AutoReverse="True" RepeatBehavior="Forever"/>
+                                                <DoubleAnimation Storyboard.TargetName="BlockDisplacement" Storyboard.TargetProperty="Time" From="0.0" To="10.0" Duration="0:0:5" AutoReverse="True" RepeatBehavior="Forever"/>
+                                            </Storyboard>
+                                        </BeginStoryboard>
+                                    </EventTrigger>
+                                </Image.Triggers>
+                            </Image>
+                            <Image Source="Images/Hat.png" Height="100" Width="100" Grid.Row="3" Grid.Column="0">
+                                <Image.RenderTransform>
+                                    <RotateTransform x:Name="RotateSampleAndHold" CenterX="50" CenterY="50"/>
+                                </Image.RenderTransform>
+                                <Image.Effect>
+                                    <effects:SampleAndHoldEffect x:Name="SampleAndHold" Intensity="0.5"/>
+                                </Image.Effect>
+                                <Image.Triggers>
+                                    <EventTrigger RoutedEvent="Image.Loaded">
+                                        <BeginStoryboard>
+                                            <Storyboard>
+                                                <DoubleAnimation Storyboard.TargetName="RotateSampleAndHold" Storyboard.TargetProperty="Angle" From="-3" To="3" Duration="0:0:1" AutoReverse="True" RepeatBehavior="Forever"/>
+                                                <DoubleAnimation Storyboard.TargetName="SampleAndHold" Storyboard.TargetProperty="Intensity" From="0.1" To="1.0" Duration="0:0:1" AutoReverse="True" RepeatBehavior="Forever"/>
+                                            </Storyboard>
+                                        </BeginStoryboard>
+                                    </EventTrigger>
+                                </Image.Triggers>
+                            </Image>
+                            <Image Source="Images/Hat.png" Height="100" Width="100" Grid.Row="3" Grid.Column="1">
+                                <Image.RenderTransform>
+                                    <RotateTransform x:Name="RotateSampleRateReduction" CenterX="50" CenterY="50"/>
+                                </Image.RenderTransform>
+                                <Image.Effect>
+                                    <effects:SampleRateReductionEffect x:Name="SampleRateReduction" Scale="50" Jitter="0.05"/>
+                                </Image.Effect>
+                                <Image.Triggers>
+                                    <EventTrigger RoutedEvent="Image.Loaded">
+                                        <BeginStoryboard>
+                                            <Storyboard>
+                                                <DoubleAnimation Storyboard.TargetName="RotateSampleRateReduction" Storyboard.TargetProperty="Angle" From="-3" To="3" Duration="0:0:1" AutoReverse="True" RepeatBehavior="Forever"/>
+                                                <DoubleAnimation Storyboard.TargetName="SampleRateReduction" Storyboard.TargetProperty="Jitter" From="0.0" To="0.2" Duration="0:0:1" AutoReverse="True" RepeatBehavior="Forever"/>
+                                            </Storyboard>
+                                        </BeginStoryboard>
+                                    </EventTrigger>
+                                </Image.Triggers>
+                            </Image>
+                            <Image Source="Images/Hat.png" Height="100" Width="100" Grid.Row="3" Grid.Column="2">
+                                <Image.RenderTransform>
+                                    <RotateTransform x:Name="RotateWavefolding" CenterX="50" CenterY="50"/>
+                                </Image.RenderTransform>
+                                <Image.Effect>
+                                    <effects:WavefoldingEffect x:Name="Wavefolding" Intensity="2.0"/>
+                                </Image.Effect>
+                                <Image.Triggers>
+                                    <EventTrigger RoutedEvent="Image.Loaded">
+                                        <BeginStoryboard>
+                                            <Storyboard>
+                                                <DoubleAnimation Storyboard.TargetName="RotateWavefolding" Storyboard.TargetProperty="Angle" From="-3" To="3" Duration="0:0:1" AutoReverse="True" RepeatBehavior="Forever"/>
+                                                <DoubleAnimation Storyboard.TargetName="Wavefolding" Storyboard.TargetProperty="Intensity" From="1" To="10" Duration="0:0:1" AutoReverse="True" RepeatBehavior="Forever"/>
+                                            </Storyboard>
+                                        </BeginStoryboard>
+                                    </EventTrigger>
+                                </Image.Triggers>
+                            </Image>
                         </Grid>
                     </StackPanel>
                 </Grid>
@@ -286,6 +384,11 @@
                         <RadioButton Name="PixelateRadioButton" Content="Pixelate" Command="{StaticResource ApplyCommand}" CommandParameter="{StaticResource PixelateEffect}"/>
                         <RadioButton Name="CrtRadioButton" Content="Crt" Command="{StaticResource ApplyCommand}" CommandParameter="{StaticResource CrtEffect}"/>
                         <RadioButton Name="WatercolorRadioButton" Content="Watercolor" Command="{StaticResource ApplyCommand}" CommandParameter="{StaticResource WatercolorEffect}"/>
+                        <RadioButton Name="ChromaticAberrationRadioButton" Content="Chromatic Aberration" Command="{StaticResource ApplyCommand}" CommandParameter="{StaticResource ChromaticAberrationEffect}"/>
+                        <RadioButton Name="BlockDisplacementRadioButton" Content="Block Displacement" Command="{StaticResource ApplyCommand}" CommandParameter="{StaticResource BlockDisplacementEffect}"/>
+                        <RadioButton Name="SampleAndHoldRadioButton" Content="Sample And Hold" Command="{StaticResource ApplyCommand}" CommandParameter="{StaticResource SampleAndHoldEffect}"/>
+                        <RadioButton Name="SampleRateReductionRadioButton" Content="Sample Rate Reduction" Command="{StaticResource ApplyCommand}" CommandParameter="{StaticResource SampleRateReductionEffect}"/>
+                        <RadioButton Name="WavefoldingRadioButton" Content="Wavefolding" Command="{StaticResource ApplyCommand}" CommandParameter="{StaticResource WavefoldingEffect}"/>
                     </WrapPanel>
                 </GroupBox>
                 <GroupBox Header="Settings" Grid.Row="2">
@@ -408,6 +511,74 @@
                             <Label Content="Intensity:" Grid.Row="0" Grid.Column="0"/>
                             <Slider Value="{Binding Source={StaticResource WatercolorEffect}, Path=Intensity, Mode=TwoWay}" TickFrequency="0.01" Minimum="0" Maximum="1" Grid.Row="0" Grid.Column="1"/>
                             <Label Content="{Binding Source={StaticResource WatercolorEffect}, Path=Intensity, Mode=OneWay, Converter={StaticResource DoubleRoundingConverter}}" Grid.Row="0" Grid.Column="2"/>
+                        </Grid>
+                        <Grid Visibility="{Binding ElementName=ChromaticAberrationRadioButton, Path=IsChecked, Converter={StaticResource BooleanToVisibilityConverter}}">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="80"/>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="40"/>
+                            </Grid.ColumnDefinitions>
+                            <Label Content="Intensity:" Grid.Row="0" Grid.Column="0"/>
+                            <Slider Value="{Binding Source={StaticResource ChromaticAberrationEffect}, Path=Intensity, Mode=TwoWay}" TickFrequency="0.1" Minimum="0" Maximum="20" Grid.Row="0" Grid.Column="1"/>
+                            <Label Content="{Binding Source={StaticResource ChromaticAberrationEffect}, Path=Intensity, Mode=OneWay, Converter={StaticResource DoubleRoundingConverter}}" Grid.Row="0" Grid.Column="2"/>
+                        </Grid>
+                        <Grid Visibility="{Binding ElementName=BlockDisplacementRadioButton, Path=IsChecked, Converter={StaticResource BooleanToVisibilityConverter}}">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="80"/>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="40"/>
+                            </Grid.ColumnDefinitions>
+                            <Label Content="Intensity:" Grid.Row="0" Grid.Column="0"/>
+                            <Slider Value="{Binding Source={StaticResource BlockDisplacementEffect}, Path=Intensity, Mode=TwoWay}" TickFrequency="0.01" Minimum="0" Maximum="1" Grid.Row="0" Grid.Column="1"/>
+                            <Label Content="{Binding Source={StaticResource BlockDisplacementEffect}, Path=Intensity, Mode=OneWay, Converter={StaticResource DoubleRoundingConverter}}" Grid.Row="0" Grid.Column="2"/>
+                            <Label Content="Resolution:" Grid.Row="1" Grid.Column="0"/>
+                            <Slider Value="{Binding Source={StaticResource BlockDisplacementEffect}, Path=Resolution, Mode=TwoWay}" TickFrequency="1" Minimum="1" Maximum="100" Grid.Row="1" Grid.Column="1"/>
+                            <Label Content="{Binding Source={StaticResource BlockDisplacementEffect}, Path=Resolution, Mode=OneWay, Converter={StaticResource DoubleRoundingConverter}}" Grid.Row="1" Grid.Column="2"/>
+                            <Label Content="Time:" Grid.Row="2" Grid.Column="0"/>
+                            <Slider Value="{Binding Source={StaticResource BlockDisplacementEffect}, Path=Time, Mode=TwoWay}" TickFrequency="0.1" Minimum="0" Maximum="100" Grid.Row="2" Grid.Column="1"/>
+                            <Label Content="{Binding Source={StaticResource BlockDisplacementEffect}, Path=Time, Mode=OneWay, Converter={StaticResource DoubleRoundingConverter}}" Grid.Row="2" Grid.Column="2"/>
+                        </Grid>
+                        <Grid Visibility="{Binding ElementName=SampleAndHoldRadioButton, Path=IsChecked, Converter={StaticResource BooleanToVisibilityConverter}}">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="80"/>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="40"/>
+                            </Grid.ColumnDefinitions>
+                            <Label Content="Intensity:" Grid.Row="0" Grid.Column="0"/>
+                            <Slider Value="{Binding Source={StaticResource SampleAndHoldEffect}, Path=Intensity, Mode=TwoWay}" TickFrequency="0.01" Minimum="0" Maximum="1" Grid.Row="0" Grid.Column="1"/>
+                            <Label Content="{Binding Source={StaticResource SampleAndHoldEffect}, Path=Intensity, Mode=OneWay, Converter={StaticResource DoubleRoundingConverter}}" Grid.Row="0" Grid.Column="2"/>
+                        </Grid>
+                        <Grid Visibility="{Binding ElementName=SampleRateReductionRadioButton, Path=IsChecked, Converter={StaticResource BooleanToVisibilityConverter}}">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="80"/>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="40"/>
+                            </Grid.ColumnDefinitions>
+                            <Label Content="Scale:" Grid.Row="0" Grid.Column="0"/>
+                            <Slider Value="{Binding Source={StaticResource SampleRateReductionEffect}, Path=Scale, Mode=TwoWay}" TickFrequency="1" Minimum="1" Maximum="1000" Grid.Row="0" Grid.Column="1"/>
+                            <Label Content="{Binding Source={StaticResource SampleRateReductionEffect}, Path=Scale, Mode=OneWay, Converter={StaticResource DoubleRoundingConverter}}" Grid.Row="0" Grid.Column="2"/>
+                            <Label Content="Jitter:" Grid.Row="1" Grid.Column="0"/>
+                            <Slider Value="{Binding Source={StaticResource SampleRateReductionEffect}, Path=Jitter, Mode=TwoWay}" TickFrequency="0.01" Minimum="0" Maximum="1" Grid.Row="1" Grid.Column="1"/>
+                            <Label Content="{Binding Source={StaticResource SampleRateReductionEffect}, Path=Jitter, Mode=OneWay, Converter={StaticResource DoubleRoundingConverter}}" Grid.Row="1" Grid.Column="2"/>
+                        </Grid>
+                        <Grid Visibility="{Binding ElementName=WavefoldingRadioButton, Path=IsChecked, Converter={StaticResource BooleanToVisibilityConverter}}">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="80"/>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="40"/>
+                            </Grid.ColumnDefinitions>
+                            <Label Content="Intensity:" Grid.Row="0" Grid.Column="0"/>
+                            <Slider Value="{Binding Source={StaticResource WavefoldingEffect}, Path=Intensity, Mode=TwoWay}" TickFrequency="0.1" Minimum="0" Maximum="10" Grid.Row="0" Grid.Column="1"/>
+                            <Label Content="{Binding Source={StaticResource WavefoldingEffect}, Path=Intensity, Mode=OneWay, Converter={StaticResource DoubleRoundingConverter}}" Grid.Row="0" Grid.Column="2"/>
                         </Grid>
                     </StackPanel>
                 </GroupBox>

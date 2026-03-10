@@ -3,7 +3,7 @@ using LoFiEffects.WPF.Effects;
 namespace LoFiEffects.WPF.Tests
 {
     [TestClass]
-    public class CrtEffect_Tests
+    public class ChromaticAberrationEffect_Tests
     {
         [TestInitialize]
         public void Setup()
@@ -16,7 +16,7 @@ namespace LoFiEffects.WPF.Tests
         {
             try
             {
-                CrtEffect result = new();
+                ChromaticAberrationEffect result = new();
                 Assert.IsNotNull(result);
             }
             catch (Exception ex)
@@ -30,7 +30,7 @@ namespace LoFiEffects.WPF.Tests
         {
             try
             {
-                CrtEffect effect = new()
+                ChromaticAberrationEffect effect = new()
                 {
                     TextureWidth = 100
                 };
@@ -47,7 +47,7 @@ namespace LoFiEffects.WPF.Tests
         {
             try
             {
-                CrtEffect effect = new()
+                ChromaticAberrationEffect effect = new()
                 {
                     TextureHeight = 100
                 };
@@ -60,49 +60,15 @@ namespace LoFiEffects.WPF.Tests
         }
 
         [TestMethod]
-        public void GivenAdjustIncludeScanlines_ThenNoException()
-        {
-            try
-            {
-                CrtEffect effect = new()
-                {
-                    IncludeScanlines = true
-                };
-                Assert.IsTrue(effect.IncludeScanlines);
-            }
-            catch (Exception ex)
-            {
-                Assert.Fail($"Exception occurred: {ex.Message}");
-            }
-        }
-
-        [TestMethod]
         public void GivenAdjustIntensity_ThenNoException()
         {
             try
             {
-                CrtEffect effect = new()
+                ChromaticAberrationEffect effect = new()
                 {
-                    Intensity = 0.5
+                    Intensity = 5.0
                 };
-                Assert.AreEqual(0.5, effect.Intensity);
-            }
-            catch (Exception ex)
-            {
-                Assert.Fail($"Exception occurred: {ex.Message}");
-            }
-        }
-
-        [TestMethod]
-        public void GivenAdjustCurvatureIntensity_ThenNoException()
-        {
-            try
-            {
-                CrtEffect effect = new()
-                {
-                    CurvatureIntensity = 0.5
-                };
-                Assert.AreEqual(0.5, effect.CurvatureIntensity);
+                Assert.AreEqual(5.0, effect.Intensity);
             }
             catch (Exception ex)
             {
