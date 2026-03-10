@@ -100,7 +100,7 @@ namespace LoFiEffects.WPF.Tests
             {
                 CrtEffect effect = new()
                 {
-                    Intensity = 0.5
+                    CurvatureIntensity = 0.5
                 };
                 Assert.AreEqual(0.5, effect.CurvatureIntensity);
             }
