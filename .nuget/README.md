@@ -186,6 +186,87 @@ Applies some simple filtering to produce a subtle watercolor effect.
 * **TextureHeight**: A double specifying the rendered height of the texture in WPF units.
 * **Intensity**: A double specifying the intensity of the effect within a normalised range of 0-1.
 
+
+### Block Displacement
+Displaces blocks of pixels in the visual to create a glitch or digital transmission error effect.
+
+#### Example
+```xml
+<Button>
+    <Button.Effect>
+        <BlockDisplacementEffect Intensity="0.1" Resolution="50" Time="50"/>
+    </Button.Effect>
+</Button>
+```
+
+#### Properties
+* **Intensity**: A double specifying the intensity of the effect within a normalised range of 0-1.
+* **Resolution**: A double specifying the resolution of the blocks.
+* **Time**: A double specifying a time offset to animate the displacement over time.
+
+### Chromatic Aberration
+Simulates the effect of chromatic aberration by separating color channels and shifting them.
+
+#### Example
+```xml
+<Button>
+    <Button.Effect>
+        <ChromaticAberrationEffect Intensity="10" TextureWidth="100" TextureHeight="35"/>
+    </Button.Effect>
+</Button>
+```
+
+#### Properties
+* **Intensity**: A double specifying the intensity of the effect.
+* **TextureWidth**: A double specifying the rendered width of the texture in WPF units.
+* **TextureHeight**: A double specifying the rendered height of the texture in WPF units.
+
+### Sample And Hold
+Simulates a sample and hold effect, keeping the color value of pixels over a region.
+
+#### Example
+```xml
+<Button>
+    <Button.Effect>
+        <SampleAndHoldEffect Intensity="0.5"/>
+    </Button.Effect>
+</Button>
+```
+
+#### Properties
+* **Intensity**: A double specifying the intensity of the effect within a normalised range of 0-1.
+
+### Sample Rate Reduction
+Reduces the sample rate of the visual, effectively lowering its fidelity.
+
+#### Example
+```xml
+<Button>
+    <Button.Effect>
+        <SampleRateReductionEffect Scale="50" Jitter="0.05"/>
+    </Button.Effect>
+</Button>
+```
+
+#### Properties
+* **Scale**: A double specifying the scale of the reduction.
+* **Jitter**: A double specifying the level of jitter applied.
+
+### Wavefolding
+Applies a wavefolding effect to the color channels of the visual to create distortion.
+
+#### Example
+```xml
+<Button>
+    <Button.Effect>
+        <WavefoldingEffect Intensity="5"/>
+    </Button.Effect>
+</Button>
+```
+
+#### Properties
+* **Intensity**: A double specifying the intensity of the effect.
+
 ## Hello World
 For a Hello World example with a simple UI see [LoFiEffects.WPF.TestApp/MainWindow.xaml](https://github.com/benpollarduk/LoFiEffects.WPF/blob/main/LoFiEffects.WPF.TestApp/MainWindow.xaml)
 
