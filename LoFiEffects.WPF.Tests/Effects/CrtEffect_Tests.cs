@@ -60,7 +60,7 @@ namespace LoFiEffects.WPF.Tests
         }
 
         [TestMethod]
-        public void GAdjustIncludeScanlines_ThenNoException()
+        public void GivenAdjustIncludeScanlines_ThenNoException()
         {
             try
             {
@@ -77,7 +77,7 @@ namespace LoFiEffects.WPF.Tests
         }
 
         [TestMethod]
-        public void GAdjustIntensity_ThenNoException()
+        public void GivenAdjustIntensity_ThenNoException()
         {
             try
             {
@@ -94,7 +94,7 @@ namespace LoFiEffects.WPF.Tests
         }
 
         [TestMethod]
-        public void GAdjustCurvatureIntensity_ThenNoException()
+        public void GivenAdjustCurvatureIntensity_ThenNoException()
         {
             try
             {

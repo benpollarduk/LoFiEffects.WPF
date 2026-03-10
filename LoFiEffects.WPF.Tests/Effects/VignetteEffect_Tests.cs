@@ -26,7 +26,7 @@ namespace LoFiEffects.WPF.Tests
         }
 
         [TestMethod]
-        public void GAdjustIntensity_ThenNoException()
+        public void GivenAdjustIntensity_ThenNoException()
         {
             try
             {
