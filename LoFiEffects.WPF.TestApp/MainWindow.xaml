@@ -7,7 +7,7 @@
         xmlns:testApp="clr-namespace:LoFiEffects.WPF.TestApp"
         xmlns:effects="clr-namespace:LoFiEffects.WPF.Effects;assembly=LoFiEffects.WPF"
         mc:Ignorable="d"
-        Title="LoFiEffects.WPF Example" Height="540" Width="1200" WindowStyle="ToolWindow" ResizeMode="NoResize">
+        Title="LoFiEffects.WPF Example" SizeToContent="Height" Width="1400" WindowStyle="ToolWindow" ResizeMode="NoResize">
     <Window.Resources>
         <testApp:DoubleRoundingConverter x:Key="DoubleRoundingConverter"/>
         <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter"/>
@@ -44,10 +44,10 @@
                         <RowDefinition Height="Auto"/>
                     </Grid.RowDefinitions>
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="400"/>
+                        <ColumnDefinition Width="Auto"/>
                         <ColumnDefinition Width="*"/>
                     </Grid.ColumnDefinitions>
-                    <Image Source="Images/Mugshot.jpg" Margin="10" Grid.Row="0" Grid.Column="0" SizeChanged="MugshotImage_SizeChanged"/>
+                    <Image Name="MugshotImage" Source="Images/Mugshot.jpg" Width="506" Height="612" Margin="10" Grid.Row="0" Grid.Column="0" SizeChanged="MugshotImage_SizeChanged"/>
                     <StackPanel Margin="10" Grid.Row="0" Grid.Column="1">
                         <Label Content="Name: Santa"/>
                         <Label Content="Age: Unknown"/>
@@ -260,6 +260,7 @@
                     <RowDefinition Height="Auto"/>
                     <RowDefinition Height="Auto"/>
                     <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
                 </Grid.RowDefinitions>
                 <GroupBox Header="Frame Rate Reduction">
                     <Grid>
@@ -383,6 +384,7 @@
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="Auto"/>
                                 <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
                             </Grid.RowDefinitions>
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="80"/>
@@ -392,7 +394,10 @@
                             <Label Content="Intensity:" Grid.Row="0" Grid.Column="0"/>
                             <Slider Value="{Binding Source={StaticResource CrtEffect}, Path=Intensity, Mode=TwoWay}" TickFrequency="0.01" Minimum="0" Maximum="1" Grid.Row="0" Grid.Column="1"/>
                             <Label Content="{Binding Source={StaticResource CrtEffect}, Path=Intensity, Mode=OneWay, Converter={StaticResource DoubleRoundingConverter}}" Grid.Row="0" Grid.Column="2"/>
-                            <CheckBox Content="Include scanlines?" IsChecked="{Binding Source={StaticResource CrtEffect}, Path=IncludeScanlines, Mode=TwoWay}" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="3"/>
+                            <Label Content="Curvature:" Grid.Row="1" Grid.Column="0"/>
+                            <Slider Value="{Binding Source={StaticResource CrtEffect}, Path=CurvatureIntensity, Mode=TwoWay}" TickFrequency="0.01" Minimum="0" Maximum="1" Grid.Row="1" Grid.Column="1"/>
+                            <Label Content="{Binding Source={StaticResource CrtEffect}, Path=CurvatureIntensity, Mode=OneWay, Converter={StaticResource DoubleRoundingConverter}}" Grid.Row="1" Grid.Column="2"/>
+                            <CheckBox Content="Include scanlines?" IsChecked="{Binding Source={StaticResource CrtEffect}, Path=IncludeScanlines, Mode=TwoWay}" Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="3"/>
                         </Grid>
                         <Grid Visibility="{Binding ElementName=WatercolorRadioButton, Path=IsChecked, Converter={StaticResource BooleanToVisibilityConverter}}">
                             <Grid.ColumnDefinitions>
@@ -405,6 +410,9 @@
                             <Label Content="{Binding Source={StaticResource WatercolorEffect}, Path=Intensity, Mode=OneWay, Converter={StaticResource DoubleRoundingConverter}}" Grid.Row="0" Grid.Column="2"/>
                         </Grid>
                     </StackPanel>
+                </GroupBox>
+                <GroupBox Header="Export" Grid.Row="3">
+                    <Button Name="CopyToClipBoardButton" Content="Copy example to Clipboard" Click="CopyToClipBoardButton_Click"/>
                 </GroupBox>
             </Grid>
         </GroupBox>

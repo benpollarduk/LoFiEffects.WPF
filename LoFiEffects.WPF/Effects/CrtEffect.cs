@@ -71,6 +71,15 @@ namespace LoFiEffects.WPF.Effects
             set { SetValue(IntensityProperty, value); }
         }
 
+        /// <summary>
+        /// Get or set the curvature intensity. This is a dependency property.
+        /// </summary>
+        public double CurvatureIntensity
+        {
+            get { return (double)GetValue(CurvatureIntensityProperty); }
+            set { SetValue(CurvatureIntensityProperty, value); }
+        }
+
         #endregion
 
         #region DependencyProperties
@@ -105,6 +114,11 @@ namespace LoFiEffects.WPF.Effects
         /// </summary>
         public static readonly DependencyProperty IntensityProperty = DependencyProperty.Register("Intensity", typeof(double), typeof(CrtEffect), new UIPropertyMetadata(1.0, PixelShaderConstantCallback(3)));
 
+        /// <summary>
+        /// Identifies the CrtEffect.CurvatureIntensity property.
+        /// </summary>
+        public static readonly DependencyProperty CurvatureIntensityProperty = DependencyProperty.Register("CurvatureIntensity", typeof(double), typeof(CrtEffect), new UIPropertyMetadata(1.0, PixelShaderConstantCallback(4)));
+
         #endregion
 
         #region Constructors
@@ -121,6 +135,7 @@ namespace LoFiEffects.WPF.Effects
             UpdateShaderValue(TextureHeightProperty);
             UpdateShaderValue(IncludeScanlinesDoubleProperty);
             UpdateShaderValue(IntensityProperty);
+            UpdateShaderValue(CurvatureIntensityProperty);
         }
 
         #endregion

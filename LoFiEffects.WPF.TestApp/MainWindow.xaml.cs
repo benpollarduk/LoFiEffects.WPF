@@ -37,5 +37,31 @@ namespace LoFiEffects.WPF.TestApp
                 watercolorEffect.TextureHeight = e.NewSize.Height;
             }
         }
+
+        private void CopyToClipBoardButton_Click(object sender, RoutedEventArgs e)
+        {
+            if (MugshotImage.Source is System.Windows.Media.Imaging.BitmapSource bitmapSource)
+            {
+                int originalWidth = bitmapSource.PixelWidth;
+                int originalHeight = bitmapSource.PixelHeight;
+
+                var image = new System.Windows.Controls.Image
+                {
+                    Source = bitmapSource,
+                    Width = originalWidth,
+                    Height = originalHeight
+                };
+
+                image.Effect = FrameRateReductionPresenter.Effect;
+                image.Measure(new Size(originalWidth, originalHeight));
+                image.Arrange(new Rect(0, 0, originalWidth, originalHeight));
+
+                var renderTarget = new System.Windows.Media.Imaging.RenderTargetBitmap(
+                    originalWidth, originalHeight, 96, 96, System.Windows.Media.PixelFormats.Pbgra32);
+
+                renderTarget.Render(image);
+                Clipboard.SetImage(renderTarget);
+            }
+        }
     }
 }
