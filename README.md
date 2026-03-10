@@ -2,7 +2,7 @@
 
 # LoFiEffects.WPF
 
-A WPF library for displaying content in reduced fidelity. Supports .Net 8.0.
+A WPF library for rendering content in reduced fidelity. Supports .Net 8.0.
 
 [![main-ci](https://github.com/benpollarduk/lofieffects.wpf/actions/workflows/main-ci.yml/badge.svg)](https://github.com/benpollarduk/lofieffects.wpf/actions/workflows/main-ci.yml)
 [![GitHub release](https://img.shields.io/github/release/benpollarduk/lofieffects.wpf.svg)](https://github.com/benpollarduk/lofieffects.wpf/releases)
@@ -257,6 +257,7 @@ if %Shader% == "" (
 ```
 
 > Note: If a shader is built for the first time its *Build Action* will need to be manually set to *Resource* to be used by the project.
+
 
 
 
