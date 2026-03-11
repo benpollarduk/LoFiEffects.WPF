@@ -109,5 +109,22 @@ namespace LoFiEffects.WPF.Tests
                 Assert.Fail($"Exception occurred: {ex.Message}");
             }
         }
+
+        [TestMethod]
+        public void GivenAdjustBrightness_ThenNoException()
+        {
+            try
+            {
+                CrtEffect effect = new()
+                {
+                    Brightness = 0.5
+                };
+                Assert.AreEqual(0.5, effect.Brightness);
+            }
+            catch (Exception ex)
+            {
+                Assert.Fail($"Exception occurred: {ex.Message}");
+            }
+        }
     }
 }

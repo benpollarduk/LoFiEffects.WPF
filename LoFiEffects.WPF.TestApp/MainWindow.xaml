@@ -488,6 +488,7 @@
                                 <RowDefinition Height="Auto"/>
                                 <RowDefinition Height="Auto"/>
                                 <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
                             </Grid.RowDefinitions>
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="80"/>
@@ -500,7 +501,10 @@
                             <Label Content="Curvature:" Grid.Row="1" Grid.Column="0"/>
                             <Slider Value="{Binding Source={StaticResource CrtEffect}, Path=CurvatureIntensity, Mode=TwoWay}" TickFrequency="0.01" Minimum="0" Maximum="1" Grid.Row="1" Grid.Column="1"/>
                             <Label Content="{Binding Source={StaticResource CrtEffect}, Path=CurvatureIntensity, Mode=OneWay, Converter={StaticResource DoubleRoundingConverter}}" Grid.Row="1" Grid.Column="2"/>
-                            <CheckBox Content="Include scanlines?" IsChecked="{Binding Source={StaticResource CrtEffect}, Path=IncludeScanlines, Mode=TwoWay}" Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="3"/>
+                            <Label Content="Brightness:" Grid.Row="2" Grid.Column="0"/>
+                            <Slider Value="{Binding Source={StaticResource CrtEffect}, Path=Brightness, Mode=TwoWay}" TickFrequency="0.01" Minimum="0" Maximum="1" Grid.Row="2" Grid.Column="1"/>
+                            <Label Content="{Binding Source={StaticResource CrtEffect}, Path=Brightness, Mode=OneWay, Converter={StaticResource DoubleRoundingConverter}}" Grid.Row="2" Grid.Column="2"/>
+                            <CheckBox Content="Include scanlines?" IsChecked="{Binding Source={StaticResource CrtEffect}, Path=IncludeScanlines, Mode=TwoWay}" Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="3"/>
                         </Grid>
                         <Grid Visibility="{Binding ElementName=WatercolorRadioButton, Path=IsChecked, Converter={StaticResource BooleanToVisibilityConverter}}">
                             <Grid.ColumnDefinitions>

@@ -4,6 +4,7 @@ float textureHeight : register(c1);
 float includeScanlines : register(c2);
 float intensity : register(c3);
 float curvatureIntensity : register(c4);
+float brightness : register(c5);
 
 float4 main(float2 uv : TEXCOORD) : COLOR
 {
@@ -26,6 +27,9 @@ float4 main(float2 uv : TEXCOORD) : COLOR
     float a = tex2D(implicitInput, warpedUV).a;
 
     float3 color = float3(r, g, b) * inBounds;
+
+    // Adjust brightness subtly (0.5 is neutral)
+    color += (brightness - 0.5);
 
     // Vignette (darken corners)
     color *= saturate(1.0 - (dist * 1.5 * clampedIntensity));

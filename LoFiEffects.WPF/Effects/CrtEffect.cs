@@ -80,6 +80,15 @@ namespace LoFiEffects.WPF.Effects
             set { SetValue(CurvatureIntensityProperty, value); }
         }
 
+        /// <summary>
+        /// Get or set the brightness. This is a dependency property.
+        /// </summary>
+        public double Brightness
+        {
+            get { return (double)GetValue(BrightnessProperty); }
+            set { SetValue(BrightnessProperty, value); }
+        }
+
         #endregion
 
         #region DependencyProperties
@@ -119,6 +128,11 @@ namespace LoFiEffects.WPF.Effects
         /// </summary>
         public static readonly DependencyProperty CurvatureIntensityProperty = DependencyProperty.Register("CurvatureIntensity", typeof(double), typeof(CrtEffect), new UIPropertyMetadata(1.0, PixelShaderConstantCallback(4)));
 
+        /// <summary>
+        /// Identifies the CrtEffect.Brightness property.
+        /// </summary>
+        public static readonly DependencyProperty BrightnessProperty = DependencyProperty.Register("Brightness", typeof(double), typeof(CrtEffect), new UIPropertyMetadata(0.5, PixelShaderConstantCallback(5)));
+
         #endregion
 
         #region Constructors
@@ -136,6 +150,7 @@ namespace LoFiEffects.WPF.Effects
             UpdateShaderValue(IncludeScanlinesDoubleProperty);
             UpdateShaderValue(IntensityProperty);
             UpdateShaderValue(CurvatureIntensityProperty);
+            UpdateShaderValue(BrightnessProperty);
         }
 
         #endregion
