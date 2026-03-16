@@ -348,11 +348,3 @@ if %Shader% == "" (
 ```
 
 > Note: If a shader is built for the first time its *Build Action* will need to be manually set to *Resource* to be used by the project.
-
-> Note: The SDK path may vary based on the version installed.
-
-
-
-
-
-
