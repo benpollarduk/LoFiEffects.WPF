@@ -317,7 +317,7 @@ For a Hello World example with a simple UI see [LoFiEffects.WPF.TestApp/MainWind
 <img width="1734" height="829" alt="image" src="https://github.com/user-attachments/assets/9897a38f-7cfc-4705-870b-06fa0f833ea7" />
 
 ## Compiling Shaders
-Shaders can be compiled using FXC.exe. The *LoFiEffects.WPF* project has a pre-build event that can be used to compile a shader effect when it is built.
+Shaders can be compiled using FXC.exe. FXC.exe is part of the [Windows SDK](https://learn.microsoft.com/en-us/windows/apps/windows-sdk/). The *LoFiEffects.WPF* project has a pre-build event that can be used to compile a shader effect when it is built.
 
 The *Shader* variable needs to be set to the name of the shader effect to compile:
 
@@ -349,6 +349,7 @@ if %Shader% == "" (
 
 > Note: If a shader is built for the first time its *Build Action* will need to be manually set to *Resource* to be used by the project.
 
+> Note: The SDK path may vary based on the version installed.
 
 
 
